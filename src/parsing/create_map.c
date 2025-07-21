@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:51:49 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/19 19:39:39 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:01:28 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	n_map_lines(t_general *gen, char **file, int i)
 		j = 0;
 		while (file[i][j] == ' ' || file[i][j] == '\t' || file[i][j] == '\r'
 			|| file[i][j] == '\v' || file[i][j] == '\f')
-				j++;
+			j++;
 		if (file[i][j] != '1')
-			break;
+			break ;
 		i++;
 	}
 	gen->s_map.end_map = i;
@@ -39,7 +39,7 @@ static int	fill_map(t_map *map, char **n_map, int index)
 
 	map->width = biggest_line(map, index);
 	i = 0;
-	while ( i < map->height)
+	while (i < map->height)
 	{
 		j = 0;
 		n_map[i] = malloc(sizeof(char) * (map->width + 1));
@@ -82,7 +82,7 @@ static void	blank_to_wall(t_general *gen)
 		while (gen->map[i][j] == ' ' || gen->map[i][j] == '\t'
 			|| gen->map[i][j] == '\r'
 			|| gen->map[i][j] == '\v' || gen->map[i][j] == '\f')
-				j++;
+			j++;
 		while (gen->map[i][++j])
 		{
 			if (gen->map[i][j] == ' ' && j < (int)ft_strlen(gen->map[i] - 1))
@@ -92,7 +92,7 @@ static void	blank_to_wall(t_general *gen)
 	}
 }
 
-int		create_map(t_general *gen, char **file, int i)
+int	create_map(t_general *gen, char **file, int i)
 {
 	if (load_map(gen, file, i) == -1)
 		return (-1);

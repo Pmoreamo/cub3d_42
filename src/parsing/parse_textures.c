@@ -6,14 +6,14 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:38:00 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 12:56:36 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:09:23 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 static int	check_rgb(int *rgb)
-{	
+{
 	int		i;
 
 	i = 0;
@@ -40,7 +40,7 @@ static unsigned long	rgb_to_hex(int *rgb)
 	return (result);
 }
 
-int		check_textures(t_general *gen, t_text *txt)
+int	check_textures(t_general *gen, t_text *txt)
 {
 	if (!txt->N || !txt->S || !txt->W | !txt->E)
 		return (error(gen->s_map.path, ERR_TEX_MISSING, 1));

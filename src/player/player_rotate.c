@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:49:49 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 14:00:26 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:56:39 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static int	rotation(t_general *gen, double speed)
 {
-	t_player *p;
-	double tmp_x;
+	t_player	*p;
+	double		tmp_x;
 
-	p =  &gen->player;
+	p = &gen->player;
 	tmp_x = p->dir_x;
 	p->dir_x = p->dir_x * cos(speed) - p->dir_y * sin(speed);
 	p->dir_y = tmp_x * sin(speed) + p->dir_y * cos(speed);
@@ -29,7 +29,7 @@ static int	rotation(t_general *gen, double speed)
 
 int	player_rotate(t_general *gen, double dir)
 {
-	int	moved;
+	int		moved;
 	double	speed;
 
 	moved = 0;

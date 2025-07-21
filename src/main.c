@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:39:57 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 16:45:20 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:13:38 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	parse(t_general *gen, char **av)
 	init_player_dir(gen);
 	return (0);
 }
-
 
 int	main(int ac, char **av)
 {

@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 16:47:19 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 16:47:31 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:13:25 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	*save_xpm_to_mem(t_general *gen, char *path)
 {
 	t_image	tmp;
-	int	*ram;
-	int	x;
-	int	y;
+	int		*ram;
+	int		x;
+	int		y;
 
 	init_textures_img(gen, &tmp, path);
 	ram = ft_calloc(1, sizeof * ram * gen->txt.size * gen->txt.size);
@@ -52,7 +52,7 @@ void	init_textures(t_general *gen)
 	gen->text[3] = save_xpm_to_mem(gen, gen->txt.E);
 }
 
-void		init_s_textures(t_text *txt)
+void	init_s_textures(t_text *txt)
 {
 	txt->N = NULL;
 	txt->S = NULL;
@@ -66,6 +66,5 @@ void		init_s_textures(t_text *txt)
 	txt->step = 0.0;
 	txt->pos = 0.0;
 	txt->x = 0;
-	txt->y = 0;	
+	txt->y = 0;
 }
-

@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:40:42 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 12:58:41 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:07:42 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_dir(char *s)
 {
-	int	fd;
+	int		fd;
 	char	buf;
 
 	fd = open(s, O_DIRECTORY);
@@ -73,4 +73,3 @@ int	check_file(char *arg, int type)
 	}
 	return (0);
 }
-

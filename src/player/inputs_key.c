@@ -6,13 +6,13 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:49:05 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 14:18:15 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:48:46 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static int		key_press(int key, t_general *gen)
+static int	key_press(int key, t_general *gen)
 {
 	if (key == XK_Escape)
 		quit(gen);
@@ -31,7 +31,7 @@ static int		key_press(int key, t_general *gen)
 	return (0);
 }
 
-static int		key_release(int key, t_general *gen)
+static int	key_release(int key, t_general *gen)
 {
 	if (key == XK_Escape)
 		quit(gen);
@@ -56,5 +56,3 @@ void	init_input_keys(t_general *gen)
 	mlx_hook(gen->win, KeyPress, KeyPressMask, key_press, gen);
 	mlx_hook(gen->win, KeyRelease, KeyReleaseMask, key_release, gen);
 }
-
-

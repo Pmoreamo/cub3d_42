@@ -6,13 +6,13 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:19:27 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 12:46:38 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:07:21 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static char		*get_path_textures(char *line, int j)
+static char	*get_path_textures(char *line, int j)
 {
 	int		len;
 	int		i;
@@ -53,34 +53,32 @@ static int	fill_direction_textures(t_text *txt, char *line, int j)
 	return (0);
 }
 
-static int	get_info_map(t_general *gen, char **map, int i, int j)
+static int	get_info_map(t_general *gen, char **m, int i, int j)
 {
-
-	while (map[i][j] == ' ' || map[i][j] == '\t' || map[i][j] == '\n')
+	while (m[i][j] == ' ' || m[i][j] == '\t' || m[i][j] == '\n')
 		j++;
-	if (ft_isprint(map[i][j]) && !ft_isdigit(map[i][j]))
+	if (ft_isprint(m[i][j]) && !ft_isdigit(m[i][j]))
 	{
-		if (map[i][j + 1] && ft_isprint(map[i][j + 1]) && !ft_isdigit(map[i][j]))
+		if (m[i][j + 1] && ft_isprint(m[i][j + 1]) && !ft_isdigit(m[i][j]))
 		{
-			if (fill_direction_textures(&gen->txt, map[i], j) == 2)
+			if (fill_direction_textures(&gen->txt, m[i], j) == 2)
 				return (error(gen->s_map.path, ERR_TEX_INVALID, 1));
 			return (3);
 		}
 		else
 		{
-			if (fill_color_textures(gen, &gen->txt, map[i], j) == 2)
+			if (fill_color_textures(gen, &gen->txt, m[i], j) == 2)
 				return (1);
 			return (3);
 		}
 	}
-	else if (ft_isdigit(map[i][j]))
+	else if (ft_isdigit(m[i][j]))
 	{
-		if (create_map(gen, map, i) == 1)
+		if (create_map(gen, m, i) == 1)
 			return (error(gen->s_map.path, ERR_INVALID_MAP, 1));
 		return (0);
 	}
 	return (4);
-
 }
 
 int	get_file_info(t_general *gen, char **map)
@@ -95,9 +93,9 @@ int	get_file_info(t_general *gen, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			ret = get_info_map(gen, map, i , j);
+			ret = get_info_map(gen, map, i, j);
 			if (ret == 3)
-				break;
+				break ;
 			else if (ret == 1)
 				return (1);
 			else if (ret == 0)

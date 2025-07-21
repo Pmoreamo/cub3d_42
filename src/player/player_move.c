@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:06:07 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 14:19:42 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:49:31 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	move_left(t_general *gen)
 int	move_player(t_general *gen)
 {
 	int	moved;
-	
+
 	moved = 0;
 	if (gen->player.move_y == 1)
 		moved += move_forward(gen);

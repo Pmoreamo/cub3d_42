@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 16:38:13 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:41:48 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static void	set_color_pixel(t_image *img, int x, int y, int color)
 {
-	int	pixel;
-	
+	int		pixel;
+
 	pixel = y * (img->size_line / 4) + x;
 	img->addr[pixel] = color;
 }
 
 void	paint_pixel_in_frame(t_general *gen, t_image *img, int x, int y)
 {
-	if (gen->txt_pixels[y][x]> 0)
+	if (gen->txt_pixels[y][x] > 0)
 		set_color_pixel(img, x, y, gen->txt_pixels[y][x]);
 	else if (y < gen->win_height / 2)
 		set_color_pixel(img, x, y, gen->txt.hex_ceiling);
@@ -32,14 +32,14 @@ void	paint_pixel_in_frame(t_general *gen, t_image *img, int x, int y)
 
 static void	put_frame_in_window(t_general *gen)
 {
-	t_image	img;
-	int	x;
-	int	y;
+	t_image		img;
+	int			x;
+	int			y;
 
 	img.image = NULL;
 	init_img(gen, &img, gen->win_width, gen->win_height);
 	y = 0;
-	while ( y < gen->win_height)
+	while (y < gen->win_height)
 	{
 		x = 0;
 		while (x < gen->win_width)

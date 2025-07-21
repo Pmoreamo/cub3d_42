@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:18:44 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/19 15:55:43 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:32:33 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_tab(void **tab)
 	}
 }
 
-static void		free_textures(t_text *txt)
+static void	free_textures(t_text *txt)
 {
 	if (txt->N)
 		free(txt->N);
@@ -45,7 +45,7 @@ static void		free_textures(t_text *txt)
 		free(txt->ceiling);
 }
 
-static void		free_map(t_general *gen)
+static void	free_map(t_general *gen)
 {
 	if (gen->s_map.fd > 0)
 		close(gen->s_map.fd);
@@ -55,7 +55,7 @@ static void		free_map(t_general *gen)
 		free_tab((void **)gen->map);
 }
 
-int		free_data(t_general *gen)
+int	free_data(t_general *gen)
 {
 	if (gen->text)
 		free_tab((void **)gen->text);

@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:09:00 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/19 16:05:41 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:58:40 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,26 @@
 
 static int	wall_collision(t_general *gen, double x, double y)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	double	padding;
 
 	i = (int)x;
 	j = (int)y;
 	padding = 0.1;
-	if (gen->map[j][(int)(i + padding)] != '0')
+	if (gen->map[j][(int)(i + padding)] != '0'
+		|| gen->map[j][(int)(i - padding)] != '0'
+		|| gen->map[(int)(j + padding)][i] != '0'
+		|| gen->map[(int)(j - padding)][i] != '0')
 		return (1);
-	if (gen->map[j][(int)(i - padding)] != '0')
-		return (1);
-	if (gen->map[(int)(j + padding)][i] != '0')
-		return (1);
-	if (gen->map[(int)(j - padding)][i] != '0')
-		return (1);
-	return (1);
+	return (0);
 }
 
 static int	is_valid_pos_map(t_general *gen, double x, double y)
 {
 	if (x < 0.25 || x >= gen->s_map.width - 1.25)
 		return (1);
-	if (y < 0.25 || y >=gen->s_map.height - 0.25)
+	if (y < 0.25 || y >= gen->s_map.height - 0.25)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:34:35 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/19 15:39:22 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:08:59 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	get_n_lines(char *path)
 {
-	int	fd;
+	int		fd;
 	char	*line;
-	int	line_count;
+	int		line_count;
 
 	line_count = 0;
 	fd = open(path, O_RDONLY);
@@ -60,11 +60,10 @@ static void	fill_mem_map(int row, size_t column, int i, t_general *gen)
 	gen->s_map.file[row] = NULL;
 }
 
-
 void	check_info(char *path, t_general *gen)
 {
-	int	row;
-	int	i;
+	int		row;
+	int		i;
 	size_t	column;
 
 	i = 0;
@@ -76,7 +75,7 @@ void	check_info(char *path, t_general *gen)
 	if (!(gen->s_map.file))
 	{
 		error(NULL, ERR_MALLOC, 0);
-		return;
+		return ;
 	}
 	gen->s_map.fd = open(path, O_RDONLY);
 	if (gen->s_map.fd < 0)

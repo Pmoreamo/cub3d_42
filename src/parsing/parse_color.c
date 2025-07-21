@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:59:10 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/19 19:23:01 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:07:59 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ static int	*check_format_color(const char *line)
 	return (rgb(tokens));
 }
 
-
-int		fill_color_textures(t_general *gen, t_text *txt, char *line, int j)
+int	fill_color_textures(t_general *gen, t_text *txt, char *line, int j)
 {
 	if (line[j + 1] && line[j + 1] != ' ' && !ft_isdigit(line[j + 1]))
 		return (error(gen->s_map.path, ERR_FLOOR_CEILING, 2));

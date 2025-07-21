@@ -1,16 +1,12 @@
-NO textures/test/north.xpm
-SO textures/test/south.xpm
-WE textures/test/west.xpm
-EA textures/test/east.xpm
+NO textures/red_brick.xpm
+SO textures/blue_stone.xpm
+WE textures/grey_stone.xpm
+EA textures/purple_stone.xpm
 
-F 122,0,0
-C 0,0,333
+F 255,0,0
+C 0,0,255
 
 111111111111
 100000000011
-100000000001
-11   0 111111111
-10 S 000000001
-11   111111111
-100000000001
+10000N000001
 111111111111

@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 14:35:28 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:39:43 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ void	init_mlx(t_general *gen);
 
 //raycastin
 int		render(t_general *gen);
+void	draw_raycast(t_general *gen);
 void	init_textures_pixels(t_general *gen);
 void	update_textures_pixels(t_general *gen, t_text *txt, t_ray *ray, int x);
 void	paint_pixel_in_frame(t_general *gen, t_image *img, int x, int y);

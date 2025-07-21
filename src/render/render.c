@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 17:41:48 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:53:30 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static void	set_color_pixel(t_image *img, int x, int y, int color)
 
 void	paint_pixel_in_frame(t_general *gen, t_image *img, int x, int y)
 {
-	if (gen->txt_pixels[y][x] > 0)
+	if (gen->txt_pixels[y][x] >= 0)
 		set_color_pixel(img, x, y, gen->txt_pixels[y][x]);
 	else if (y < gen->win_height / 2)
 		set_color_pixel(img, x, y, gen->txt.hex_ceiling);
-	else if (y < gen->win_height - 1)
+	else
 		set_color_pixel(img, x, y, gen->txt.hex_floor);
 }
 
@@ -53,7 +53,7 @@ static void	put_frame_in_window(t_general *gen)
 	mlx_destroy_image(gen->mlx, img.image);
 }
 
-static void	draw_raycast(t_general *gen)
+void	draw_raycast(t_general *gen)
 {
 	init_textures_pixels(gen);
 	init_s_ray(&gen->ray);

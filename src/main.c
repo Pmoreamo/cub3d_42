@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:39:57 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 18:13:38 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:39:51 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	init_mlx(&gen);
 	init_textures(&gen);
-	render(&gen);
+	draw_raycast(&gen);
 	init_input_keys(&gen);
 	mlx_loop_hook(gen.mlx, render, &gen);
 	mlx_loop(gen.mlx);

@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:58:50 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 17:40:42 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/07/21 19:04:28 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	cal_line_height(t_ray *ray, t_general *gen, t_player *player)
 	else
 		ray->wall_dist = (ray->ngd_y - ray->ncd_y);
 	ray->line_height = (int)(gen->win_height / ray->wall_dist);
-	ray->draw_start = (ray->line_height) / 2 + gen->win_height / 2;
+	ray->draw_start = ray->line_height / 2 - gen->win_height / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
 	ray->draw_end = ray->line_height / 2 + gen->win_height / 2;

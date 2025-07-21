@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:19:27 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 18:07:21 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:35:33 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ static int	get_info_map(t_general *gen, char **m, int i, int j)
 		j++;
 	if (ft_isprint(m[i][j]) && !ft_isdigit(m[i][j]))
 	{
-		if (m[i][j + 1] && ft_isprint(m[i][j + 1]) && !ft_isdigit(m[i][j]))
+		if (m[i][j] == 'F' || m[i][j] == 'C')
 		{
-			if (fill_direction_textures(&gen->txt, m[i], j) == 2)
-				return (error(gen->s_map.path, ERR_TEX_INVALID, 1));
+			if (fill_color_textures(gen, &gen->txt, m[i], j) == 2)
+				return (1);
 			return (3);
 		}
 		else
 		{
-			if (fill_color_textures(gen, &gen->txt, m[i], j) == 2)
-				return (1);
+			if (fill_direction_textures(&gen->txt, m[i], j) == 2)
+				return (error(gen->s_map.path, ERR_TEX_INVALID, 1));
 			return (3);
 		}
 	}

@@ -5,9 +5,8 @@ CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx -Ilibft -Iget_next_line -g
 SRC_DIR		= src
 LIBFT_DIR	= libft
 MLX_DIR		= mlx
-GNL_DIR     = get_next_line
+
 # === FILES ===
-GNL_SRC		= $(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c
 SRC_FILES	= $(shell find $(SRC_DIR) -name '*.c') $(GNL_SRC)
 OBJ_FILES	= $(SRC_FILES:.c=.o)
 

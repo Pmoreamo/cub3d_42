@@ -19,6 +19,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
 // Funciones de la Parte 1 - libc
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
@@ -74,4 +78,13 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 int		ft_lstsize(t_list *lst);
+
+//GNL
+char	*gnl_read_fd(int fd, char *buffer);
+char	*get_next_line(int fd);
+char	*gnl_strchr(char *buffer, int c);
+char	*gnl_strjoin(char *buffer, char *new_buffer);
+char	*gnl_read_line(char *buffer);
+char	*gnl_new_line(char *buffer);
+
 #endif

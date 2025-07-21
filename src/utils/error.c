@@ -3,38 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/09 15:31:27 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/16 10:52:35 by pmorello         ###   ########.fr       */
+/*   Created: 2025/07/16 19:42:10 by pmorello          #+#    #+#             */
+/*   Updated: 2025/07/19 15:56:10 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/general.h"
+#include "../include/cub3d.h"
 
-int error(char *detail, char *s, int code)
+int		error(char *msg, char *err, int c)
 {
-    ft_putstr_fd("Cub3D: Error", 2);
-    if (detail)
-    {
-         ft_putstr_fd(": ", 2);
-         ft_putstr_fd(detail, 2);
-    }
-    if (s)
-    {
-        ft_putstr_fd(": ", 2);
-        ft_putstr_fd(s, 2);
-    }
-    ft_putstr_fd("\n", 2);
-    return (code);
+	ft_putstr_fd("Cub3D: ", 2);
+	if (msg)
+	{
+		ft_putstr_fd(msg, 2);
+	}
+	if (err)
+	{
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(err, 2);
+	}
+	ft_putstr_fd("\n", 2);
+	return (c);
 }
 
-int error_msg(int detail, char *s, int code)
+int	error_detail(int detail, char *err, int  c)
 {
-    ft_putstr_fd("Cub3D: Error: ", 2);
-    ft_putnbr_fd(detail, 2);
-    ft_putstr_fd(": ", 2);
-    ft_putstr_fd(s, 2);
-    ft_putstr_fd("\n", 2);
-    return (code);
+	printf("Cub3D: Error; %d : %s\n", detail, err);
+	return (c);
 }

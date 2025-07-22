@@ -83,7 +83,7 @@ static void	cal_line_height(t_ray *r, t_general *gen, t_player *p)
 	else
 		r->wall_dist = (r->ngd_y - r->ncd_y);
 	r->line_height = (int)(gen->win_height / r->wall_dist);
-	r->draw_start = r->line_height / 2 - gen->win_height / 2;
+	r->draw_start = -(r->line_height) / 2 - gen->win_height / 2;
 	if (r->draw_start < 0)
 		r->draw_start = 0;
 	r->draw_end = r->line_height / 2 + gen->win_height / 2;

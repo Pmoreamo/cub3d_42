@@ -37,21 +37,21 @@ void	init_textures_pixels(t_general *g)
 	}
 }
 
-static void	get_text_index(t_general *gen, t_ray *ray)
+static void	get_text_index(t_general *g, t_ray *r)
 {
-	if (ray->side == 0)
+	if (r->side == 0)
 	{
-		if (ray->dir_x < 0)
-			gen->txt.index = 2;
+		if (r->dir_x < 0)
+			g->txt.index = 2;
 		else
-			gen->txt.index = 3;
+			g->txt.index = 3;
 	}
 	else
 	{
-		if (ray->dir_y > 0)
-			gen->txt.index = 1;
+		if (r->dir_y > 0)
+			g->txt.index = 1;
 		else
-			gen->txt.index = 0;
+			g->txt.index = 0;
 	}
 }
 

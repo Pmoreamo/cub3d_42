@@ -12,104 +12,104 @@
 
 #include "../include/cub3d.h"
 
-static void	init_raycasting(int x, t_ray *ray, t_player *player)
+static void	init_raycasting(int x, t_ray *r, t_player *p)
 {
-	init_s_ray(ray);
-	ray->cam_x = 2 * x / (double)600 - 1;
-	ray->dir_x = player->dir_x + player->cam_x * ray->cam_x;
-	ray->dir_y = player->dir_y + player->cam_y * ray->cam_x;
-	ray->map_x = (int)player->pos_x;
-	ray->map_y = (int)player->pos_y;
-	ray->ncd_x = fabs(1 / ray->dir_x);
-	ray->ncd_y = fabs(1 / ray->dir_y);
+	init_s_ray(r);
+	r->cam_x = 2 * x / (double)600 - 1;
+	r->dir_x = p->dir_x + p->cam_x * r->cam_x;
+	r->dir_y = p->dir_y + p->cam_y * r->cam_x;
+	r->map_x = (int)p->pos_x;
+	r->map_y = (int)p->pos_y;
+	r->ncd_x = fabs(1 / r->dir_x);
+	r->ncd_y = fabs(1 / r->dir_y);
 }
 
-static void	init_ray_in_cell(t_ray *ray, t_player *player)
+static void	init_ray_in_cell(t_ray *r, t_player *p)
 {
-	if (ray->dir_x < 0)
+	if (r->dir_x < 0)
 	{
-		ray->step_x = -1;
-		ray->ngd_x = (player->pos_x - ray->map_x) * ray->ncd_x;
+		r->step_x = -1;
+		r->ngd_x = (p->pos_x - r->map_x) * r->ncd_x;
 	}
 	else
 	{
-		ray->step_x = 1;
-		ray->ngd_x = (ray->map_x + 1.0 - player->pos_x) * ray->ncd_x;
+		r->step_x = 1;
+		r->ngd_x = (r->map_x + 1.0 - p->pos_x) * r->ncd_x;
 	}
-	if (ray->dir_y < 0)
+	if (r->dir_y < 0)
 	{
-		ray->step_y = -1;
-		ray->ngd_y = (player->pos_y - ray->map_y) * ray->ncd_y;
+		r->step_y = -1;
+		r->ngd_y = (p->pos_y - r->map_y) * r->ncd_y;
 	}
 	else
 	{
-		ray->step_y = 1;
-		ray->ngd_y = (ray->map_y + 1.0 - player->pos_y) * ray->ncd_y;
+		r->step_y = 1;
+		r->ngd_y = (r->map_y + 1.0 - p->pos_y) * r->ncd_y;
 	}
 }
 
-static void	ray_start_moving(t_general *gen, t_ray *ray)
+static void	ray_start_moving(t_general *gen, t_ray *r)
 {
 	int	hit;
 
 	hit = 0;
 	while (hit == 0)
 	{
-		if (ray->ngd_x < ray->ngd_y)
+		if (r->ngd_x < r->ngd_y)
 		{
-			ray->ngd_x += ray->ncd_x;
-			ray->map_x += ray->step_x;
-			ray->side = 0;
+			r->ngd_x += r->ncd_x;
+			r->map_x += r->step_x;
+			r->side = 0;
 		}
 		else
 		{
-			ray->ngd_y += ray->ncd_y;
-			ray->map_y += ray->step_y;
-			ray->side = 1;
+			r->ngd_y += r->ncd_y;
+			r->map_y += r->step_y;
+			r->side = 1;
 		}
-		if (ray->map_y < 0.25 || ray->map_x < 0.25
-			|| ray->map_y > gen->s_map.height - 0.25
-			|| ray->map_x > gen->s_map.width - 1.25)
+		if (r->map_y < 0.25 || r->map_x < 0.25
+			|| r->map_y > gen->s_map.height - 0.25
+			|| r->map_x > gen->s_map.width - 1.25)
 			break ;
-		else if (gen->map[(int)ray->map_y][(int)ray->map_x] > '0')
+		else if (gen->map[(int)r->map_y][(int)r->map_x] > '0')
 			hit = 1;
 	}
 }
 
-static void	cal_line_height(t_ray *ray, t_general *gen, t_player *player)
+static void	cal_line_height(t_ray *r, t_general *gen, t_player *p)
 {
-	if (ray->side == 0)
-		ray->wall_dist = ray->ngd_x - ray->ncd_x;
+	if (r->side == 0)
+		r->wall_dist = r->ngd_x - r->ncd_x;
 	else
-		ray->wall_dist = (ray->ngd_y - ray->ncd_y);
-	ray->line_height = (int)(gen->win_height / ray->wall_dist);
-	ray->draw_start = ray->line_height / 2 - gen->win_height / 2;
-	if (ray->draw_start < 0)
-		ray->draw_start = 0;
-	ray->draw_end = ray->line_height / 2 + gen->win_height / 2;
-	if (ray->draw_end >= gen->win_height)
-		ray->draw_end = gen->win_height - 1;
-	if (ray->side == 0)
-		ray->wall_x = player->pos_y + ray->wall_dist * ray->dir_y;
+		r->wall_dist = (r->ngd_y - r->ncd_y);
+	r->line_height = (int)(gen->win_height / r->wall_dist);
+	r->draw_start = r->line_height / 2 - gen->win_height / 2;
+	if (r->draw_start < 0)
+		r->draw_start = 0;
+	r->draw_end = r->line_height / 2 + gen->win_height / 2;
+	if (r->draw_end >= gen->win_height)
+		r->draw_end = gen->win_height - 1;
+	if (r->side == 0)
+		r->wall_x = p->pos_y + r->wall_dist * r->dir_y;
 	else
-		ray->wall_x = player->pos_x + ray->wall_dist * ray->dir_x;
-	ray->wall_x -= floor(ray->wall_x);
+		r->wall_x = p->pos_x + r->wall_dist * r->dir_x;
+	r->wall_x -= floor(r->wall_x);
 }
 
-int	raycasting(t_general *gen, t_player *player)
+int	raycasting(t_general *gen, t_player *p)
 {
-	t_ray	ray;
+	t_ray	r;
 	int		x;
 
 	x = 0;
-	ray = gen->ray;
+	r = gen->ray;
 	while (x < gen->win_width)
 	{
-		init_raycasting(x, &ray, player);
-		init_ray_in_cell(&ray, player);
-		ray_start_moving(gen, &ray);
-		cal_line_height(&ray, gen, player);
-		update_textures_pixels(gen, &gen->txt, &ray, x);
+		init_raycasting(x, &r, p);
+		init_ray_in_cell(&r, p);
+		ray_start_moving(gen, &r);
+		cal_line_height(&r, gen, p);
+		update_textures_pixels(gen, &gen->txt, &r, x);
 		x++;
 	}
 	return (0);

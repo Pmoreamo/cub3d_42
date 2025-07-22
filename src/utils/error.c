@@ -27,9 +27,3 @@ int	error(char *msg, char *err, int c)
 	ft_putstr_fd("\n", 2);
 	return (c);
 }
-
-int	error_detail(int detail, char *err, int c)
-{
-	printf("Cub3D: Error; %d : %s\n", detail, err);
-	return (c);
-}

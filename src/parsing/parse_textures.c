@@ -40,20 +40,20 @@ static unsigned long	rgb_to_hex(int *rgb)
 	return (result);
 }
 
-int	check_textures(t_general *gen, t_text *txt)
+int	check_textures(t_general *g, t_text *t)
 {
-	if (!txt->N || !txt->S || !txt->W | !txt->E)
-		return (error(gen->s_map.path, ERR_TEX_MISSING, 1));
-	if (!txt->floor || !txt->ceiling)
-		return (error(gen->s_map.path, ERR_COLOR_MISSING, -1));
-	if (check_file(txt->N, 1) == 1
-		|| check_file(txt->S, 1) == 1
-		|| check_file(txt->W, 1) == 1
-		|| check_file(txt->E, 1) == 1
-		|| check_rgb(txt->floor) == 1
-		|| check_rgb(txt->ceiling) == 1)
+	if (!t->N || !t->S || !t->W | !t->E)
+		return (error(g->s_map.path, ERR_TEX_MISSING, 1));
+	if (!t->floor || !t->ceiling)
+		return (error(g->s_map.path, ERR_COLOR_MISSING, -1));
+	if (check_file(t->N, 1) == 1
+		|| check_file(t->S, 1) == 1
+		|| check_file(t->W, 1) == 1
+		|| check_file(t->E, 1) == 1
+		|| check_rgb(t->floor) == 1
+		|| check_rgb(t->ceiling) == 1)
 		return (1);
-	txt->hex_floor = rgb_to_hex(txt->floor);
-	txt->hex_ceiling = rgb_to_hex(txt->ceiling);
+	t->hex_floor = rgb_to_hex(t->floor);
+	t->hex_ceiling = rgb_to_hex(t->ceiling);
 	return (0);
 }

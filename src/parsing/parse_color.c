@@ -60,23 +60,23 @@ static int	*check_format_color(const char *line)
 	return (rgb(tokens));
 }
 
-int	fill_color_textures(t_general *gen, t_text *txt, char *line, int j)
+int	fill_color_textures(t_general *g, t_text *t, char *line, int j)
 {
 	if (line[j + 1] && line[j + 1] != ' ' && !ft_isdigit(line[j + 1]))
-		return (error(gen->s_map.path, ERR_FLOOR_CEILING, 2));
-	if (!txt->ceiling && line[j] == 'C')
+		return (error(g->s_map.path, ERR_FLOOR_CEILING, 2));
+	if (!t->ceiling && line[j] == 'C')
 	{
-		txt->ceiling = check_format_color(line + j + 1);
-		if (!txt->ceiling)
-			return (error(gen->s_map.path, ERR_COLOR_CEILING, 2));
+		t->ceiling = check_format_color(line + j + 1);
+		if (!t->ceiling)
+			return (error(g->s_map.path, ERR_COLOR_CEILING, 2));
 	}
-	else if (!txt->floor && line[j] == 'F')
+	else if (!t->floor && line[j] == 'F')
 	{
-		txt->floor = check_format_color(line + j + 1);
-		if (!txt->floor)
-			return (error(gen->s_map.path, ERR_COLOR_FLOOR, 2));
+		t->floor = check_format_color(line + j + 1);
+		if (!t->floor)
+			return (error(g->s_map.path, ERR_COLOR_FLOOR, 2));
 	}
 	else
-		return (error(gen->s_map.path, ERR_FLOOR_CEILING, 2));
+		return (error(g->s_map.path, ERR_FLOOR_CEILING, 2));
 	return (0);
 }

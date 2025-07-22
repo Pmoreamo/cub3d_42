@@ -21,15 +21,15 @@ int	check_blank_space(char c)
 		return (0);
 }
 
-size_t	biggest_line(t_map *map, int i)
+size_t	biggest_line(t_map *m, int i)
 {
 	size_t	b_len;
 
-	b_len = ft_strlen(map->file[i]);
-	while (map->file[i])
+	b_len = ft_strlen(m->file[i]);
+	while (m->file[i])
 	{
-		if (ft_strlen(map->file[i]) > b_len)
-			b_len = ft_strlen(map->file[i]);
+		if (ft_strlen(m->file[i]) > b_len)
+			b_len = ft_strlen(m->file[i]);
 		i++;
 	}
 	return (b_len);

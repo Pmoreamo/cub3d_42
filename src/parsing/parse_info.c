@@ -36,31 +36,31 @@ static int	get_n_lines(char *path)
 	return (line_count);
 }
 
-static void	fill_mem_map(int row, size_t column, int i, t_general *gen)
+static void	fill_mem_map(int row, size_t column, int i, t_general *g)
 {
 	char	*line;
 
-	line = get_next_line(gen->s_map.fd);
+	line = get_next_line(g->s_map.fd);
 	while (line != NULL)
 	{
-		gen->s_map.file[row] = ft_calloc(ft_strlen(line) + 1, sizeof(char));
-		if (!gen->s_map.file[row])
+		g->s_map.file[row] = ft_calloc(ft_strlen(line) + 1, sizeof(char));
+		if (!g->s_map.file[row])
 		{
 			error(NULL, ERR_MALLOC, 0);
-			return (free_tab((void **)gen->s_map.file));
+			return (free_tab((void **)g->s_map.file));
 		}
 		while (line[i] != '\0')
-			gen->s_map.file[row][column++] = line[i++];
-		gen->s_map.file[row++][column] = '\0';
+			g->s_map.file[row][column++] = line[i++];
+		g->s_map.file[row++][column] = '\0';
 		column = 0;
 		i = 0;
 		free(line);
-		line = get_next_line(gen->s_map.fd);
+		line = get_next_line(g->s_map.fd);
 	}
-	gen->s_map.file[row] = NULL;
+	g->s_map.file[row] = NULL;
 }
 
-void	check_info(char *path, t_general *gen)
+void	check_info(char *path, t_general *g)
 {
 	int		row;
 	int		i;
@@ -69,20 +69,20 @@ void	check_info(char *path, t_general *gen)
 	i = 0;
 	row = 0;
 	column = 0;
-	gen->s_map.line_count = get_n_lines(path);
-	gen->s_map.path = path;
-	gen->s_map.file = ft_calloc(gen->s_map.line_count + 1, sizeof(char *));
-	if (!(gen->s_map.file))
+	g->s_map.line_count = get_n_lines(path);
+	g->s_map.path = path;
+	g->s_map.file = ft_calloc(g->s_map.line_count + 1, sizeof(char *));
+	if (!(g->s_map.file))
 	{
 		error(NULL, ERR_MALLOC, 0);
 		return ;
 	}
-	gen->s_map.fd = open(path, O_RDONLY);
-	if (gen->s_map.fd < 0)
+	g->s_map.fd = open(path, O_RDONLY);
+	if (g->s_map.fd < 0)
 		error(path, strerror(errno), 1);
 	else
 	{
-		fill_mem_map(row, column, i, gen);
-		close(gen->s_map.fd);
+		fill_mem_map(row, column, i, g);
+		close(g->s_map.fd);
 	}
 }

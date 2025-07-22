@@ -12,47 +12,47 @@
 
 #include "../include/cub3d.h"
 
-static int	key_press(int key, t_general *gen)
+static int	key_press(int key, t_general *g)
 {
 	if (key == XK_Escape)
-		quit(gen);
+		quit(g);
 	if (key == XK_Left)
-		gen->player.rotate -= 1;
+		g->player.rotate -= 1;
 	if (key == XK_Right)
-		gen->player.rotate += 1;
+		g->player.rotate += 1;
 	if (key == XK_w)
-		gen->player.move_y = 1;
+		g->player.move_y = 1;
 	if (key == XK_a)
-		gen->player.move_x = -1;
+		g->player.move_x = -1;
 	if (key == XK_s)
-		gen->player.move_y = -1;
+		g->player.move_y = -1;
 	if (key == XK_d)
-		gen->player.move_x = 1;
+		g->player.move_x = 1;
 	return (0);
 }
 
-static int	key_release(int key, t_general *gen)
+static int	key_release(int key, t_general *g)
 {
 	if (key == XK_Escape)
-		quit(gen);
-	if (key == XK_w && gen->player.move_y == 1)
-		gen->player.move_y = 0;
-	if (key == XK_s && gen->player.move_y == -1)
-		gen->player.move_y = 0;
-	if (key == XK_a && gen->player.move_x == -1)
-		gen->player.move_x += 1;
-	if (key == XK_d && gen->player.move_x == 1)
-		gen->player.move_x -= 1;
-	if (key == XK_Left && gen->player.rotate <= 1)
-		gen->player.rotate = 0;
-	if (key == XK_Right && gen->player.rotate >= -1)
-		gen->player.rotate = 0;
+		quit(g);
+	if (key == XK_w && g->player.move_y == 1)
+		g->player.move_y = 0;
+	if (key == XK_s && g->player.move_y == -1)
+		g->player.move_y = 0;
+	if (key == XK_a && g->player.move_x == -1)
+		g->player.move_x += 1;
+	if (key == XK_d && g->player.move_x == 1)
+		g->player.move_x -= 1;
+	if (key == XK_Left && g->player.rotate <= 1)
+		g->player.rotate = 0;
+	if (key == XK_Right && g->player.rotate >= -1)
+		g->player.rotate = 0;
 	return (0);
 }
 
-void	init_input_keys(t_general *gen)
+void	init_input_keys(t_general *g)
 {
-	mlx_hook(gen->win, ClientMessage, NoEventMask, quit, gen);
-	mlx_hook(gen->win, KeyPress, KeyPressMask, key_press, gen);
-	mlx_hook(gen->win, KeyRelease, KeyReleaseMask, key_release, gen);
+	mlx_hook(g->win, ClientMessage, NoEventMask, quit, g);
+	mlx_hook(g->win, KeyPress, KeyPressMask, key_press, g);
+	mlx_hook(g->win, KeyRelease, KeyReleaseMask, key_release, g);
 }

@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-static int	n_map_lines(t_general *gen, char **file, int i)
+static int	n_map_lines(t_general *g, char **file, int i)
 {
 	int	index;
 	int	j;
@@ -28,7 +28,7 @@ static int	n_map_lines(t_general *gen, char **file, int i)
 			break ;
 		i++;
 	}
-	gen->s_map.end_map = i;
+	g->s_map.end_map = i;
 	return (i - index);
 }
 
@@ -59,43 +59,43 @@ static int	fill_map(t_map *map, char **n_map, int index)
 	return (0);
 }
 
-static int	load_map(t_general *gen, char **file, int i)
+static int	load_map(t_general *g, char **file, int i)
 {
-	gen->s_map.height = n_map_lines(gen, file, i);
-	gen->map = malloc(sizeof(char *) * (gen->s_map.height + 1));
-	if (!gen->map)
+	g->s_map.height = n_map_lines(g, file, i);
+	g->map = malloc(sizeof(char *) * (g->s_map.height + 1));
+	if (!g->map)
 		return (error(NULL, ERR_MALLOC, 1));
-	if (fill_map(&gen->s_map, gen->map, i) == 1)
+	if (fill_map(&g->s_map, g->map, i) == 1)
 		return (1);
 	return (0);
 }
 
-static void	blank_to_wall(t_general *gen)
+static void	blank_to_wall(t_general *g)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (gen->map[i])
+	while (g->map[i])
 	{
 		j = 0;
-		while (gen->map[i][j] == ' ' || gen->map[i][j] == '\t'
-			|| gen->map[i][j] == '\r'
-			|| gen->map[i][j] == '\v' || gen->map[i][j] == '\f')
+		while (g->map[i][j] == ' ' || g->map[i][j] == '\t'
+			|| g->map[i][j] == '\r'
+			|| g->map[i][j] == '\v' || g->map[i][j] == '\f')
 			j++;
-		while (gen->map[i][++j])
+		while (g->map[i][++j])
 		{
-			if (gen->map[i][j] == ' ' && j < (int)ft_strlen(gen->map[i] - 1))
-				gen->map[i][j] = '1';
+			if (g->map[i][j] == ' ' && j < (int)ft_strlen(g->map[i] - 1))
+				g->map[i][j] = '1';
 		}
 		i++;
 	}
 }
 
-int	create_map(t_general *gen, char **file, int i)
+int	create_map(t_general *g, char **file, int i)
 {
-	if (load_map(gen, file, i) == -1)
+	if (load_map(g, file, i) == -1)
 		return (-1);
-	blank_to_wall(gen);
+	blank_to_wall(g);
 	return (0);
 }

@@ -12,35 +12,35 @@
 
 #include "../include/cub3d.h"
 
-static int	parse(t_general *gen, char **av)
+static int	parse(t_general *g, char **av)
 {
 	if (check_file(av[1], 0) == 1)
-		n_exit(gen, 1);
-	check_info(av[1], gen);
-	if (get_file_info(gen, gen->s_map.file) == 1)
-		return (free_data(gen));
-	if (check_map_validity(gen, gen->map) == 1)
-		return (free_data(gen));
-	if (check_textures(gen, &gen->txt) == 1)
-		return (free_data(gen));
-	init_player_dir(gen);
+		n_exit(g, 1);
+	check_info(av[1], g);
+	if (get_file_info(g, g->s_map.file) == 1)
+		return (free_data(g));
+	if (check_map_validity(g, g->map) == 1)
+		return (free_data(g));
+	if (check_textures(g, &g->txt) == 1)
+		return (free_data(g));
+	init_player_dir(g);
 	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	t_general	gen;
+	t_general	g;
 
 	if (ac != 2)
 		return (error(": ", ERR_USAGE, 1));
-	init_s_general(&gen);
-	if (parse(&gen, av) != 0)
+	init_s_general(&g);
+	if (parse(&g, av) != 0)
 		exit(EXIT_FAILURE);
-	init_mlx(&gen);
-	init_textures(&gen);
-	draw_raycast(&gen);
-	init_input_keys(&gen);
-	mlx_loop_hook(gen.mlx, render, &gen);
-	mlx_loop(gen.mlx);
+	init_mlx(&g);
+	init_textures(&g);
+	draw_raycast(&g);
+	init_input_keys(&g);
+	mlx_loop_hook(g.mlx, render, &g);
+	mlx_loop(g.mlx);
 	return (0);
 }

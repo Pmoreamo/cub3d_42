@@ -12,12 +12,12 @@
 
 #include "../include/cub3d.h"
 
-static int	rotation(t_general *gen, double speed)
+static int	rotation(t_general *g, double speed)
 {
 	t_player	*p;
 	double		tmp_x;
 
-	p = &gen->player;
+	p = &g->player;
 	tmp_x = p->dir_x;
 	p->dir_x = p->dir_x * cos(speed) - p->dir_y * sin(speed);
 	p->dir_y = tmp_x * sin(speed) + p->dir_y * cos(speed);
@@ -27,13 +27,13 @@ static int	rotation(t_general *gen, double speed)
 	return (1);
 }
 
-int	player_rotate(t_general *gen, double dir)
+int	player_rotate(t_general *g, double dir)
 {
 	int		moved;
 	double	speed;
 
 	moved = 0;
 	speed = 0.0025 * dir;
-	moved += rotation(gen, speed);
+	moved += rotation(g, speed);
 	return (moved);
 }

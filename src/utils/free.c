@@ -45,23 +45,23 @@ static void	free_textures(t_text *txt)
 		free(txt->ceiling);
 }
 
-static void	free_map(t_general *gen)
+static void	free_map(t_general *g)
 {
-	if (gen->s_map.fd > 0)
-		close(gen->s_map.fd);
-	if (gen->s_map.file)
-		free_tab((void **)gen->s_map.file);
-	if (gen->map)
-		free_tab((void **)gen->map);
+	if (g->s_map.fd > 0)
+		close(g->s_map.fd);
+	if (g->s_map.file)
+		free_tab((void **)g->s_map.file);
+	if (g->map)
+		free_tab((void **)g->map);
 }
 
-int	free_data(t_general *gen)
+int	free_data(t_general *g)
 {
-	if (gen->text)
-		free_tab((void **)gen->text);
-	if (gen->txt_pixels)
-		free_tab((void **)gen->txt_pixels);
-	free_textures(&gen->txt);
-	free_map(gen);
+	if (g->text)
+		free_tab((void **)g->text);
+	if (g->txt_pixels)
+		free_tab((void **)g->txt_pixels);
+	free_textures(&g->txt);
+	free_map(g);
 	return (-1);
 }

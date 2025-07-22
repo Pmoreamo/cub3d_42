@@ -12,74 +12,74 @@
 
 #include "../include/cub3d.h"
 
-void	init_s_image(t_image *img)
+void	init_s_image(t_image *i)
 {
-	img->image = NULL;
-	img->addr = NULL;
-	img->pixel_bits = 0;
-	img->size_line = 0;
-	img->endian = 0;
+	i->image = NULL;
+	i->addr = NULL;
+	i->pixel_bits = 0;
+	i->size_line = 0;
+	i->endian = 0;
 }
 
-void	init_s_map(t_map *n_map)
+void	init_s_map(t_map *m)
 {
-	n_map->fd = 0;
-	n_map->line_count = 0;
-	n_map->height = 0;
-	n_map->width = 0;
-	n_map->end_map = 0;
-	n_map->path = NULL;
-	n_map->file = NULL;
+	m->fd = 0;
+	m->line_count = 0;
+	m->height = 0;
+	m->width = 0;
+	m->end_map = 0;
+	m->path = NULL;
+	m->file = NULL;
 }
 
-void	init_s_player(t_player *player)
+void	init_s_player(t_player *p)
 {
-	player->dir = '\0';
-	player->dir_x = 0.0;
-	player->dir_y = 0.0;
-	player->pos_x = 0.0;
-	player->pos_y = 0.0;
-	player->cam_x = 0.0;
-	player->cam_y = 0.0;
-	player->s_rotate = 0.0;
-	player->move_x = 0;
-	player->move_y = 0;
-	player->rotate = 0;
-	player->has_moved = 0;
+	p->dir = '\0';
+	p->dir_x = 0.0;
+	p->dir_y = 0.0;
+	p->pos_x = 0.0;
+	p->pos_y = 0.0;
+	p->cam_x = 0.0;
+	p->cam_y = 0.0;
+	p->s_rotate = 0.0;
+	p->move_x = 0;
+	p->move_y = 0;
+	p->rotate = 0;
+	p->has_moved = 0;
 }
 
-void	init_s_ray(t_ray *ray)
+void	init_s_ray(t_ray *r)
 {
-	ray->cam_x = 0;
-	ray->dir_x = 0;
-	ray->dir_y = 0;
-	ray->map_x = 0;
-	ray->map_y = 0;
-	ray->step_x = 0;
-	ray->step_y = 0;
-	ray->ngd_x = 0;
-	ray->ngd_y = 0;
-	ray->ncd_x = 0;
-	ray->ncd_y = 0;
-	ray->wall_dist = 0;
-	ray->wall_x = 0;
-	ray->side = 0;
-	ray->line_height = 0;
-	ray->draw_start = 0;
-	ray->draw_end = 0;
+	r->cam_x = 0;
+	r->dir_x = 0;
+	r->dir_y = 0;
+	r->map_x = 0;
+	r->map_y = 0;
+	r->step_x = 0;
+	r->step_y = 0;
+	r->ngd_x = 0;
+	r->ngd_y = 0;
+	r->ncd_x = 0;
+	r->ncd_y = 0;
+	r->wall_dist = 0;
+	r->wall_x = 0;
+	r->side = 0;
+	r->line_height = 0;
+	r->draw_start = 0;
+	r->draw_end = 0;
 }
 
-void	init_s_general(t_general *gen)
+void	init_s_general(t_general *g)
 {
-	gen->mlx = NULL;
-	gen->win = NULL;
-	gen->win_height = 400;
-	gen->win_width = 600;
-	init_s_player(&gen->player);
-	init_s_textures(&gen->txt);
-	gen->map = NULL;
-	init_s_map(&gen->s_map);
-	init_s_image(&gen->img);
-	gen->txt_pixels = NULL;
-	gen->text = NULL;
+	g->mlx = NULL;
+	g->win = NULL;
+	g->win_height = 400;
+	g->win_width = 600;
+	init_s_player(&g->player);
+	init_s_textures(&g->txt);
+	g->map = NULL;
+	init_s_map(&g->s_map);
+	init_s_image(&g->img);
+	g->txt_pixels = NULL;
+	g->text = NULL;
 }

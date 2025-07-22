@@ -12,60 +12,60 @@
 
 #include "../include/cub3d.h"
 
-static void	set_color_pixel(t_image *img, int x, int y, int color)
+static void	set_color_pixel(t_image *i, int x, int y, int color)
 {
 	int		pixel;
 
-	pixel = y * (img->size_line / 4) + x;
-	img->addr[pixel] = color;
+	pixel = y * (i->size_line / 4) + x;
+	i->addr[pixel] = color;
 }
 
-void	paint_pixel_in_frame(t_general *gen, t_image *img, int x, int y)
+void	paint_pixel_in_frame(t_general *g, t_image *i, int x, int y)
 {
-	if (gen->txt_pixels[y][x] >= 0)
-		set_color_pixel(img, x, y, gen->txt_pixels[y][x]);
-	else if (y < gen->win_height / 2)
-		set_color_pixel(img, x, y, gen->txt.hex_ceiling);
+	if (g->txt_pixels[y][x] >= 0)
+		set_color_pixel(i, x, y, g->txt_pixels[y][x]);
+	else if (y < g->win_height / 2)
+		set_color_pixel(i, x, y, g->txt.hex_ceiling);
 	else
-		set_color_pixel(img, x, y, gen->txt.hex_floor);
+		set_color_pixel(i, x, y, g->txt.hex_floor);
 }
 
-static void	put_frame_in_window(t_general *gen)
+static void	put_frame_in_window(t_general *g)
 {
-	t_image		img;
+	t_image		i;
 	int			x;
 	int			y;
 
-	img.image = NULL;
-	init_img(gen, &img, gen->win_width, gen->win_height);
+	i.image = NULL;
+	init_img(g, &i, g->win_width, g->win_height);
 	y = 0;
-	while (y < gen->win_height)
+	while (y < g->win_height)
 	{
 		x = 0;
-		while (x < gen->win_width)
+		while (x < g->win_width)
 		{
-			paint_pixel_in_frame(gen, &img, x, y);
+			paint_pixel_in_frame(g, &i, x, y);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(gen->mlx, gen->win, img.image, 0, 0);
-	mlx_destroy_image(gen->mlx, img.image);
+	mlx_put_image_to_window(g->mlx, g->win, i.image, 0, 0);
+	mlx_destroy_image(g->mlx, i.image);
 }
 
-void	draw_raycast(t_general *gen)
+void	draw_raycast(t_general *g)
 {
-	init_textures_pixels(gen);
-	init_s_ray(&gen->ray);
-	raycasting(gen, &gen->player);
-	put_frame_in_window(gen);
+	init_textures_pixels(g);
+	init_s_ray(&g->ray);
+	raycasting(g, &g->player);
+	put_frame_in_window(g);
 }
 
-int	render(t_general *gen)
+int	render(t_general *g)
 {
-	gen->player.has_moved += move_player(gen);
-	if (gen->player.has_moved == 0)
+	g->player.has_moved += move_player(g);
+	if (g->player.has_moved == 0)
 		return (0);
-	draw_raycast(gen);
+	draw_raycast(g);
 	return (0);
 }

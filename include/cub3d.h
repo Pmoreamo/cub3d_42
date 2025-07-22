@@ -156,61 +156,41 @@ typedef struct	s_general
 }t_general;
 
 //init
-void	init_s_general(t_general *gen);
-void	init_s_image(t_image *img);
-void	init_s_map(t_map *map);
-void	init_s_textures(t_text *txt);
-void	init_s_ray(t_ray *ray);
-void	init_mlx(t_general *gen);
+void	init_s_player(t_player *p);
+void	init_s_textures(t_text *t);
+void	init_s_map(t_map *m);
+void	init_s_image(t_image *i);
+void	init_s_ray(t_ray *r);
 
-//raycastin
-int		render(t_general *gen);
-void	draw_raycast(t_general *gen);
-void	init_textures_pixels(t_general *gen);
-void	update_textures_pixels(t_general *gen, t_text *txt, t_ray *ray, int x);
-void	paint_pixel_in_frame(t_general *gen, t_image *img, int x, int y);
-int		raycasting(t_general *gen, t_player *player);
+//parse
+int		check_file(char *arg, int type);
+void	check_info(char *path, t_general *g);
+int		get_file_info(t_general *g, char **map);
+int		check_map_validity(t_general *g, char **m_tab);
+int		check_sides(t_map *m, char **new_m);
+int		check_textures(t_general *g, t_text *t);
 
-//error
-int		error(char *msg, char *er, int c);
-int		error_detail(int detail, char *er, int c);
-
-
-//free
-void	free_tab(void **tab);
-int		free_data(t_general *gen);
-
-//parsing
-int	check_file(char *arg, int type);
-int	create_map(t_general *gen, char **file, int i);
-int	check_map_validity(t_general *gen, char **map_tab);
-int	get_file_info(t_general *gen, char **map);
-int	check_sides(t_map *map, char **n_map);
-int	check_textures(t_general *gen, t_text *txt);
-int	fill_color_textures(t_general *gen, t_text *txt, char *line, int j);
-void	check_info(char *path, t_general *gen);
-
-//parsing_utils
-int	check_blank_space(char c);
-size_t	biggest_line(t_map *map, int i);
-
-//exit
-void	n_exit(t_general *gen, int code);
-void	clean_exit(t_general *gen, int code);
-int	quit(t_general *gen);
 
 //player
-void	init_input_keys(t_general *gen);
-void	init_player_dir(t_general *gen);
-int		validate_move(t_general *gen, double new_x, double new_y);
-int		move_player(t_general *gen);
-int		player_rotate(t_general *gen, double dir);
+void	init_player_dir(t_general *g);
+int		move_player(t_general *g);
+int		validate_move(t_general *g, double new_x, double new_y);
+int		player_rotate(t_general *g, double dir);
+
+//render
+int		raycasting(t_general *g, t_player *p);
+int		render(t_general *g);
+void	draw_raycast(t_general *g);
+void	init_textures_pixels(t_general *g);
+void	update_textures_pixels(t_general *g, t_text *t, t_ray *r, int x);
 
 
-
-void	init_img(t_general *gen, t_image *img, int	width, int	height);
-void	init_textures_img(t_general *gen, t_image *ing, char *path);
-int	*save_xpm_to_mem(t_general *gen, char *path);
-void	init_textures(t_general *gen);
+//utils
+int		error(char *msg, char *err, int c);
+int		quit(t_general *g);
+void	n_exit(t_general *g, int c);
+void	clean_exit(t_general *g, int c);
+void	free_tab(void **tab);
+int		free_data(t_general *g);
 
 #endif

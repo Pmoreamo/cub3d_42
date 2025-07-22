@@ -12,25 +12,25 @@
 
 #include "../include/cub3d.h"
 
-void	init_img(t_general *gen, t_image *img, int width, int height)
+void	init_img(t_general *g, t_image *i, int width, int height)
 {
-	init_s_image(img);
-	img->image = mlx_new_image(gen->mlx, width, height);
-	if (img->image == NULL)
-		clean_exit(gen, error("mlx", ERR_MLX_IMG, 1));
-	img->addr = (int *)mlx_get_data_addr(img->image, &img->pixel_bits,
-			&img->size_line, &img->endian);
+	init_s_image(i);
+	i->image = mlx_new_image(g->mlx, width, height);
+	if (i->image == NULL)
+		clean_exit(g, error("mlx", ERR_MLX_IMG, 1));
+	i->addr = (int *)mlx_get_data_addr(i->image, &i->pixel_bits,
+			&i->size_line, &i->endian);
 	return ;
 }
 
-void	init_textures_img(t_general *g, t_image *img, char *p)
+void	init_textures_img(t_general *g, t_image *i, char *p)
 {
-	init_s_image(img);
-	img->image = mlx_xpm_file_to_image(g->mlx, p, &g->txt.size, &g->txt.size);
-	if (img->image == NULL)
+	init_s_image(i);
+	i->image = mlx_xpm_file_to_image(g->mlx, p, &g->txt.size, &g->txt.size);
+	if (i->image == NULL)
 		clean_exit(g, error("mlx", ERR_MLX_IMG, 1));
-	img->addr = (int *)mlx_get_data_addr(img->image, &img->pixel_bits,
-			&img->size_line, &img->endian);
+	i->addr = (int *)mlx_get_data_addr(i->image, &i->pixel_bits,
+			&i->size_line, &i->endian);
 	return ;
 }
 

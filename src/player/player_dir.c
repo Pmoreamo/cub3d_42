@@ -12,44 +12,44 @@
 
 #include "../include/cub3d.h"
 
-static void	player_n_s(t_player *player)
+static void	player_n_s(t_player *p)
 {
-	if (player->dir == 'S')
+	if (p->dir == 'S')
 	{
-		player->dir_x = 0;
-		player->dir_y = 1;
-		player->cam_x = -0.66;
-		player->cam_y = 0;
+		p->dir_x = 0;
+		p->dir_y = 1;
+		p->cam_x = -0.66;
+		p->cam_y = 0;
 	}
-	if (player->dir == 'N')
+	if (p->dir == 'N')
 	{
-		player->dir_x = 0;
-		player->dir_y = -1;
-		player->cam_x = 0.66;
-		player->cam_y = 0;
+		p->dir_x = 0;
+		p->dir_y = -1;
+		p->cam_x = 0.66;
+		p->cam_y = 0;
 	}
 }
 
-static void	player_e_w(t_player *player)
+static void	player_e_w(t_player *p)
 {
-	if (player->dir == 'W')
+	if (p->dir == 'W')
 	{
-		player->dir_x = -1;
-		player->dir_y = 0;
-		player->cam_x = 0;
-		player->cam_y = -0.66;
+		p->dir_x = -1;
+		p->dir_y = 0;
+		p->cam_x = 0;
+		p->cam_y = -0.66;
 	}
-	if (player->dir == 'E')
+	if (p->dir == 'E')
 	{
-		player->dir_x = 1;
-		player->dir_y = 0;
-		player->cam_x = 0;
-		player->cam_y = 0.66;
+		p->dir_x = 1;
+		p->dir_y = 0;
+		p->cam_x = 0;
+		p->cam_y = 0.66;
 	}
 }
 
-void	init_player_dir(t_general *gen)
+void	init_player_dir(t_general *g)
 {
-	player_n_s(&gen->player);
-	player_e_w(&gen->player);
+	player_n_s(&g->player);
+	player_e_w(&g->player);
 }

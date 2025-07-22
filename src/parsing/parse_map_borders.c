@@ -29,22 +29,22 @@ static int	check_top_and_bottom(char **map, int i, int j)
 	return (0);
 }
 
-int	check_sides(t_map *map, char **n_map)
+int	check_sides(t_map *m, char **new_m)
 {
 	int		i;
 	int		j;
 
-	if (check_top_and_bottom(n_map, 0, 0) == 1)
+	if (check_top_and_bottom(new_m, 0, 0) == 1)
 		return (1);
 	i = 1;
-	while (i < (map->height - 1))
+	while (i < (m->height - 1))
 	{
-		j = ft_strlen(n_map[i]) - 1;
-		if (n_map[i][j] != '1')
+		j = ft_strlen(new_m[i]) - 1;
+		if (new_m[i][j] != '1')
 			return (1);
 		i++;
 	}
-	if (check_top_and_bottom(n_map, i, 0) == 1)
+	if (check_top_and_bottom(new_m, i, 0) == 1)
 		return (1);
 	return (0);
 }

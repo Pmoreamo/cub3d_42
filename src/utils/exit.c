@@ -12,30 +12,30 @@
 
 #include "../include/cub3d.h"
 
-void	n_exit(t_general *gen, int code)
+void	n_exit(t_general *g, int c)
 {
-	if (!gen)
-		exit(code);
-	exit(code);
+	if (!g)
+		exit(c);
+	exit(c);
 }
 
-void	clean_exit(t_general *gen, int code)
+void	clean_exit(t_general *g, int c)
 {
-	if (!gen)
-		exit(code);
-	if (gen->win && gen->mlx)
-		mlx_destroy_window(gen->mlx, gen->win);
-	if (gen->mlx)
+	if (!g)
+		exit(c);
+	if (g->win && g->mlx)
+		mlx_destroy_window(g->mlx, g->win);
+	if (g->mlx)
 	{
-		mlx_destroy_display(gen->mlx);
-		mlx_loop_end(gen->mlx);
-		free(gen->mlx);
+		mlx_destroy_display(g->mlx);
+		mlx_loop_end(g->mlx);
+		free(g->mlx);
 	}
-	exit(code);
+	exit(c);
 }
 
-int	quit(t_general *gen)
+int	quit(t_general *g)
 {
-	clean_exit(gen, 0);
+	clean_exit(g, 0);
 	return (0);
 }

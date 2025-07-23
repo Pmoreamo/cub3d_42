@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 18:39:43 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/23 11:01:00 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,14 @@ void	init_s_textures(t_text *t);
 void	init_s_map(t_map *m);
 void	init_s_image(t_image *i);
 void	init_s_ray(t_ray *r);
+void	init_s_general(t_general *g);
+void	init_img(t_general *g, t_image *i, int width, int height);
+void	init_textures_img(t_general *g, t_image *i, char *p);
+void	init_mlx(t_general *g);
+void	init_textures(t_general *g);
+void	init_input_keys(t_general *g);
+void	init_player_dir(t_general *g);
+void	init_textures_pixels(t_general *g);
 
 //parse
 int		check_file(char *arg, int type);
@@ -169,10 +177,11 @@ int		get_file_info(t_general *g, char **map);
 int		check_map_validity(t_general *g, char **m_tab);
 int		check_sides(t_map *m, char **new_m);
 int		check_textures(t_general *g, t_text *t);
+int		fill_color_textures(t_general *g, t_text *t, char *line, int j);
+int		create_map(t_general *g, char **file, int i);
 
 
 //player
-void	init_player_dir(t_general *g);
 int		move_player(t_general *g);
 int		validate_move(t_general *g, double new_x, double new_y);
 int		player_rotate(t_general *g, double dir);
@@ -181,7 +190,6 @@ int		player_rotate(t_general *g, double dir);
 int		raycasting(t_general *g, t_player *p);
 int		render(t_general *g);
 void	draw_raycast(t_general *g);
-void	init_textures_pixels(t_general *g);
 void	update_textures_pixels(t_general *g, t_text *t, t_ray *r, int x);
 
 
@@ -192,5 +200,7 @@ void	n_exit(t_general *g, int c);
 void	clean_exit(t_general *g, int c);
 void	free_tab(void **tab);
 int		free_data(t_general *g);
+int		check_blank_space(char c);
+size_t	biggest_line(t_map *m, int i);
 
 #endif

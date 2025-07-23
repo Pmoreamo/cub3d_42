@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_rotate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:49:49 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 17:56:39 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/07/23 13:28:02 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@ static int	rotation(t_general *g, double speed)
 {
 	t_player	*p;
 	double		tmp_x;
+	/*
+	x' = x * cos(θ) - y * sin(θ)
+	y' = x * sin(θ) + y * cos(θ)
+	formula matematica per girar un vector en un angle (0) 
+	*/
 
-	p = &g->player;
+	p = &g->player; 
 	tmp_x = p->dir_x;
 	p->dir_x = p->dir_x * cos(speed) - p->dir_y * sin(speed);
 	p->dir_y = tmp_x * sin(speed) + p->dir_y * cos(speed);
@@ -32,8 +37,8 @@ int	player_rotate(t_general *g, double dir)
 	int		moved;
 	double	speed;
 
-	moved = 0;
-	speed = 0.0025 * dir;
+	moved = 0; //no sha mogut
+	speed = 0.015 * dir; //velocitat de moviment * direccio
 	moved += rotation(g, speed);
 	return (moved);
 }

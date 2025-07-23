@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:40:42 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 18:07:42 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/07/23 10:58:32 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static int	dot_cub(char *arg)
 	if ((arg[len - 3] != 'c' || arg[len - 2] != 'u'
 			|| arg[len - 1] != 'b'
 			|| arg[len - 4] != '.'))
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 static int	dot_xpm(char *arg)

@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/23 19:22:45 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:42:12 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	set_color_pixel(t_image *i, int x, int y, int color)
 	int		pixel;
 
 	pixel = y * (i->size_line / 4) + x;
+	/* size_line es el tamany en bytes, per saber el tamany en pixels dividm entre 4 (1pixel son 4 bytes)
+	400bytes / 4 == 100pixels, multpliquem per Y i sumen X, per saber la coordenada exacta*/
 	i->addr[pixel] = color;
 }
 

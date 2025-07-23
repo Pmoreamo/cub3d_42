@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:42:02 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/23 19:29:37 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:40:37 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,20 @@ void	init_textures_pixels(t_general *g)
 	
 	if (g->txt_pixels)
 		free_tab((void **)g->txt_pixels);
+	/* si ja hi han textures, allibera la taula */
 	g->txt_pixels = ft_calloc(g->win_height + 1, sizeof * g->txt_pixels);
+	/* reservem memoria per g->win_height elements + 1 amb pes de g->txt_pixels bytes*/
 	if (!g->txt_pixels)
 		clean_exit(g, error(NULL, ERR_TEX_INVALID, 1));
+	/* si fall error */
 	i = 0;
 	while (i < g->win_height)
 	{
 		g->txt_pixels[i] = ft_calloc(g->win_width + 1, sizeof * g->txt_pixels[i]);
+		/* per element anterior, reservem memoria en cada un de g->win_width elements  + 1 amb un pes de g->txt_pixels[i] bytes*/
 		if (!g->txt_pixels[i])
 			clean_exit(g, error(NULL, ERR_MALLOC, 1));
+		/* pasem al seguent txt_pixel */
 		i++;
 	}
 }
@@ -55,8 +60,11 @@ void	update_textures_pixels(t_general *g, t_text *t, t_ray *r, int x)
 	int	color;
 
 	get_text_index(g, r);
+	/* per saber quina textura hem de agafar */
 	t->x = (int)(r->wall_x * t->size);
+	/* desde quin punt hem de dibuixar la textura, agafem el punt on impacta el raig * la mida */
 	if ((r->side == 0 && r->dir_x < 0) || (r->side == 1 && r->dir_y > 0))
+	/* depenen de si es vertical o horitzontal, el punt inicial sera diferent*/
 		t->x = t->size - t->x - 1;
 	t->step = 1.0 * t->size / r->line_height;
 	t->pos = (r->draw_start - g->win_height / 2 + r->line_height / 2) * t->step;

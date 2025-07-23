@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:42:02 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 19:07:17 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:29:37 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_textures_pixels(t_general *g)
 {
 	int	i;
-	int	j;
+	
 	if (g->txt_pixels)
 		free_tab((void **)g->txt_pixels);
 	g->txt_pixels = ft_calloc(g->win_height + 1, sizeof * g->txt_pixels);
@@ -27,12 +27,6 @@ void	init_textures_pixels(t_general *g)
 		g->txt_pixels[i] = ft_calloc(g->win_width + 1, sizeof * g->txt_pixels[i]);
 		if (!g->txt_pixels[i])
 			clean_exit(g, error(NULL, ERR_MALLOC, 1));
-		j = 0;
-		while (j < g->win_width)
-		{
-			g->txt_pixels[i][j] = -1;
-			j++;
-		}
 		i++;
 	}
 }
@@ -75,9 +69,7 @@ void	update_textures_pixels(t_general *g, t_text *t, t_ray *r, int x)
 		if (t->index == 0 || t->index == 3)
 			color = (color >> 1) & 0x7F7F7F;
 		if (color > 0)
-		{
 			g->txt_pixels[y][x] = color;
-		}
 		y++;
 	}
 }

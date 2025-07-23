@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:58:50 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/23 15:38:22 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:31:24 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static void	cal_line_height(t_ray *r, t_general *gen, t_player *p)
 	r->line_height = (int)(gen->win_height / r->wall_dist);
 	/* llargada de la linea = alcada de la paret a dibuiar 
 	com mes baixa la linea, mes aprop esta la paret, mes gran sera*/
-	r->draw_start = -(r->line_height) / 2 - gen->win_height / 2;
+	r->draw_start = -(r->line_height) / 2 + gen->win_height / 2;
 	/* comencem a dibuixar la paret
 	suposem que tenim la win de 600pixels, per comencar a dibuixar la paret
 	de manera que quedi alineat amb les altres, farem

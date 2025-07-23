@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:48:39 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 16:37:12 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:07:08 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	init_s_general(t_general *g)
 {
 	g->mlx = NULL;
 	g->win = NULL;
-	g->win_height = 400;
-	g->win_width = 600;
+	g->win_height = 300;
+	g->win_width = 700;
 	init_s_player(&g->player);
 	init_s_textures(&g->txt);
 	g->map = NULL;

@@ -48,25 +48,25 @@ $(NAME): $(OBJS)
 
 # Libft rule
 $(LIBFT):
-	make -sC $(LIBFT_PATH)
+	@$(MAKE) -sC $(LIBFT_PATH)
 
 # MLX rule
 $(MLX):
-	make -sC $(MLX_PATH)
+	@$(MAKE) -sC $(MLX_PATH)
 
 bonus:
-	make all BONUS=1
+	@$(MAKE) all BONUS=1
 
 # Clean up build files rule
 clean:
 	rm -rf $(OBJ_PATH)
-	make -C $(LIBFT_PATH) clean
-	make -C $(MLX_PATH) clean
+	@$(MAKE) -C $(LIBFT_PATH) clean
+	@$(MAKE) -C $(MLX_PATH) clean
 
 # Remove program executable
 fclean: clean
 	rm -f $(NAME)
-	make -C $(LIBFT_PATH) fclean
+	@$(MAKE) -C $(LIBFT_PATH) fclean
 
 # Clean + remove executable
 re: fclean all

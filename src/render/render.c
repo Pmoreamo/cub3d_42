@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-static void	set_color_pixel(t_image *i, int x, int y, int color)
+void	set_color_pixel(t_image *i, int x, int y, int color)
 {
 	int		pixel;
 

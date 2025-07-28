@@ -13,7 +13,6 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-
 #include "../mlx/mlx.h"
 #include "../libft/libft.h"
 #include <stdio.h>
@@ -137,6 +136,26 @@ typedef struct	s_ray
 
 }t_ray;
 
+typedef struct s_mmap
+{
+	/* 
+	Tile, es una casella quadrada del mapa
+	el tile_size, es quants pixels ocupa cada quadre a la hora de dibuixarse el joc
+
+	Els offset son desplaçament dins del mapa gran per determinar quines parrts del mapa
+	es mostren en el minimapa
+	*/
+	
+	char	**map; //oer guardar el mapa
+	int		size; //tamany del mapa en TILES
+	int		offset_x; 
+	int		offset_y;
+	int		view_dist; //quants TILES veurem a cada costat del jugador
+	int		tile_size; //la mida de pixels d'un tile
+	t_image	*img;
+
+}t_mmap;
+
 typedef struct	s_general
 {
 	void	*mlx;
@@ -152,6 +171,7 @@ typedef struct	s_general
 	t_text	txt;
 	t_ray	ray;
 	t_player	player;
+	t_mmap  mmap;
 
 }t_general;
 
@@ -191,7 +211,7 @@ int		raycasting(t_general *g, t_player *p);
 int		render(t_general *g);
 void	draw_raycast(t_general *g);
 void	update_textures_pixels(t_general *g, t_text *t, t_ray *r, int x);
-
+void	set_color_pixel(t_image *i, int x, int y, int color);
 
 //utils
 int		error(char *msg, char *err, int c);

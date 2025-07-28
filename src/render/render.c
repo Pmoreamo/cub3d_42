@@ -63,11 +63,18 @@ void	draw_raycast(t_general *g)
 	put_frame_in_window(g);
 }
 
+void	render_images(t_general *g)
+{
+	draw_raycast(g);
+	if (BONUS)
+		render_mmap(g);
+}
+
 int	render(t_general *g)
 {
 	g->player.has_moved += move_player(g);
 	if (g->player.has_moved == 0)
 		return (0);
-	draw_raycast(g);
+	render_images(g);
 	return (0);
 }

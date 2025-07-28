@@ -26,9 +26,13 @@
 #include <fcntl.h>
 #include <math.h>
 
-# ifndef O_DIRECTORY
-#  define O_DIRECTORY 00200000
-# endif
+#ifndef O_DIRECTORY
+#define O_DIRECTORY 00200000
+#endif
+
+#ifndef BONUS
+#define BONUS 1
+#endif
 
 # define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
 
@@ -222,5 +226,10 @@ void	free_tab(void **tab);
 int		free_data(t_general *g);
 int		check_blank_space(char c);
 size_t	biggest_line(t_map *m, int i);
+
+//bonus
+void	render_mmap(t_general *g);
+void	minimap_image(t_general *g, t_mmap*mmp);
+
 
 #endif

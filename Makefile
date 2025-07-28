@@ -1,6 +1,7 @@
 NAME		= cub3D
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx -Ilibft -Iget_next_line -g
+CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx -Ilibft -g
+BONUS		= 0
 # === PATHS ===
 SRC_DIR		= src
 LIBFT_DIR	= libft
@@ -13,23 +14,61 @@ OBJ_FILES	= $(SRC_FILES:.c=.o)
 LIBFT		= $(LIBFT_DIR)/libft.a
 MLX_LIB		= -L$(MLX_DIR) -lmlx -lXext -lX11
 
-# === RULES ===
-all: $(NAME)
+# ===RULES====
 
+OBJ_PATH	= ./objects/
+OBJ			= $(SRC:.c=.o)
+OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
+
+# Includes
+INC			=	-I ./includes/\
+				-I ./libft/\
+				-I ./minilibx-linux/
+
+# Main rule
+all: $(OBJ_PATH) $(MLX) $(LIBFT) $(NAME)
+
+# Objects directory rule
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH)
+	mkdir -p $(OBJ_PATH)/init
+	mkdir -p $(OBJ_PATH)/parsing
+	mkdir -p $(OBJ_PATH)/movement
+	mkdir -p $(OBJ_PATH)/render
+	mkdir -p $(OBJ_PATH)/debug
+	mkdir -p $(OBJ_PATH)/exit
+
+# Objects rule
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ $(INC)
+
+# Project file rule
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
+
+# Libft rule
 $(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR)
+	make -sC $(LIBFT_PATH)
 
-$(NAME): $(LIBFT) $(GNL) $(OBJ_FILES)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ_FILES) $(LIBFT) $(MLX_LIB) -lm
+# MLX rule
+$(MLX):
+	make -sC $(MLX_PATH)
 
+bonus:
+	make all BONUS=1
+
+# Clean up build files rule
 clean:
-	@$(MAKE) clean -C $(LIBFT_DIR)
-	@rm -f $(OBJ_FILES)
+	rm -rf $(OBJ_PATH)
+	make -C $(LIBFT_PATH) clean
+	make -C $(MLX_PATH) clean
 
+# Remove program executable
 fclean: clean
-	@$(MAKE) fclean -C $(LIBFT_DIR)
-	@rm -f $(NAME)
+	rm -f $(NAME)
+	make -C $(LIBFT_PATH) fclean
 
+# Clean + remove executable
 re: fclean all
 
 .PHONY: all clean fclean re

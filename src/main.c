@@ -39,7 +39,7 @@ int	main(int ac, char **av)
 		exit(EXIT_FAILURE); //surt del programa
 	init_mlx(&g); //inicia MLX
 	init_textures(&g); //inicia texturas
-	draw_raycast(&g); //inicia el render
+	render_images(&g); //inicia el render
 	init_input_keys(&g); //inicia les tecles
 	mlx_loop_hook(g.mlx, render, &g); //fa un loop, que cridara a la funcio (render), amb les dades de &g
 	mlx_loop(g.mlx); //inicia un bucle que fa que el programa es quedi obert

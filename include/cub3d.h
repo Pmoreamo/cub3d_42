@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/23 11:01:00 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:05:44 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,16 @@
 #define O_DIRECTORY 00200000
 #endif
 
+/* BONUS */
 #ifndef BONUS
 #define BONUS 1
 #endif
 
-# define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
+/* MINIMAP */
+#define MMP_SIZE 128
 
+/* ERROR*/
+# define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
 # define ERR_FILE_NOT_CUB " Not a .cub file"
 # define ERR_FILE_NOT_XPM " Not an .xpm file"
 # define ERR_FILE_IS_DIR " Is a directory"
@@ -60,6 +64,7 @@
 # define ERR_MLX_WIN " Could not create mlx window"
 # define ERR_MLX_IMG " Could not create mlx image"
 
+/* STRUCTURES */
 typedef struct s_image
 {
 	void	*image;
@@ -146,7 +151,7 @@ typedef struct s_mmap
 	Tile, es una casella quadrada del mapa
 	el tile_size, es quants pixels ocupa cada quadre a la hora de dibuixarse el joc
 
-	Els offset son desplaçament dins del mapa gran per determinar quines parrts del mapa
+	Els offset son desplaçament dins del mapa gran per determinar quines parts del mapa
 	es mostren en el minimapa
 	*/
 	
@@ -175,9 +180,11 @@ typedef struct	s_general
 	t_text	txt;
 	t_ray	ray;
 	t_player	player;
-	t_mmap  mmap;
+	t_image  mmap;
 
 }t_general;
+
+/* FUNCTIONS */
 
 //init
 void	init_s_player(t_player *p);
@@ -216,6 +223,7 @@ int		render(t_general *g);
 void	draw_raycast(t_general *g);
 void	update_textures_pixels(t_general *g, t_text *t, t_ray *r, int x);
 void	set_color_pixel(t_image *i, int x, int y, int color);
+void	render_images(t_general *g);
 
 //utils
 int		error(char *msg, char *err, int c);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_render.c                                   :+:      :+:    :+:   */
+/*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:05:38 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/28 11:05:38 by marvin           ###   ########.fr       */
+/*   Updated: 2025/07/29 14:04:40 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int  valid_coord(int coord, int size)
     return (0);
 }
 
-static char mmap_line(t_general *g, t_mmap *m, int y)
+static char *mmap_line(t_general *g, t_mmap *m, int y)
 {
     char    *line;
     int     x;
@@ -65,19 +65,19 @@ static char mmap_line(t_general *g, t_mmap *m, int y)
             line[x] = '\0';
         else if ((int)g->player.pos_x == (x + m->offset_x)
             && (int)g->player.pos_y == (y + m->offset_y))
-            line[x] == 'P';
+            line[x] = 'P';
         else if (g->map[y + m->offset_y][x + m->offset_x] == '1')
-            line[x] == '1';
+            line[x] = '1';
         else if (g->map[y + m->offset_y][x + m->offset_x] == '0')
-            line[x] == '0';
+            line[x] = '0';
         else
-            line[x] == '\0';
+            line[x] = '\0';
         x++;
     }
     return (line);
 }
 
-static char create_mmap(t_general*g, t_mmap *mmp)
+static char **create_mmap(t_general*g, t_mmap *mmp)
 {
     char    **mmap;
     int     y;
@@ -122,7 +122,7 @@ void    render_mmap(t_general *g)
     mmp.img = &g->mmap;
     mmp.view_dist = 4;
     mmp.size = (2 * mmp.view_dist) + 1;
-    mmp.tile_size = 96 / (2 * mmp.view_dist);
+    mmp.tile_size = MMP_SIZE / (2 * mmp.view_dist);
     mmp.offset_x = get_mmp_offset(&mmp, g->s_map.width, (int)g->player.pos_x);
     mmp.offset_y = get_mmp_offset(&mmp, g->s_map.height, (int)g->player.pos_y);
     mmp.map = create_mmap(g, &mmp);

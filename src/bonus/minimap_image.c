@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   minimap_image.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:55:10 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/28 09:55:10 by marvin           ###   ########.fr       */
+/*   Updated: 2025/07/29 14:21:46 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void     set_mmp_border(t_mmap *mmp, int color)
     Es pinten els píxels del contorn si estan dins els primers o últims 5 píxels
     de qualsevol costat (esquerra, dreta, dalt o baix).
     */
-    size = 96 + mmp->tile_size;
+    size = MMP_SIZE + mmp->tile_size;
     y = 0;
     while (y < size)
     {
@@ -88,8 +88,7 @@ static void draw_mmp(t_mmap *mmp)
         while (x < mmp->size)
         {
             /* en cas de que el mapa falli o arribi al char NULL, para el bucle */
-            if (!mmp->map[y] || !mmp->map[y][x]
-                || mmp->map[y][x] == '\0')
+            if (!mmp->map[y] || mmp->map[y][x] != '\0')
                 break;
             /* dibuixa el TILE */
             draw_mmp_tile(mmp, x, y);
@@ -106,9 +105,9 @@ void    minimap_image(t_general *g, t_mmap *mmp)
     int i_size;
 
     /* es per saber el tamany del minimapa
-    ocupara 96pixels i suma tile_size per deixar
+    ocupara MMP_SIZE pixels i suma tile_size per deixar
     marge per MARC */
-    i_size = 96 + mmp->tile_size;
+    i_size = MMP_SIZE + mmp->tile_size;
     /* inicia la imatge i extreu info*/
     init_img(g, &g->mmap, i_size, i_size);
     /*dibuixa el minimapa*/
@@ -119,9 +118,9 @@ void    minimap_image(t_general *g, t_mmap *mmp)
     Exemple:Si tile_size = 2, 96 + (2 * 2) = 100, sumem el tile_size * 2, per deixar un marge visual
     Si win fa 700 píxels d'altura, el mapa es posara al pixel 600 (700 - 100)
     */
-    mlx_put_image_to_window(g->mlx, g->win, g->mmap.img, 
+    mlx_put_image_to_window(g->mlx, g->win, g->mmap.image, 
         mmp->tile_size, g->win_height 
-        - (96 + (mmp->tile_size * 2)));
+        - (MMP_SIZE + (mmp->tile_size * 2)));
     /* destrueix la imatge per alliberar memoria */
-    mlx_destroy_image(g->mlx, g->mmap.img);
+    mlx_destroy_image(g->mlx, g->mmap.image);
 }

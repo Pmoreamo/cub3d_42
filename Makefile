@@ -1,74 +1,67 @@
-NAME		= cub3D
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -Iincludes -Imlx -Ilibft -g
-BONUS		= 0
-# === PATHS ===
-SRC_DIR		= src
-LIBFT_DIR	= libft
-MLX_DIR		= mlx
+#PROJECT INFO
+NAME = cub3d
+BONUS = 0
 
-# === FILES ===
-SRC_FILES	= $(shell find $(SRC_DIR) -name '*.c') $(GNL_SRC)
-OBJ_FILES	= $(SRC_FILES:.c=.o)
+#DIRECTORIES 
+SRC_DIR = src
+OBJ_DIR = obj
+MLX_DIR = mlx
+LIBFT_DIR = libft
 
-LIBFT		= $(LIBFT_DIR)/libft.a
-MLX_LIB		= -L$(MLX_DIR) -lmlx -lXext -lX11
+#COMPILERS & FLAGS
+CC = cc
+INC = -Iinclude -I$(LIBFT_DIR) -I$(MLX_DIR)
+CFLAGS = -Wall -Wextra -Werror -g $(INC)
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
-# ===RULES====
+#DELETE
+RM = rm -rf
 
-OBJ_PATH	= ./objects/
-OBJ			= $(SRC:.c=.o)
-OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
+#SOURCES
+SRCS_FILES	=	$(SRC_DIR)/main.c $(SRC_DIR)/init/init_images.c \
+				$(SRC_DIR)/init/init_structes.c $(SRC_DIR)/init/init_textures.c \
+				$(SRC_DIR)/parsing/create_map.c $(SRC_DIR)/parsing/get_data.c \
+				$(SRC_DIR)/parsing/parse_arg.c $(SRC_DIR)/parsing/parse_color.c \
+				$(SRC_DIR)/parsing/parse_info.c $(SRC_DIR)/parsing/parse_map_borders.c \
+				$(SRC_DIR)/parsing/parse_map.c $(SRC_DIR)/parsing/parse_textures.c \
+				$(SRC_DIR)/parsing/parse_utils.c $(SRC_DIR)/player/inputs_key.c \
+				$(SRC_DIR)/player/player_dir.c $(SRC_DIR)/player/player_move.c \
+				$(SRC_DIR)/player/player_pos.c $(SRC_DIR)/player/player_rotate.c \
+				$(SRC_DIR)/render/raycasting.c $(SRC_DIR)/render/render.c \
+				$(SRC_DIR)/render/textures.c $(SRC_DIR)/utils/error.c \
+				$(SRC_DIR)/utils/exit.c $(SRC_DIR)/utils/free.c \
 
-# Includes
-INC			=	-I ./includes/\
-				-I ./libft/\
-				-I ./minilibx-linux/
+BONUS_FILES	=	$(SRC_DIR)/bonus/minimap_image.c $(SRC_DIR)/bonus/minimap.c \
 
-# Main rule
-all: $(OBJ_PATH) $(MLX) $(LIBFT) $(NAME)
+#OBJECTS
+OBJS_FILES = $(SRCS_FILES:.c=.o)
+OBJS_BONUS = $(BONUS_FILES:.c=.o)
 
-# Objects directory rule
-$(OBJ_PATH):
-	mkdir -p $(OBJ_PATH)
-	mkdir -p $(OBJ_PATH)/init
-	mkdir -p $(OBJ_PATH)/parsing
-	mkdir -p $(OBJ_PATH)/movement
-	mkdir -p $(OBJ_PATH)/render
-	mkdir -p $(OBJ_PATH)/debug
-	mkdir -p $(OBJ_PATH)/exit
+#LIBRARIES
+LIBFT = $(LIBFT_DIR)/libft.a
 
-# Objects rule
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ $(INC)
+#RULES
+all: $(OBJ_DIR) $(LIBFT) $(NAME)
 
-# Project file rule
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
+$(NAME): $(LIBFT) $(OBJS_FILES) $(OBJS_BONUS)
+	$(CC)	$(CFLAGS)	-o	$(NAME)	$(OBJS_FILES)	$(OBJS_BONUS)	$(LIBFT)	$(MLX_FLAGS)
 
-# Libft rule
+%.o:$(SRC_DIR)/%.c
+	$(CC)	$(CFLAGS)	-DBONUS=$(BONUS)	-c	$<	-o	$@
+
 $(LIBFT):
-	@$(MAKE) -sC $(LIBFT_PATH)
+	@$(MAKE)	-C	$(LIBFT_DIR)
 
-# MLX rule
-$(MLX):
-	@$(MAKE) -sC $(MLX_PATH)
-
-bonus:
-	@$(MAKE) all BONUS=1
-
-# Clean up build files rule
 clean:
-	rm -rf $(OBJ_PATH)
-	@$(MAKE) -C $(LIBFT_PATH) clean
-	@$(MAKE) -C $(MLX_PATH) clean
+	@$(MAKE)	-C	$(LIBFT_DIR)	clean
+	$(RM)	$(OBJ_DIR)
 
-# Remove program executable
-fclean: clean
-	rm -f $(NAME)
-	@$(MAKE) -C $(LIBFT_PATH) fclean
+fclean:clean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
+	$(RM)	$(NAME)
 
-# Clean + remove executable
+bonus: make all BONUS=1
+
 re: fclean all
 
 .PHONY: all clean fclean re

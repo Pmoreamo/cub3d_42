@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/29 14:05:44 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:20:04 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@
 
 #ifndef O_DIRECTORY
 #define O_DIRECTORY 00200000
-#endif
-
-/* BONUS */
-#ifndef BONUS
-#define BONUS 1
 #endif
 
 /* MINIMAP */

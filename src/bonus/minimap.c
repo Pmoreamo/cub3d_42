@@ -6,12 +6,11 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:05:38 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/29 14:04:40 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:20:23 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
 
 static int  get_mmp_offset(t_mmap *mmp, int mapsize, int pos)
 {
@@ -31,11 +30,11 @@ static int  get_mmp_offset(t_mmap *mmp, int mapsize, int pos)
     return (0);
 }
 
-static int  valid_coord(int coord, int size)
+static int  invalid_coord(int coord, int size)
 {
-    if (coord > size)
-        return (1);
-    return (0);
+    if (coord < size)
+		return (0);
+	return (1);
 }
 
 static char *mmap_line(t_general *g, t_mmap *m, int y)
@@ -60,8 +59,8 @@ static char *mmap_line(t_general *g, t_mmap *m, int y)
     x = 0;
     while (x < m->size && x < g->s_map.width)
     {
-        if (valid_coord(y + m->offset_y, g->s_map.height)
-            || !valid_coord(x + m->offset_x, g->s_map.width))
+        if (invalid_coord(y + m->offset_y, g->s_map.height)
+            || invalid_coord(x + m->offset_x, g->s_map.width))
             line[x] = '\0';
         else if ((int)g->player.pos_x == (x + m->offset_x)
             && (int)g->player.pos_y == (y + m->offset_y))

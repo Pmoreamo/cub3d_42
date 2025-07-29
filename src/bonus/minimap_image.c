@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:55:10 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/29 14:21:46 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:32:18 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,15 @@ static void draw_mmp(t_mmap *mmp)
         while (x < mmp->size)
         {
             /* en cas de que el mapa falli o arribi al char NULL, para el bucle */
-            if (!mmp->map[y] || mmp->map[y][x] != '\0')
-                break;
+         	if (!mmp->map[y] || mmp->map[y][x] == '\0')
+				break ;
             /* dibuixa el TILE */
             draw_mmp_tile(mmp, x, y);
             x++;
         }
         y++;
     }
-    /* dibuixa el marc que envolta el minimapa */
+	/* dibuixa el marc que envolta el minimapa */
     set_mmp_border(mmp, 0x404040);
 }
 

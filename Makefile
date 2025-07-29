@@ -37,12 +37,13 @@ BONUS_FILES	=	$(SRC_DIR)/main.c $(SRC_DIR)/init/init_images.c \
 				$(SRC_DIR)/parsing/parse_arg.c $(SRC_DIR)/parsing/parse_color.c \
 				$(SRC_DIR)/parsing/parse_info.c $(SRC_DIR)/parsing/parse_map_borders.c \
 				$(SRC_DIR)/parsing/parse_map.c $(SRC_DIR)/parsing/parse_textures.c \
-				$(SRC_DIR)/parsing/parse_utils.c $(SRC_DIR)/player/inputs_key.c \
-				$(SRC_DIR)/player/player_dir.c $(SRC_DIR)/player/player_move.c \
-				$(SRC_DIR)/player/player_pos.c $(SRC_DIR)/player/player_rotate.c \
-				$(SRC_DIR)/render/raycasting.c $(SRC_DIR)/render/textures.c $(SRC_DIR)/utils/error.c \
-				$(SRC_DIR)/utils/exit.c $(SRC_DIR)/utils/free.c $(SRC_DIR)/bonus/render_bonus.c \
-				$(SRC_DIR)/bonus/minimap_image.c $(SRC_DIR)/bonus/minimap.c \
+				$(SRC_DIR)/parsing/parse_utils.c $(SRC_DIR)/player/player_dir.c \
+				$(SRC_DIR)/player/player_move.c $(SRC_DIR)/player/player_pos.c \
+				$(SRC_DIR)/player/player_rotate.c $(SRC_DIR)/render/raycasting.c \
+				$(SRC_DIR)/render/textures.c $(SRC_DIR)/utils/error.c \
+				$(SRC_DIR)/utils/exit.c $(SRC_DIR)/utils/free.c \
+				$(SRC_DIR)/bonus/render_bonus.c $(SRC_DIR)/bonus/minimap_image.c \
+				$(SRC_DIR)/bonus/minimap.c $(SRC_DIR)/bonus/inputs_key_bonus.c \
 
 #OBJECTS
 OBJS_FILES = $(SRCS_FILES:.c=.o)

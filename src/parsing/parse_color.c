@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:59:10 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/23 11:21:30 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/30 20:10:47 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ static int	*check_format_color(const char *line)
 
 int	fill_color_textures(t_general *g, t_text *t, char *line, int j)
 {
-	if (line[j + 1] && line[j + 1] != ' ' && !ft_isdigit(line[j + 1]))
+	while (line[j + 1] == ' ')
+		j++;
+	if (line[j] && !ft_isdigit(line[j + 1]))
 	/* si la linea [j + 1] no espai i no es numero, ERROR*/
 		return (error(g->s_map.path, ERR_FLOOR_CEILING, 2));
 	if (!t->ceiling && line[j] == 'C') //Si no hi ha textura de CEILING i detecta C

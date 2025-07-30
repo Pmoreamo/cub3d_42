@@ -6,65 +6,64 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:59:10 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/30 20:10:47 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/30 21:02:22 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static int	*rgb(char **tokens)
+static int	*rgb_array(char **tokens, int *rgb)
 {
-	int		*colors;
-	int		i;
-
-	colors = malloc(sizeof(int) * 3); //reservem memoria per a 3 ints
-	if (!colors)
-		return (NULL);
+	int	i;
+	
 	i = 0;
-	while (i < 3)
+	while (tokens[i])
 	{
-		if (!ft_isdigit(tokens[i][0])) //sino detecta numeros
+		rgb[i] = ft_atoi(tokens[i]);
+		if (rgb[i] == -1 || !ft_isdigit(rgb[i]))
 		{
-			free_tab((void **)tokens); //allibera la taula de tokens
-			free(colors); //allibera la memoria de colors
-			return (NULL); //tornar NULL
+			free_tab((void **)tokens);
+			free(rgb);
+			return (NULL);
 		}
-		colors[i] = ft_atoi(tokens[i]); //per cada color, el transforma en un INT, aixi el PC llegira que son COLORS.
-		i++; //pasa al seguent color
+		i++;
 	}
 	free_tab((void **)tokens); //allibrem la taula de tokens
-	return (colors); //tornem el CODI DE COLORS
+	return (rgb); //tornem el CODI DE COLORS
 }
 
 static int	*check_format_color(const char *line)
 {
 	char	**tokens;
 	int		count;
-	int		i;
+	int		*rgb;
 
-	tokens = ft_split(line + 1, ','); //separem els 3 RGB, individualment
+	tokens = ft_split(line, ','); //separem els 3 RGB, individualment
 	count = 0;
-	while (tokens && tokens[count])
+	while (tokens[count])
 		count++; //comptem quants tokens hi ha, sempre sera 3 (R,G,B)
 	if (!tokens || count != 3) //sino detecta tokes o el numero no es igual
 	{
-		i = 0;
-		while (tokens && tokens[i])
-		{
-			free(tokens[i]); //allibarem cada token
-			i++; //pasem al seguent token
-		}
-		free(tokens); //allibarem els tokens en general
-		return (NULL);
+		free_tab((void **)tokens);
+		return (0);
 	}
-	return (rgb(tokens));//cridem la funcio RGB
+	rgb = malloc(sizeof(int) * 3); //reservem memoria per a 3 elements amb un pes de int bytes
+	if (!rgb)
+	{
+		error(NULL, ERR_MALLOC, 0);
+		return (0);
+	}
+	return (rgb_array(tokens, rgb));//cridem la funcio RGB array
 }
 
 int	fill_color_textures(t_general *g, t_text *t, char *line, int j)
 {
-	while (line[j + 1] == ' ')
-		j++;
-	if (line[j] && !ft_isdigit(line[j + 1]))
+	int	i;
+
+	i = j + 1;
+	while (line[i] == ' ')
+		i++;
+	if (!ft_isdigit(line[i]))
 	/* si la linea [j + 1] no espai i no es numero, ERROR*/
 		return (error(g->s_map.path, ERR_FLOOR_CEILING, 2));
 	if (!t->ceiling && line[j] == 'C') //Si no hi ha textura de CEILING i detecta C

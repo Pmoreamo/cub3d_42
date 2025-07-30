@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:49:05 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/29 21:01:11 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:04:28 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,47 +55,28 @@ static void	mouse_pos(t_general *g, int x, int y)
 {
 	if (x > g->win_width - 10)
 	{
-		x = g->win_width - 10 - 1;
+		x = g->win_width - 10;
 		mlx_mouse_move(g->mlx, g->win, x, y);
 	}
-	if (x <= 10)
+	if (x < 10)
 	{
-		x = 10 + 1;
+		x = 10;
 		mlx_mouse_move(g->mlx, g->win, x, y);
-	}
-}
-
-static void mouse_left(t_general *g, int old_x, int x)
-{
-	while (old_x) 
-	{
-		if (x < old_x)
-			g->player.has_moved += player_rotate(g, -0.0010);
-		old_x--;
-	}
-}
-
-
-static void mouse_right(t_general *g, int old_x, int x)
-{
-	while (x) 
-	{
-		if (x <= old_x)
-			g->player.has_moved += player_rotate(g, 0.0010);
-		x++;
 	}
 }
 
 static int mouse_handler(int x, int y, t_general *g)
 {
-	static int	old_x;
-
-	old_x = g->win_width;
-	mouse_pos(g, x, y);
-	if (x == old_x)
+	static int center;
+	
+	center = g->win_width / 2;
+	if (x == 0)
 		return (0);
-	mouse_left(g, old_x, x);
-	mouse_right(g, old_x, x);
+	mouse_pos(g, x, y);
+	if (x < center)
+		g->player.has_moved += player_rotate(g, -1);
+	else if (x > center)
+		g->player.has_moved += player_rotate(g, 1);
 	return (0);
 }
 

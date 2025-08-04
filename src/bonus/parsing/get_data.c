@@ -6,13 +6,16 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:19:27 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/02 20:19:41 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/04 17:49:39 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../include/cub3d.h"
 
-static char	*get_path_textures(char *line, int j)
+
+//TODO gestionar els fallos malloc, a fill direction_textures i fill_color_textures
+
+static char	*get_path_textures(char *line, int j, int * error)
 {
 	int		len;
 	int		i;
@@ -23,18 +26,18 @@ static char	*get_path_textures(char *line, int j)
 	len = j; //començar a on troba el primer caracter
 	while (line[len] && (line[len] != ' ' && line[len] != '\t'))
 		len++; //sumar mentres no siguin espais en blanc
-	path = malloc(sizeof(char) * (len - j + 1)); 
-	//reservar memoria de tants bytes com chars tingui len - j (espais en blanc) + 1(NULL)
+	path = ft_calloc(sizeof(char), (len - j + 1)); 
+	*error = (!path);
 	if (!path) //si falla
 		return (NULL); //tornar NULL
 	i = 0; 
 	while (line[j] && (line[j] != ' ' && line[j] != '\t' && line[j] != '\n'))
 		path[i++] = line[j++]; //guardar line a path, copiar el path de arxiu a la memoria
-	path[i] = '\0'; //NULL
 	while (line[j] && (line[j] == ' ' || line[j] == '\t'))
 		j++; //continuar a la linea
 	if (line[j] && line[j] != '\n') //si despre de copiat linea a PATH, detecta mes coses que no sigui un salt de linea
 	{
+		*error = 2;
 		free(path); //alliberar el path
 		path = NULL; //tornarlo com NULL
 	}
@@ -43,21 +46,26 @@ static char	*get_path_textures(char *line, int j)
 
 static int	fill_direction_textures(t_text *t, char *line, int j)
 {
+	int		error;
+
+	error = 0;
 	if (line[j] == 'N' && line[j + 1] == 'O' && !(t->N)) 
 	//si el char J de la line es N i el seguent char es O i no hi ha textura a N
-		t->N = get_path_textures(line, j + 2); //guardar el path a t'->N
+		t->N = get_path_textures(line, j + 2, &error); //guardar el path a t'->N
 	else if (line[j] == 'S' && line[j + 1] == 'O' && !(t->S))
 	//lo mateix pero a S
-		t->S = get_path_textures(line, j + 2);
+		t->S = get_path_textures(line, j + 2, &error);
 	else if (line[j] == 'W' && line[j + 1] == 'E' && !(t->W))
 	//lo mateix pero a W
-		t->W = get_path_textures(line, j + 2);
+		t->W = get_path_textures(line, j + 2, &error);
 	else if (line[j] == 'E' && line[j + 1] == 'A' && !(t->E))
 	//lo mateix per a E
-		t->E = get_path_textures(line, j + 2);
+		t->E = get_path_textures(line, j + 2, &error);
 	else if (line[j] == 'D')
-		t->D = get
-	return (0);
+	//afegeix una textura a l'array d'animacio de la porta
+		t->D = (char **)append((void **)t->D,
+				(void *)get_path_textures(line, j + 2, &error), &error);
+	return (error);
 }
 
 static int	get_info_map(t_general *g, char **m, int i, int j)

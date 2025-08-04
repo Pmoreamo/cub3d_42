@@ -66,6 +66,8 @@ void	draw_raycast(t_general *g)
 void	render_images(t_general *g)
 {
 	draw_raycast(g);
+	if (BONUS)
+		render_mmap(g);
 }
 
 int	render(t_general *g)

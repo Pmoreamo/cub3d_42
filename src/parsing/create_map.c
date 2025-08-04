@@ -86,11 +86,12 @@ static void	blank_to_wall(t_general *g)
 			|| g->map[i][j] == '\r'
 			|| g->map[i][j] == '\v' || g->map[i][j] == '\f')
 			j++; //saltar els espais en blanc
-		while (g->map[i][++j])
+		while (g->map[i][j])
 		{
 			if (g->map[i][j] == ' ' && j < (int)ft_strlen(g->map[i]) - 1)
 				//si hi ha un espai en blanc dins de la linea,  converteix en paret
 				g->map[i][j] = '1';
+			j++;
 		}
 		i++;
 	}

@@ -30,6 +30,10 @@
 #define O_DIRECTORY 00200000
 #endif
 
+#ifndef BONUS
+#define BONUS 1
+#endif
+
 /* MINIMAP */
 #define MMP_SIZE 128
 

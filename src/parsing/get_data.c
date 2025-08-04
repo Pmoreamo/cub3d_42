@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:19:27 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/30 20:35:30 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:13:33 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int	fill_direction_textures(t_text *t, char *line, int j)
 	else if (line[j] == 'E' && line[j + 1] == 'A' && !(t->E))
 	//lo mateix per a E
 		t->E = get_path_textures(line, j + 2);
+	else
+		return (2);
 	return (0);
 }
 

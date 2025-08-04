@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 16:47:19 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/24 15:30:11 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/04 19:02:48 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	*save_xpm_to_mem(t_general *g, char *path)
 	int		y;
 
 	init_textures_img(g, &tmp, path);
-	ram = ft_calloc(1, sizeof * ram * g->txt.size * g->txt.size);
+	ram = ft_calloc(g->txt.size * g->txt.size, sizeof(int));
+	//reservem memoria de txtx.size elements amb un pes del que pesa un INT, en bytes
 	if (!ram)
 		clean_exit(g, error(NULL, ERR_MALLOC, 1));
 	y = 0;
@@ -29,6 +30,10 @@ int	*save_xpm_to_mem(t_general *g, char *path)
 		x = 0;
 		while (x < g->txt.size)
 		{
+			/*esta formula, indica que pixel 2D (en las coordenadas X y Y), sera el pixel en el array 1D
+            entonces para saber, cogemos la fila columna Y * ANCHURA DE PIXEL + fila X
+            EJEMPLO = imagen 10 pixel, si queremos saber qual es el pixel x=3, y=2 en 1D
+            seria, indice (pixel en 1d) = 2 * 10 + 3 = 23, entonces el pixel[3][2] sera igual al pixel 23, en 1D*/
 			ram[y * g->txt.size + x] = tmp.addr[y * g->txt.size + x];
 			x++;
 		}

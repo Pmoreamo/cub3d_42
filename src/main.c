@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:39:57 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/29 20:27:11 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:35:46 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	parse(t_general *g, char **av)
 int	main(int ac, char **av)
 {
 	t_general	g;
-
 	
 	if (ac != 2) //si els arguments no son 2
 		return (error(": ", ERR_USAGE, 1)); //retorna la funcio ERROR

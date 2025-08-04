@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/29 17:08:54 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:26:47 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	draw_raycast(t_general *g)
 void	render_images(t_general *g)
 {
 	draw_raycast(g);
-	if (BONUS)
-		render_mmap(g);
 }
 
 int	render(t_general *g)

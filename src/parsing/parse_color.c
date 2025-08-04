@@ -6,54 +6,57 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:59:10 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/30 21:02:22 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:04:05 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static int	*rgb_array(char **tokens, int *rgb)
+static int	*rgb_array(char **tokens)
 {
+	int	*colors;
 	int	i;
 	
+	colors = malloc(sizeof(int) * 3);
+	if (!colors)
+		return (NULL);
 	i = 0;
-	while (tokens[i])
+	while (i < 3)
 	{
-		rgb[i] = ft_atoi(tokens[i]);
-		if (rgb[i] == -1 || !ft_isdigit(rgb[i]))
-		{
+		if (!ft_isdigit(tokens[i][0]))		{
 			free_tab((void **)tokens);
-			free(rgb);
+			free(colors);
 			return (NULL);
 		}
+		colors[i] = ft_atoi(tokens[i]);
 		i++;
 	}
 	free_tab((void **)tokens); //allibrem la taula de tokens
-	return (rgb); //tornem el CODI DE COLORS
+	return (colors); //tornem el CODI DE COLORS
 }
 
 static int	*check_format_color(const char *line)
 {
 	char	**tokens;
 	int		count;
-	int		*rgb;
+	int		i;
 
-	tokens = ft_split(line, ','); //separem els 3 RGB, individualment
+	tokens = ft_split(line + 1, ','); //separem els 3 RGB, individualment
 	count = 0;
 	while (tokens[count])
 		count++; //comptem quants tokens hi ha, sempre sera 3 (R,G,B)
 	if (!tokens || count != 3) //sino detecta tokes o el numero no es igual
 	{
-		free_tab((void **)tokens);
-		return (0);
+		i = 0;
+		while (tokens && tokens[i])
+		{
+			free(tokens[i]);
+			i++;
+		}
+		free(tokens);
+		return (NULL);
 	}
-	rgb = malloc(sizeof(int) * 3); //reservem memoria per a 3 elements amb un pes de int bytes
-	if (!rgb)
-	{
-		error(NULL, ERR_MALLOC, 0);
-		return (0);
-	}
-	return (rgb_array(tokens, rgb));//cridem la funcio RGB array
+	return (rgb_array(tokens));//cridem la funcio RGB array
 }
 
 int	fill_color_textures(t_general *g, t_text *t, char *line, int j)

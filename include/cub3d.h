@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/29 20:28:00 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:08:48 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 #endif
 
 #ifndef BONUS
-#define BONUS 1
+#define BONUS 0
 #endif
 
 /* MINIMAP */

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inputs_key.c                                       :+:      :+:    :+:   */
+/*   inputs_key_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:49:05 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 17:20:53 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:37:57 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,42 @@ static int	key_release(int key, t_general *g)
 	return (0);
 }
 
+static void	mouse_pos(t_general *g, int x, int y)
+{
+	if (x > g->win_width - 10)
+	{
+		x = g->win_width - 10;
+		mlx_mouse_move(g->mlx, g->win, x, y);
+	}
+	if (x < 10)
+	{
+		x = 10;
+		mlx_mouse_move(g->mlx, g->win, x, y);
+	}
+}
+
+static int mouse_handler(int x, int y, t_general *g)
+{
+	static int center;
+	static int	oldx;
+	
+	center = g->win_width / 2;
+	if (x == 0)
+		return (0);
+	mouse_pos(g, x, y);
+	if (x < oldx)
+		g->player.has_moved += player_rotate(g, -1);
+	else if (x > oldx)
+		g->player.has_moved += player_rotate(g, 1);
+	oldx = x;
+	return (0);
+}
+
 void	init_input_keys(t_general *g)
 {
 	/*adjunta les funcions amb el loop*/
 	mlx_hook(g->win, ClientMessage, NoEventMask, quit, g);
 	mlx_hook(g->win, KeyPress, KeyPressMask, key_press, g);
 	mlx_hook(g->win, KeyRelease, KeyReleaseMask, key_release, g);
+	mlx_hook(g->win, MotionNotify, PointerMotionMask, mouse_handler, g);
 }

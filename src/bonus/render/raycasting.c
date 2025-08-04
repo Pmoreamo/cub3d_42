@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:58:50 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 20:57:10 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:58:02 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,87 +80,47 @@ static void	ray_start_moving(t_general *gen, t_ray *r)
 	int	hit;
 
 	hit = 0;
-	while (hit == 0) //mentres no xoqui
+	while (hit == 0)
 	{
 		if (r->ngd_x < r->ngd_y)
-		/* si la direcio de x es menor a y, 
-		es a dir xoca amb una linea horitzontal*/
 		{
 			r->ngd_x += r->ncd_x;
-			/* la distnancia del raig fins al seguent grid*/
 			r->map_x += r->step_x;
-			/* la posicio de raig x acumulacio de les pases*/
 			r->side = 0;
-			//el raig ha tocar una cela en X, vertical vist desde adalt
 		}
 		else
 		{
 			r->ngd_y += r->ncd_y;
 			r->map_y += r->step_y;
 			r->side = 1;
-			//el raig ha tocat una cela en X, horitzontal vist desde adalt
 		}
 		if (r->map_y < 0.25 || r->map_x < 0.25
 			|| r->map_y > gen->s_map.height - 0.25
 			|| r->map_x > gen->s_map.width - 1.25)
-			/* limita el raig, pq no surti fora del mapa*/
 			break ;
 		hit = (gen->map[(int)r->map_y][(int)r->map_x]) - '0';
 	}
+	r->type = hit;
 }
 
 static void	cal_line_height(t_ray *r, t_general *gen, t_player *p)
 {
-	if (r->side == 0) //si la cela es vertical vist desde adalt
+	if (r->side == 0)
 		r->wall_dist = r->ngd_x - r->ncd_x;
-		/* 
-		si el raig ha creuat una cela X. agafem ngd_x i restem ncd
-		pq ja haviem sumat els dos anteriorment 
-		*/
 	else
 		r->wall_dist = (r->ngd_y - r->ncd_y);
-		/* a la inversa*/
 	r->line_height = (int)(gen->win_height / r->wall_dist);
-	/* llargada de la linea = alcada de la paret a dibuiar 
-	com mes baixa la linea, mes aprop esta la paret, mes gran sera*/
 	r->draw_start = -(r->line_height) / 2 + gen->win_height / 2;
-	/* comencem a dibuixar la paret
-	suposem que tenim la win de 600pixels, per comencar a dibuixar la paret
-	de manera que quedi alineat amb les altres, farem
-	la alcada de la paret a dibuixar / 2, per saber el centre del dibuix
-	la alcada de win / 2, per saner el centre de la finestra
-	600 / 2 = 300 centre de la pantalla
-	la paret fa 300pixels 300 / 2 = 150pixels
-	300 - 150 = 150, la paret comencara a dibuixarse al pixel 150 de la finestra,
-	quan arribi al pixel 300,sera la meitat de la pared
-	la alcada del dibuix potser negatiu, ja que en cas 
-	de que el dibuix sigui mes gran que la pantallapot evitar 
-	glitchs visuals*/
 	if (r->draw_start < 0)
 		r->draw_start = 0;
-	/* si el dibuix es negatiu, liniciem a 0, aixi nomes
-	es dibuixa dins la linea*/
 	r->draw_end = r->line_height / 2 + gen->win_height / 2;
-	/* la meitat del dibuix es pint a la segona part de win_height
-	sera fins el pixel 450*/
 	if (r->draw_end >= gen->win_height)
 		r->draw_end = gen->win_height - 1;
-	/* aixo assegura que la part inferior del dibuix, no passi
-	la finestra
-	EX:	si el draw_end = 650, pero la finestra = 600
-	cal tallar el dibuix a 599*/
 	if (r->side == 0)
 		r->wall_x = p->pos_y + r->wall_dist * r->dir_y;
-		/* si la paret es vertical, per calcular el punt on impacta
-		el raig, hem de fer servir el eix vertical Y*/
 	else
 		r->wall_x = p->pos_x + r->wall_dist * r->dir_x;
-		/*si la paret es horitzontal, per calcular el punt on impacta
-		el rai, hem de fer servir el eix horitzontal X*/
 	r->wall_x -= floor(r->wall_x);
-	/* aixo trasnforma el punt de impacte en fraccio, per ser mes precis
-	EX: si el raig xoca a x = 2,7 dins la cela
-	wall_x = 0,7 i nomes mostrarem el 70% de la textura horitzontal*/
 }
 
 int	raycasting(t_general *gen, t_player *p)

@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 16:47:19 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 19:11:57 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:50:01 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,16 @@ void	init_textures(t_general *g)
 	//int	i;
 
 	//i = 0;
-	g->text = ft_calloc(5, sizeof * g->text);
+	g->text = ft_calloc(8, sizeof * g->text);
 	if (!g->text)
 		clean_exit(g, error(NULL, ERR_MALLOC, 1));
 	g->text[0] = save_xpm_to_mem(g, g->txt.N);
 	g->text[1] = save_xpm_to_mem(g, g->txt.S);
 	g->text[2] = save_xpm_to_mem(g, g->txt.W);
 	g->text[3] = save_xpm_to_mem(g, g->txt.E);
+	g->text[4] = save_xpm_to_mem(g, g->txt.D[0]);
+	g->text[5] = save_xpm_to_mem(g, g->txt.D[1]);
+	g->text[6] = save_xpm_to_mem(g, g->txt.D[2]);
 }
 
 void	init_s_textures(t_text *t)

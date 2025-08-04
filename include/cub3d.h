@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/29 20:28:00 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/02 20:23:18 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct	s_textures
 	char	*S;
 	char	*E;
 	char	*W;
+	char	**D;
 	int		*floor;
 	int		*ceiling;
 	int		index;
@@ -229,6 +230,7 @@ void	free_tab(void **tab);
 int		free_data(t_general *g);
 int		check_blank_space(char c);
 size_t	biggest_line(t_map *m, int i);
+void	**append(void **array, void *next);
 
 //bonus
 void	render_mmap(t_general *g);

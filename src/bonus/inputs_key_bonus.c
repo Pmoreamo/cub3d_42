@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:49:05 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/30 19:41:43 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/02 19:59:58 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ static void	mouse_pos(t_general *g, int x, int y)
 
 static int	mouse_handler(int x, int y, t_general *g)
 {
-	static int	center;
 	static int	oldx;
 	
-	center = g->win_width / 2;
 	if (x == 0)
 		return (0);
 	mouse_pos(g, x, y);

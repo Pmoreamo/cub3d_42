@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:42:02 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 21:04:20 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:43:28 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,8 @@ void	update_textures_pixels(t_general *g, t_text *t, t_ray *r, int x)
 	int	color;
 
 	get_text_index(g, r);
-	/* per saber quina textura hem de agafar */
 	t->x = (int)(r->wall_x * t->size);
-	/* desde quin punt hem de dibuixar la textura, agafem el punt on impacta el raig * la mida */
 	if ((r->side == 0 && r->dir_x < 0) || (r->side == 1 && r->dir_y > 0))
-	/* depenen de si es vertical o horitzontal, el punt inicial sera diferent*/
 		t->x = t->size - t->x - 1;
 	t->step = 1.0 * t->size / r->line_height;
 	t->pos = (r->draw_start - g->win_height / 2 + r->line_height / 2) * t->step;

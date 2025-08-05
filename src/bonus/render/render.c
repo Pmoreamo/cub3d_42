@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/29 16:47:14 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:58:10 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,15 @@ void	render_images(t_general *g)
 
 int	render(t_general *g)
 {
+	static int	move;
+
 	g->player.has_moved += move_player(g);
-	if (g->player.has_moved == 0)
-		return (0);
-	render_images(g);
+	if (g->player.has_moved != move || g->door_state != CLOSED)
+	{
+		move = g->player.has_moved;
+		if (g->door_state != CLOSED)
+			door_listener(g, 0, 0, 0);
+		render_images(g);
+	}
 	return (0);
 }

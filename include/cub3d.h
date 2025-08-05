@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 17:36:17 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:44:29 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <X11/Xlib.h>
 #include <fcntl.h>
 #include <math.h>
+#include <time.h>
 
 #ifndef O_DIRECTORY
 #define O_DIRECTORY 00200000
@@ -58,6 +59,15 @@
 # define ERR_MLX_START " Could not start mlx"
 # define ERR_MLX_WIN " Could not create mlx window"
 # define ERR_MLX_IMG " Could not create mlx image"
+
+/* ENUMS */
+typedef enum e_door_state
+{
+	CLOSED,
+	OPEN,
+	OPENING,
+	CLOSING,
+}					t_door;
 
 /* STRUCTURES */
 typedef struct s_image
@@ -135,6 +145,7 @@ typedef struct	s_ray
 	double	wall_dist;
 	double	wall_x;
 	int		side;
+	int		type;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
@@ -169,14 +180,16 @@ typedef struct	s_general
 	int		win_height;
 	int		win_width;
 	int		**text;
+	int		**anim;
 	int		**txt_pixels;
 
-	t_image	img;
-	t_map	s_map;
-	t_text	txt;
-	t_ray	ray;
+	t_image		img;
+	t_map		s_map;
+	t_text		txt;
+	t_ray		ray;
 	t_player	player;
-	t_image  mmap;
+	t_image		mmap;
+	t_door		door_state;
 
 }t_general;
 
@@ -235,6 +248,7 @@ void	**append(void **array, void *next, int *error);
 //bonus
 void	render_mmap(t_general *g);
 void	minimap_image(t_general *g, t_mmap*mmp);
+void	door_listener(t_general *g, int mode, int x, int y);
 
 
 #endif

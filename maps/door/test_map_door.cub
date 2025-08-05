@@ -1,0 +1,19 @@
+NO textures/red_brick.xpm
+SO textures/mossy.xpm
+WE textures/grey_stone.xpm
+EA textures/purple_stone.xpm
+DO textures/color_stone.xpm
+DO textures/eagle.xpm
+DO textures/wood.xpm
+
+F 18,53,25
+C 153,204,255
+
+111111111111
+1         11
+1          1
+111111111111
+10S004000001
+111111111111
+11         1
+111111111111

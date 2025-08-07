@@ -104,7 +104,7 @@ static char **create_mmap(t_general*g, t_mmap *mmp)
 	return (mmap);
 }
 
-void	render_mmap(t_general *g)
+void	render_mmap(t_general *g, t_image *i)
 {
 	t_mmap	mmp;
 
@@ -130,6 +130,6 @@ void	render_mmap(t_general *g)
 		error(NULL, ERR_MALLOC, 0);
 		return ;
 	}
-	minimap_image(g, &mmp);
+	minimap_image(g, &mmp, i);
 	free_tab((void **)mmp.map);
 }

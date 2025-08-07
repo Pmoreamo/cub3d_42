@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/05 19:58:10 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:19:24 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	put_frame_in_window(t_general *g)
 		}
 		y++;
 	}
+	render_mmap(g, &i); 
 	mlx_put_image_to_window(g->mlx, g->win, i.image, 0, 0);
 	mlx_destroy_image(g->mlx, i.image);
 }
@@ -66,7 +67,6 @@ void	draw_raycast(t_general *g)
 void	render_images(t_general *g)
 {
 	draw_raycast(g);
-	render_mmap(g);
 }
 
 int	render(t_general *g)

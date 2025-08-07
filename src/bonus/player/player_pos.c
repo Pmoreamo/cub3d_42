@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:09:00 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/05 19:03:58 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/06 10:52:30 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	wall_collision(t_general *g, double x, double y)
 	{
 		if (g->door_state == CLOSED)
 			door_listener(g, 1, (int)x, (int)y);
-		else
+		else if (cell == '2')
 			return (0);
 	}
     return (1);

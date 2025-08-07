@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/05 19:44:29 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:11:11 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,8 +246,8 @@ size_t	biggest_line(t_map *m, int i);
 void	**append(void **array, void *next, int *error);
 
 //bonus
-void	render_mmap(t_general *g);
-void	minimap_image(t_general *g, t_mmap*mmp);
+void	render_mmap(t_general *g, t_image *i);
+void	minimap_image(t_general *g, t_mmap*mmp, t_image *i);
 void	door_listener(t_general *g, int mode, int x, int y);
 
 

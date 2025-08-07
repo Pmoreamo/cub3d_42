@@ -20,7 +20,7 @@ static int	get_mmp_offset(t_mmap *mmp, int mapsize, int pos)
 	sempre que sigui possible dins dels límits del mapa.
 
 	Si el jugador està a prop de la vora del mapa, es desplaça l'offset
-	perquè no surti fora de límits.
+	perquè no surti fora de límits.-
 */
 
 	if (pos > mmp->view_dist && mapsize - pos > mmp->view_dist + 1)
@@ -65,10 +65,8 @@ static char *mmap_line(t_general *g, t_mmap *m, int y)
 		else if ((int)g->player.pos_x == (x + m->offset_x)
 			&& (int)g->player.pos_y == (y + m->offset_y))
 			line[x] = 'P';
-		else if (g->map[y + m->offset_y][x + m->offset_x] == '1')
-			line[x] = '1';
-		else if (g->map[y + m->offset_y][x + m->offset_x] == '0')
-			line[x] = '0';
+		else if (ft_isdigit(g->map[y + m->offset_y][x + m->offset_x]))
+			line[x] = g->map[y + m->offset_y][x + m->offset_x];
 		else
 			line[x] = '\0';
 		x++;

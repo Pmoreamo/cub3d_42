@@ -45,7 +45,8 @@ static void draw_mmp_tile(t_mmap *mmp, t_image *i, int x, int y)
 		set_mmp_tile_pixels(mmp, i, x * mmp->tile_size, y * mmp->tile_size, 0xE6E6E6);
 	else if (mmp->map[y][x] == ' ')
 		set_mmp_tile_pixels(mmp, i, x * mmp->tile_size, y * mmp->tile_size, 0x404040);
-
+	else
+		set_mmp_tile_pixels(mmp, i, x * mmp->tile_size, y * mmp->tile_size, 0x0000FF);
 }
 
 static void		set_mmp_border(t_mmap *mmp, int color, t_image *i)
@@ -57,20 +58,22 @@ static void		set_mmp_border(t_mmap *mmp, int color, t_image *i)
 	/*
 	Dibuixa un marc de 5 píxels de gruix al voltant del minimapa.
 	El valor `size` representa l'amplada i alçada total de la imatge del minimapa,
-	que és la mida del mapa visible en píxels (96) més la mida d'un tile addicional,
+F	que és la mida del mapa visible en píxels (96) més la mida d'un tile addicional,
 	possiblement usat com a marge extra.
 	Es pinten els píxels del contorn si estan dins els primers o últims 5 píxels
 	de qualsevol costat (esquerra, dreta, dalt o baix).
 	*/
 	size = MMP_SIZE + mmp->tile_size;
 	y = 0;
-	while (y < size)
+	while (y <= size + 5)
 	{
 		x = 0;
-		while (x <= size)
+		while (x <= size + 5)
 		{
-			if ( x < 5 || x > size - 5 || y < 5 || y > size - 5)
+			if (x >= size || y >= size)
 				set_color_pixel(i, x, y, color);
+			else
+				set_color_pixel(i, x, y, 0x808080);
 			x++;
 		}
 		y++;
@@ -84,6 +87,7 @@ static void draw_mmp(t_mmap *mmp, t_image *i)
 
 	/* Recoore tot el mapa, per les coordenades Y i X*/
 	y = 0;
+	set_mmp_border(mmp, 0x404040, i);
 	while (y < mmp->size)
 	{
 		x = 0;
@@ -99,7 +103,6 @@ static void draw_mmp(t_mmap *mmp, t_image *i)
 		y++;
 	}
 	/* dibuixa el marc que envolta el minimapa */
-	set_mmp_border(mmp, 0x404040, i);
 }
 
 void	minimap_image(t_general *g, t_mmap *mmp, t_image *i)

@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/08 11:41:18 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/08 14:24:34 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,78 +66,157 @@
 /* STRUCTURES */
 typedef struct s_image
 {
-	void	*image;
-	int		*addr;
-	int		pixel_bits;
-	int		size_line;
-	int		endian;
+	void	*image; //Es un punter que guarda la imatge, per poder ferlo servir altres llocs del codi
+	int		*addr; //Es un punter que apunta a la memoria on es guarden els pixels de la imatge
+	int		pixel_bits; //Guarda quants bits ocupa cada pixel, per saber quants bytes cal llegir o escriure per cada pixel
+	int		size_line; //Serveix per calcular on comenca la seguents linia de pixel dins la memoria
+	int		endian; //Indica l'ordre dels bytes dins de cada pixel
 } t_image;
 
 typedef struct	s_textures
 {
-	char	*N;
-	char	*S;
-	char	*E;
-	char	*W;
-	int		*floor;
-	int		*ceiling;
-	int		index;
-	int		size;
-	int		x;
+	char	*N; //Ruta a la imatge de la textura NORD
+	char	*S; //Ruta a la imatge de la textura SUD
+	char	*E; //Ruta a la imatge de la textura EST
+	char	*W; //Ruta a la imatge de la textura OEST
+	int		*floor; //Es un punter, que apunta a una direccio de mem, on es guarden amb arrays diferents, el numero que indican el color del terra
+	int		*ceiling; //Es un punter, que apunta a una direccio de mem, on es guarden amb arrays diferents, el numero que indican el color del cel
+	int		index; //Es un index, per navegar per les textures. EX: Index 1 = textura NORD.
+	int		size; //Mida de la textura, 64 alcada* 64 amplada, pixels
+	//---------------------------------------------------------------
+	int		x; 
 	int		y;
+	/* 
+	int x, y. Son les coordenades dins de la textura, 
+	per poder saber quin pixexl pintar en pantalla
+	
+	X, es per marcar la coordenada horitzontal (Esquerra,dreta)
+	Y, per marcar la coordenada vertical (Adalta, abaix)
+
+	EX: en una textura 64x64, diem que el raig toca una paret, ha de saber
+	en quin punt de la paret ha impactat per saber quin pixel exacta dibuixar
+	*/
+
+	//--------------------------------------------------------------------
 	unsigned long	hex_floor;
 	unsigned long	hex_ceiling;
+	/*
+	Color del terra i del sostre, en format hexadecimal. Fem servir el format hexa,
+	pq aixi podem guardar el color en u sol enter, de manera que es mes eficient
+	a la hora de pintar en pantalla
+	*/
+	//----------------------------------------------------------
+	
 	double	pass;
 	double	pos;
 	double	step;
+
+	/*
+	STEP, indica quant avanco per cada pixel. 
+	EX: La finestra es de 200pixels, pero la textura fa 64,
+	llavors, cada cop que pintem un pixel de la textura en la finestra, 
+	el proxim pixel a pintar estara = 64 / 200 = 0.32 pixels de distancia
+	
+	POS, indica en quin punt de la textura comena dibuixarse dins la finestra,
+	EX: si comencas a dibuixar dins el pixel 150 de la finestra, llavors el primer pixel
+	de la textura que es dibuixara, sera el pixel 10 de la textura. 
+	
+	PASS, avancant dins la textura poc a poc i proporcionalment, per dibuixar la textura
+	de manera correcta, segons limpacte del raig
+	*/
 
 }t_text;
 
 typedef struct	s_map
 {
-	int		fd;
-	int		line_count;
-	int		height;
-	int		width;
-	int		end_map;
-	char	*path;
-	char	**file;
+	int		fd; //file descriptor, es un numero que es indica si llegim, escrivim... en un fitxer
+	int		line_count; //Numero total de lineas que formen el mapa
+	int		height; //Alcada del mapa en lineas
+	int		width; //Amplada del mapa en columnes
+	int		end_map; //Punt final del mapa, on sacaba
+	char	*path; //Ruta a on es guarda el fitxer del mapa
+	char	**file; //Fitxer que conte la informacio completa (paret, jugador, terra, colors...) del mapa, linea per linea
 
 }t_map;
 
 typedef struct	s_player
 {
-	char	dir;
-	double	dir_x;
-	double	dir_y;
-	double	pos_x;
-	double	pos_y;
+	char	dir; //Orientacio de on mirara el jugador al inciar el programa
+	double	dir_x; //En quina dirrecio mira el jugador en el eix X
+	double	dir_y; //En quina dirrecio mira el jugador en el eix Y
+	double	pos_x; //En quina posicio esta el jugador en el eix X
+	double	pos_y; //En quina posicio esta el jugador en el eix Y
+
+	//---------------------------------------------------------
 	double	cam_x;
 	double	cam_y;
-	double	s_rotate;
-	int		move_x;
-	int		move_y;
-	int		rotate;
-	int		has_moved;
+	/*
+	CAM, serveix per marcar quin es el camp de visio del jugador, que pot veure el jugador
+	El camp de visio sera la perpendicular de la posicio del jugador.
+	per saber si es perpendicular, 
+	vector original (1, 1)
+	vector a saber (1, -1)
+	(1,1) * (1, -1) = 1 * 1 + 1 * (-1) = 1 + (-1) = 1 - 1 = 0, si dona 0, vol dir que son
+	perpendiculars
+	
+	LLavors si la direccio del jugador es (1, 1), adalt - dret, podra mirar fins (adalt, esquerra ), no podra mirar cap abaix, ni darrera,etc...
+	*/
+	double	s_rotate; //velocitat de rotacio
+	int		move_x; //Moviment actual en X
+	int		move_y; //MOviment actual en Y
+	int		rotate; //Indica si el jugador rota
+	int		has_moved; //Indica si el jugador sha mogut
 
 }t_player;
 
 typedef struct	s_ray
 {
-	double	cam_x;
-	double	dir_x;
-	double	dir_y;
-	double	map_x;
-	double	map_y;
+	double	cam_x; //De la vista del jugador, el que veu en pantalla, a on pot impactar,passar, tocar el raig
+	double	dir_x; //Direccio del raig en el eix X, dins del mapa
+	double	dir_y; //Direcio del raig en el eiz Y, dins del mapa
+	double	map_x; //Posicio actual del raig en el eix X, dins del mapa
+	double	map_y; //Posicio actual del raig en el eix Y, dins del mapa
 	double	step_x;
 	double	step_y;
+
+	//---------------------------------------
+	
 	double	ngd_x;
 	double	ngd_y;
+
+	/*
+	Tenim un mapa
+
+	+----+----+----+
+	| C	 |    |    |   -> GRAELLA, ->C = Casella
+	----------------
+	|  * |    |    |
+	----------------
+	|    |    |    |  
+	+----+----+----+
+	
+	NGD, es la distancia desde el punt original del raig, fins que impacti en una linea
+	de la graella
+
+	*, punt original, ngd = la distancia fins a la proxima linea, de una nova graella
+
+	NCD, seria la distancia que ha de recorre el raig dins de una cela,
+
+	+----+
+	|    | -> Casella, 
+	+----+
+
+	
+	
+	*/
 	double	ncd_x;
 	double	ncd_y;
-	double	wall_dist;
-	double	wall_x;
-	int		side;
+	
+	//----------------------------
+	
+	double	wall_dist; //la distancia del raig a la paret
+	double	wall_x; //en quin punt de la paret a impapctat el raig
+	int		side; 
 	int		line_height;
 	int		draw_start;
 	int		draw_end;

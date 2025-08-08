@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:39:57 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 19:35:46 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/08 12:00:01 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,16 @@ static int	parse(t_general *g, char **av)
 
 int	main(int ac, char **av)
 {
-	t_general	g;
+	/* 
+	int AC = El numero de arguments
+	char **AV = El contingut dels arguments
+	*/
+
+	t_general	g; //creem una estructura t_general amb el nom g
 	
-	if (ac != 2) //si els arguments no son 2
-		return (error(": ", ERR_USAGE, 1)); //retorna la funcio ERROR
-	init_s_general(&g); //inicia la funcio s_general
+	if (ac != 2) //Si el numero de arguments no es 2
+		return (error(": ", ERR_USAGE, 1)); //retorna la funcio error, que printa un missatge i retorna 1
+	init_s_general(&g); //inicia la funcio de les estructures generals
 	if (parse(&g, av) != 0) //si el parse no es 0 (FUNCIONA)
 		exit(EXIT_FAILURE); //surt del programa
 	init_mlx(&g); //inicia MLX

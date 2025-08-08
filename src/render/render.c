@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 17:26:47 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/08 20:22:07 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,29 @@
 
 void	set_color_pixel(t_image *i, int x, int y, int color)
 {
-	int		pixel;
+	int		pixel; //index per marcar en quin pixel estem
 
 	pixel = y * (i->size_line / 4) + x;
-	/* size_line es el tamany en bytes, per saber el tamany en pixels dividm entre 4 (1pixel son 4 bytes)
-	400bytes / 4 == 100pixels, multpliquem per Y i sumen X, per saber la coordenada exacta*/
-	i->addr[pixel] = color;
+	/* 
+	1 pixel = 4 bytes, per saber quants	pixels hi han en una linea, 
+	hem de agafar els bytes de la linea (size_line) / 4 (bytes per pixel), tindrem el numero de pixels
+	per saber quin pixel exacte es, hem de multiplicar per Y i sumar X
+	*/
+	i->addr[pixel] = color; 
+	/* 
+	accedim a ADDR que es on es guarda els pixels en la memoria.
+	Accedim a cada PIXEL, i a cada pixel li asignem el COLOR
+	*/
 }
 
 void	paint_pixel_in_frame(t_general *g, t_image *i, int x, int y)
 {
-	if (g->txt_pixels[y][x] > 0)
-		set_color_pixel(i, x, y, g->txt_pixels[y][x]);
-	else if (y < g->win_height / 2)
+	if (g->txt_pixels[y][x] > 0) //si les coordenades de les textures dels pixels son mes grans que 0, es a dir hi ha color
+		set_color_pixel(i, x, y, g->txt_pixels[y][x]); //pinta els pixels amb el color de les textures
+	else if (y < g->win_height / 2) //pinta la part superior, del color amb codi hexadecial de ceiling
 		set_color_pixel(i, x, y, g->txt.hex_ceiling);
 	else
-		set_color_pixel(i, x, y, g->txt.hex_floor);
+		set_color_pixel(i, x, y, g->txt.hex_floor); //pintar el terra
 }
 
 static void	put_frame_in_window(t_general *g)

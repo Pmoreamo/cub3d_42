@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/08 14:24:34 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/08 19:18:52 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,43 +183,35 @@ typedef struct	s_ray
 	
 	double	ngd_x;
 	double	ngd_y;
-
+	double	ncd_x;
+	double	ncd_y;
+	
 	/*
 	Tenim un mapa
 
 	+----+----+----+
-	| C	 |    |    |   -> GRAELLA, ->C = Casella
+	| *	 |    |    |   -> GRAELLA
 	----------------
-	|  * |    |    |
-	----------------
-	|    |    |    |  
-	+----+----+----+
-	
+	| = linea de la graella	
+	* = punt original del raig
 	NGD, es la distancia desde el punt original del raig, fins que impacti en una linea
 	de la graella
 
-	*, punt original, ngd = la distancia fins a la proxima linea, de una nova graella
-
-	NCD, seria la distancia que ha de recorre el raig dins de una cela,
+	NCD, seria la distancia que creuara el raig dins de una cela en x o y
 
 	+----+
 	|    | -> Casella, 
 	+----+
 
-	
-	
 	*/
-	double	ncd_x;
-	double	ncd_y;
-	
 	//----------------------------
 	
 	double	wall_dist; //la distancia del raig a la paret
 	double	wall_x; //en quin punt de la paret a impapctat el raig
-	int		side; 
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
+	int		side; //per saber si la paret que hem tocat es horitzontal o vertical, vist desde un punt de vista zenital
+	int		line_height; //alcada d ela linea de la paret a dibuixar
+	int		draw_start; //En quin pixel de la finestra es comenca a dibuixar la paret
+	int		draw_end; //En quin pixel de la finestra para de dibuixar
 
 }t_ray;
 
@@ -233,31 +225,31 @@ typedef struct s_mmap
 	es mostren en el minimapa
 	*/
 	
-	char	**map; //oer guardar el mapa
-	int		size; //tamany del mapa en TILES
-	int		offset_x; 
-	int		offset_y;
-	int		view_dist; //quants TILES veurem a cada costat del jugador
+	char	**map; //Guarda la info del mapa gran i es posen nous caracter per represetnar el minimapa
+	int		size; //Tamany del minimapa en tiles
+	int		offset_x; //desplacament en X del mapa per centrar la vista del jugador
+	int		offset_y; //desplacament en Y del mapa per centrar la vista del jugador
+	int		view_dist; //quantes caselles hi hauran a cada costat del jugador en el minimapa
 	int		tile_size; //la mida de pixels d'un tile
-	t_image	*img;
+	t_image	*img; //imatge on es dibuixa el minimapa
 
 }t_mmap;
 
 typedef struct	s_general
 {
-	void	*mlx;
-	void	*win;
-	char	**map;
-	int		win_height;
-	int		win_width;
-	int		**text;
-	int		**txt_pixels;
+	void	*mlx; //es un punter per referenciar la llibreria mlx
+	void	*win; //es un punter per referenciar la finestra o es veura el joc
+	char	**map; //mapa del joc en caracters (1,0,P....)
+	int		win_height; //la alcada de la finestra (i)
+	int		win_width; //la ampla de la finestra (j)
+	int		**text; //les textures carregades com arrays
+	int		**txt_pixels; //pixels de les textures
 
-	t_image	img;
-	t_map	s_map;
-	t_text	txt;
-	t_ray	ray;
-	t_player	player;
+	t_image	img; //informacio de la imatge
+	t_map	s_map; //informaico del mapa
+	t_text	txt; //informacio de les textures
+	t_ray	ray; //informacio del raycasting
+	t_player	player; //informacio del jugador
 	t_image  mmap;
 
 }t_general;

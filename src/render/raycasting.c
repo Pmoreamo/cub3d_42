@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:58:50 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 20:32:53 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/08 20:45:32 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,9 @@ static void	init_ray_in_cell(t_ray *r, t_player *p)
 		r->step_x = -1; //es moura en dir negativa
 		r->ngd_x = (p->pos_x - r->map_x) * r->ncd_x;
 		/*
-		distancia del jugador fins a la seguent grid, que sera una paret.
-		sera la posicio del jugador actual - posicio del raig inicial
-		* la distancia recorreguda en las celas
-		EX, pos_x = 4.3 / map_x = 4, anem a lesquerra
-		4.3 - 4 = -0.3, dinstancia cap a lesquerra fins el seguent grid
+		La distancia fins al seguent grid, es a dir fins a la seguent linea, dins del MAPA
+		sera la posicio actual del jugador - posicio del raig inicial * la dinstancia que recorre el raig dins de una cela
+		EX, pos_x = 4.3 / map_x = 4, anem a lesquerra 4.3 - 4 = -0.3, dinstancia cap a lesquerra fins el seguent grid
 		*/
 	}
 	else

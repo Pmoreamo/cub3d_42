@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:39:57 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/08 12:00:01 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/08 19:20:56 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	parse(t_general *g, char **av)
 {
-	if (check_file(av[1], 0) == 1) //si check_file falla
+	if (check_file(av[1], 0) == 1) //Crida a la funcio de chek_file, si aquest retorna 1
 		n_exit(g, 1); //surt del programa
 	check_info(av[1], g); //revisa la informacio
 	if (get_file_info(g, g->s_map.file) == 1) //si la info del arxiu falla
@@ -38,10 +38,10 @@ int	main(int ac, char **av)
 	
 	if (ac != 2) //Si el numero de arguments no es 2
 		return (error(": ", ERR_USAGE, 1)); //retorna la funcio error, que printa un missatge i retorna 1
-	init_s_general(&g); //inicia la funcio de les estructures generals
-	if (parse(&g, av) != 0) //si el parse no es 0 (FUNCIONA)
-		exit(EXIT_FAILURE); //surt del programa
-	init_mlx(&g); //inicia MLX
+	init_s_general(&g); //Crida a la funcio de init_s_general, que inicia totes les variable de les diferents estructures
+	if (parse(&g, av) != 0) //Crida a la funcio de parse, si aquest retorna un valor diferent a 0, surt del programa
+		exit(EXIT_FAILURE);
+	init_mlx(&g); //inicia la llibreria mlx
 	init_textures(&g); //inicia texturas
 	render_images(&g); //inicia el render
 	init_input_keys(&g); //inicia les tecles

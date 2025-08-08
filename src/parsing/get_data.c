@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:19:27 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 18:13:33 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/08 19:50:29 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*get_path_textures(char *line, int j)
 	while (line[len] && (line[len] != ' ' && line[len] != '\t'))
 		len++; //sumar mentres no siguin espais en blanc
 	path = malloc(sizeof(char) * (len - j + 1)); 
-	//reservar memoria de tants bytes com chars tingui len - j (espais en blanc) + 1(NULL)
+	//Reservar memoria per la llargada del path - els espais en blancs + NULL
 	if (!path) //si falla
 		return (NULL); //tornar NULL
 	i = 0; 
@@ -63,7 +63,7 @@ static int	fill_direction_textures(t_text *t, char *line, int j)
 static int	get_info_map(t_general *g, char **m, int i, int j)
 {
 	while (m[i][j] == ' ' || m[i][j] == '\t' || m[i][j] == '\n')
-		j++; //mentres hi hagui espais, ves pasant al seguent CHAR
+		j++; //menstres hi haguin espais buit, passar al seguent char
 	if (ft_isprint(m[i][j]) && !ft_isdigit(m[i][j])) // si el char es PRINTABLE i NO ES NUMERO
 	{
 		if (m[i][j] == 'F' || m[i][j] == 'C') //si el char es F o C
@@ -102,7 +102,7 @@ int	get_file_info(t_general *g, char **map)
 		{
 			ret = get_info_map(g, map, i, j); //cridar a la funcio
 			if (ret == 3) //si es 3
-				break ; //parar el bucle
+				break ; //parar el bucle, i salta directament a j++
 			else if (ret == 1)
 				return (1); //tornar ERROR
 			else if (ret == 0)

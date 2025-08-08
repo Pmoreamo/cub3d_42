@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:05:38 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/29 17:20:23 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/08 11:41:33 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,8 @@ static char *mmap_line(t_general *g, t_mmap *m, int y)
         else if ((int)g->player.pos_x == (x + m->offset_x)
             && (int)g->player.pos_y == (y + m->offset_y))
             line[x] = 'P';
-        else if (g->map[y + m->offset_y][x + m->offset_x] == '1')
-            line[x] = '1';
-        else if (g->map[y + m->offset_y][x + m->offset_x] == '0')
-            line[x] = '0';
+        else if (ft_isdigit(g->map[y + m->offset_y][x + m->offset_x]))
+            line[x] = g->map[y + m->offset_y][x + m->offset_x];
         else
             line[x] = '\0';
         x++;
@@ -104,7 +102,7 @@ static char **create_mmap(t_general*g, t_mmap *mmp)
     return (mmap);
 }
 
-void    render_mmap(t_general *g)
+void    render_mmap(t_general *g, t_image *i)
 {
     t_mmap  mmp;
 
@@ -130,6 +128,6 @@ void    render_mmap(t_general *g)
         error(NULL, ERR_MALLOC, 0);
         return ;
     }
-    minimap_image(g, &mmp);
+    minimap_image(g, &mmp, i);
     free_tab((void **)mmp.map);
 }

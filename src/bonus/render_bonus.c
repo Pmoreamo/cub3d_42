@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 19:32:18 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/08 11:41:12 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	put_frame_in_window(t_general *g)
 		}
 		y++;
 	}
+	render_mmap(g, &i);
 	mlx_put_image_to_window(g->mlx, g->win, i.image, 0, 0);
 	mlx_destroy_image(g->mlx, i.image);
 }
@@ -66,14 +67,15 @@ void	draw_raycast(t_general *g)
 void	render_images(t_general *g)
 {
 	draw_raycast(g);
-	render_mmap(g);
 }
 
 int	render(t_general *g)
 {
+	static int	move;
+	
 	g->player.has_moved += move_player(g);
-	if (g->player.has_moved == 0)
-		return (0);
+	if (g->player.has_moved != move)
+		move = g->player.has_moved;
 	render_images(g);
 	return (0);
 }

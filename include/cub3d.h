@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 17:08:48 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/08 11:41:18 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,8 +235,8 @@ int		check_blank_space(char c);
 size_t	biggest_line(t_map *m, int i);
 
 //bonus
-void	render_mmap(t_general *g);
-void	minimap_image(t_general *g, t_mmap*mmp);
+void	render_mmap(t_general *g, t_image *i);
+void	minimap_image(t_general *g, t_mmap*mmp, t_image *i);
 
 
 #endif

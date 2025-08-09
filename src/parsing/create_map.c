@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:51:49 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 18:46:01 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/09 13:49:17 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ static int	fill_map(t_map *map, char **n_map, int index)
 	{
 		j = 0;
 		n_map[i] = malloc(sizeof(char) * (map->width + 1)); 
-		//reserven memoria sera igual a tants chars com ample sigui el mapa + 1(NULL)
+		//Reservem memoria per a map->width (amplada del mapa) + 1, elements, cada element tindra un pes en bytes el que ocupa un char
 		if (!n_map) //si falla
 			return (error(NULL, ERR_MALLOC, -1));
 		while (map->file[index][j] && map->file[index][j] != '\n') //mentres no detecti salts de linea
 		{
 			n_map[i][j] = map->file[index][j]; //copiar el mapa a la MEMORIA
-			j++; //pasar de oclumna
+			j++; //pasar de columna
 		}
 		while (j < map->width) //mentres linea sigui inferior a la linea mes gran
 			n_map[i][j++] = '\0'; //omplir de NULLS la resta de CHARS

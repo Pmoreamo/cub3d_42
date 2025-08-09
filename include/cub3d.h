@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/08 19:18:52 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/09 19:57:57 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@
 /* STRUCTURES */
 typedef struct s_image
 {
-	void	*image; //Es un punter que guarda la imatge, per poder ferlo servir altres llocs del codi
-	int		*addr; //Es un punter que apunta a la memoria on es guarden els pixels de la imatge
+	void	*image; //Es un punter que guarda la imatge, es per referencia
+	int		*addr; //Es un punter que apunta als pixels per accedir i modificar
 	int		pixel_bits; //Guarda quants bits ocupa cada pixel, per saber quants bytes cal llegir o escriure per cada pixel
 	int		size_line; //Serveix per calcular on comenca la seguents linia de pixel dins la memoria
 	int		endian; //Indica l'ordre dels bytes dins de cada pixel
@@ -171,7 +171,7 @@ typedef struct	s_player
 
 typedef struct	s_ray
 {
-	double	cam_x; //De la vista del jugador, el que veu en pantalla, a on pot impactar,passar, tocar el raig
+	double	cam_x; //Marca la posicio horitzontal del pixel, per saber en quina direcio anira el raig
 	double	dir_x; //Direccio del raig en el eix X, dins del mapa
 	double	dir_y; //Direcio del raig en el eiz Y, dins del mapa
 	double	map_x; //Posicio actual del raig en el eix X, dins del mapa
@@ -208,7 +208,7 @@ typedef struct	s_ray
 	
 	double	wall_dist; //la distancia del raig a la paret
 	double	wall_x; //en quin punt de la paret a impapctat el raig
-	int		side; //per saber si la paret que hem tocat es horitzontal o vertical, vist desde un punt de vista zenital
+	int		wall_type; //per saber si la paret que hem tocat es horitzontal o vertical, vist desde un punt de vista zenital
 	int		line_height; //alcada d ela linea de la paret a dibuixar
 	int		draw_start; //En quin pixel de la finestra es comenca a dibuixar la paret
 	int		draw_end; //En quin pixel de la finestra para de dibuixar
@@ -242,7 +242,7 @@ typedef struct	s_general
 	char	**map; //mapa del joc en caracters (1,0,P....)
 	int		win_height; //la alcada de la finestra (i)
 	int		win_width; //la ampla de la finestra (j)
-	int		**text; //les textures carregades com arrays
+	int		**text; //les textures carregades com arrays text[0] = NORD[1024 pixels]
 	int		**txt_pixels; //pixels de les textures
 
 	t_image	img; //informacio de la imatge

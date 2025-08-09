@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:48:39 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/29 20:27:56 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:32:22 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	init_s_ray(t_ray *r)
 	r->ncd_y = 0;
 	r->wall_dist = 0;
 	r->wall_x = 0;
-	r->side = 0;
+	r->wall_type = 0;
 	r->line_height = 0;
 	r->draw_start = 0;
 	r->draw_end = 0;

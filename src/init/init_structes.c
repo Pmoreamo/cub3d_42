@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:48:39 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/09 17:32:22 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:23:39 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	init_s_general(t_general *g)
 	init_s_image(&g->img);
 	g->txt_pixels = NULL;
 	g->text = NULL;
+	g->door_state = CLOSED;
 }

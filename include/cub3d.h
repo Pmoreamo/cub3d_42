@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/09 19:57:57 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:16:41 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <X11/Xlib.h>
 #include <fcntl.h>
 #include <math.h>
+#include <time.h>
 
 #ifndef O_DIRECTORY
 #define O_DIRECTORY 00200000
@@ -63,6 +64,15 @@
 # define ERR_MLX_WIN " Could not create mlx window"
 # define ERR_MLX_IMG " Could not create mlx image"
 
+/* ENUMS */
+typedef enum e_door_state
+{
+	CLOSED,
+	OPEN,
+	OPENING,
+	CLOSING,
+}					t_door;
+
 /* STRUCTURES */
 typedef struct s_image
 {
@@ -79,12 +89,12 @@ typedef struct	s_textures
 	char	*S; //Ruta a la imatge de la textura SUD
 	char	*E; //Ruta a la imatge de la textura EST
 	char	*W; //Ruta a la imatge de la textura OEST
+	char	**D;//array amb les rutes de les textures deles animacions
 	int		*floor; //Es un punter, que apunta a una direccio de mem, on es guarden amb arrays diferents, el numero que indican el color del terra
 	int		*ceiling; //Es un punter, que apunta a una direccio de mem, on es guarden amb arrays diferents, el numero que indican el color del cel
 	int		index; //Es un index, per navegar per les textures. EX: Index 1 = textura NORD.
 	int		size; //Mida de la textura, 64 alcada* 64 amplada, pixels
-	//---------------------------------------------------------------
-	int		x; 
+	int		x;
 	int		y;
 	/* 
 	int x, y. Son les coordenades dins de la textura, 
@@ -212,7 +222,8 @@ typedef struct	s_ray
 	int		line_height; //alcada d ela linea de la paret a dibuixar
 	int		draw_start; //En quin pixel de la finestra es comenca a dibuixar la paret
 	int		draw_end; //En quin pixel de la finestra para de dibuixar
-
+	int		side;
+	int		type;
 }t_ray;
 
 typedef struct s_mmap
@@ -251,7 +262,8 @@ typedef struct	s_general
 	t_ray	ray; //informacio del raycasting
 	t_player	player; //informacio del jugador
 	t_image  mmap;
-
+	t_door		door_state;
+	int		**anim;
 }t_general;
 
 /* FUNCTIONS */
@@ -304,10 +316,12 @@ void	free_tab(void **tab);
 int		free_data(t_general *g);
 int		check_blank_space(char c);
 size_t	biggest_line(t_map *m, int i);
+void	**append(void **array, void *next, int *error);
 
 //bonus
 void	render_mmap(t_general *g, t_image *i);
 void	minimap_image(t_general *g, t_mmap*mmp, t_image *i);
+void	door_listener(t_general *g, int mode, int x, int y);
 
 
 #endif

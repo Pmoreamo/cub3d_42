@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/09 19:16:08 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:24:34 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,13 @@ void	render_images(t_general *g)
 
 int	render(t_general *g)
 {
+	static int	move;
+
 	g->player.has_moved += move_player(g);
-	if (g->player.has_moved == 0)
-		return (0);
-	render_images(g);
+	if (g->player.has_moved != move)
+	{
+		move = g->player.has_moved;
+		render_images(g);
+	}
 	return (0);
 }

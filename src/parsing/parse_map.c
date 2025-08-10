@@ -6,7 +6,7 @@
 /*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:33:30 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/19 15:35:34 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/04 21:19:32 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_map_elements(t_general *g, char **m_tab)
 			|| g->map[i][j] == '\r'
 			|| g->map[i][j] == '\v' || g->map[i][j] == '\f')
 				j++; //saltem tots els espais en BLANC
-			if (!(ft_strchr("10NSEW", m_tab[i][j]))) //si no detecta cap CHAR que sigui 10NSEW
+			if (!(ft_strchr("43210NSEW", m_tab[i][j]))) //si no detecta cap CHAR que sigui 10NSEW
 				return (error(g->s_map.path, ERR_INV_LETTER, 1)); //retorna error
 			if (ft_strchr("NSEW", m_tab[i][j]) && g->player.dir != '0') //si no detecta cap char NSEW
 				return (error(g->s_map.path, ERR_NUM_PLAYER, 1)); //retorna error

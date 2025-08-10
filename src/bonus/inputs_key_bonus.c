@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:49:05 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 17:37:57 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:19:14 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,17 @@ static void	mouse_pos(t_general *g, int x, int y)
 	}
 }
 
-static int mouse_handler(int x, int y, t_general *g)
+static int	mouse_handler(int x, int y, t_general *g)
 {
-	static int center;
 	static int	oldx;
 	
-	center = g->win_width / 2;
 	if (x == 0)
 		return (0);
 	mouse_pos(g, x, y);
 	if (x < oldx)
-		g->player.has_moved += player_rotate(g, -1);
+		g->player.has_moved += player_rotate(g, -2);
 	else if (x > oldx)
-		g->player.has_moved += player_rotate(g, 1);
+		g->player.has_moved += player_rotate(g, 2);
 	oldx = x;
 	return (0);
 }

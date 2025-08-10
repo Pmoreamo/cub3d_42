@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:09:00 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/10 20:24:17 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/06 10:52:30 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 static int	wall_collision(t_general *g, double x, double y)
 {
-    // Si alguna *de les posicions properes toca una paret, hi ha col·lisió
-    if (g->map[(int)y][(int)x] == '0')
-	{
+	char		cell;
+
+
+    cell = g->map[(int)y][(int)x];
+	if (cell == '0')
         return (0);
+	else if (cell != '1' && g->door_state <= OPEN)
+	{
+		if (g->door_state == CLOSED)
+			door_listener(g, 1, (int)x, (int)y);
+		else if (cell == '2')
+			return (0);
 	}
     return (1);
 }

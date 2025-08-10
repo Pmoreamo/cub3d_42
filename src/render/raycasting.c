@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:58:50 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/09 18:56:14 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:27:04 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,8 @@ static void	ray_start_moving(t_general *g, t_ray *r)
 			/* Si la posicio del raig es inferior a 0.25 en els eixos X, Y
 			o es superior a la aclada de la finestra - 0.25 o es superior
 			a la amplada de la finestra - 1.25) .25, son marges */
-			break ; //para el bucle
-		else if (g->map[(int)r->map_y][(int)r->map_x] > '0')
-		/* Si la posicio del raig es superior a 0 */
-			hit = 1; //Ha impactat en una paret
+			break ;
+		hit = (g->map[(int)r->map_y][(int)r->map_x]) - '0';
 	}
 }
 

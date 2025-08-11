@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:58:50 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 10:59:35 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:22:00 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static void	init_raycasting(int x, t_ray *r, t_player *p)
 {
 	init_s_ray(r);
 	r->pixel_pos = 2 * x / (double)600 - 1;
-	r->dir_x = p->dir_x + p->cam_x * r->pixel_pos; 
-	r->dir_y = p->dir_y + p->cam_y * r->pixel_pos;	
+	r->dir_x = p->dir_x + p->cam_x * r->pixel_pos;
+	r->dir_y = p->dir_y + p->cam_y * r->pixel_pos;
 	r->map_x = (int)p->pos_x;
 	r->map_y = (int)p->pos_y;
-	r->ncd_x = fabs(1 / r->dir_x); 
-	r->ncd_y = fabs(1 / r->dir_y);	
+	r->ncd_x = fabs(1 / r->dir_x);
+	r->ncd_y = fabs(1 / r->dir_y);
 }
 
 static void	set_ray_dir(t_ray *r, t_player *p)
@@ -77,7 +77,7 @@ static void	ray_start_moving(t_general *g, t_ray *r)
 
 static void	cal_line_height(t_ray *r, t_general *g, t_player *p)
 {
-	if (r->wall_type == 0) //
+	if (r->wall_type == 0)
 		r->wall_dist = r->ngd_x - r->ncd_x;
 	else
 		r->wall_dist = (r->ngd_y - r->ncd_y);

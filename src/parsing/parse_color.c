@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:59:10 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 15:32:10 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:22:52 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ static int	clean_colour(char *colour)
 	while (colour[i] != 0)
 	{
 		if (ft_isdigit(colour[i]) && j < 3)
-		{
-			clean[j] = colour[i];
-			j++;
-		}
+			clean[j++] = colour[i];
 		else if (ft_isdigit(colour[i]) && j >= 3)
 		{
 			free(clean);

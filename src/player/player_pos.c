@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:09:00 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 10:57:24 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:20:21 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	wall_collision(t_general *g, double x, double y)
 {
-    if (g->map[(int)y][(int)x] == '0')
+	if (g->map[(int)y][(int)x] == '0')
 	{
-        return (0);
+		return (0);
 	}
-    return (1);
+	return (1);
 }
 
 static int	is_valid_pos_map(t_general *g, double x, double y)

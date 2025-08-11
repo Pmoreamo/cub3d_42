@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 15:39:56 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:22:19 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	paint_pixel_in_frame(t_general *g, t_image *i, int x, int y)
 {
-	if (g->txt_pixels[y][x] > 0) 
+	if (g->txt_pixels[y][x] > 0)
 		set_color_pixel(i, x, y, g->txt_pixels[y][x]);
-	else if (y < g->win_height / 2) 
+	else if (y < g->win_height / 2)
 		set_color_pixel(i, x, y, g->txt.hex_ceiling);
 	else
-		set_color_pixel(i, x, y, g->txt.hex_floor); 
+		set_color_pixel(i, x, y, g->txt.hex_floor);
 }
 
 static void	put_frame_in_window(t_general *g)

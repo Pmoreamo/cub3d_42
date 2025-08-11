@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 16:47:19 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 11:04:04 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:07:11 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ int	*save_xpm_to_mem(t_general *g, char *path)
 
 void	init_textures(t_general *g)
 {
-	//int	i;
-
-	//i = 0;
 	g->text = ft_calloc(8, sizeof * g->text);
 	if (!g->text)
 		clean_exit(g, error(NULL, ERR_MALLOC, 1));

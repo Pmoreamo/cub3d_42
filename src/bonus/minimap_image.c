@@ -6,16 +6,16 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:55:10 by marvin            #+#    #+#             */
-/*   Updated: 2025/08/11 13:42:59 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/11 14:06:51 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void set_mmp_tile_pixels(t_mmap *mmp, t_image *img, int *xy, int color)
+static void	set_mmp_tile_pixels(t_mmap *mmp, t_image *img, int *xy, int color)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (i < mmp->tile_size)
@@ -23,15 +23,14 @@ static void set_mmp_tile_pixels(t_mmap *mmp, t_image *img, int *xy, int color)
 		j = 0;
 		while (j < mmp->tile_size)
 		{
-				set_color_pixel(img, xy[0] + j, i + xy[1], color);
-				j++;
+			set_color_pixel(img, xy[0] + j, i + xy[1], color);
+			j++;
 		}
 		i++;
 	}
 }
 
-
-static void draw_mmp_tile(t_mmap *mmp, t_image *i, int x, int y)
+static void	draw_mmp_tile(t_mmap *mmp, t_image *i, int x, int y)
 {
 	int		xy[2];
 
@@ -39,7 +38,7 @@ static void draw_mmp_tile(t_mmap *mmp, t_image *i, int x, int y)
 	xy[1] = y * mmp->tile_size;
 	if (mmp->map[y][x] == 'P')
 		set_mmp_tile_pixels(mmp, i, xy, 0x00FF00);
-	else if (mmp->map[y][x] == '1') 
+	else if (mmp->map[y][x] == '1')
 		set_mmp_tile_pixels(mmp, i, xy, 0x808080);
 	else if (mmp->map[y][x] == '0')
 		set_mmp_tile_pixels(mmp, i, xy, 0xE6E6E6);
@@ -49,12 +48,12 @@ static void draw_mmp_tile(t_mmap *mmp, t_image *i, int x, int y)
 		set_mmp_tile_pixels(mmp, i, xy, 0x0000FF);
 }
 
-static void		set_mmp_border(t_mmap *mmp, int color, t_image *i)
+static void	set_mmp_border(t_mmap *mmp, int color, t_image *i)
 {
-	int size;
-	int x;
-	int y;
-	
+	int		size;
+	int		x;
+	int		y;
+
 	size = MMP_SIZE + mmp->tile_size;
 	y = 0;
 	while (y <= size + 5)
@@ -72,10 +71,10 @@ static void		set_mmp_border(t_mmap *mmp, int color, t_image *i)
 	}
 }
 
-static void draw_mmp(t_mmap *mmp, t_image *i)
+static void	draw_mmp(t_mmap *mmp, t_image *i)
 {
-	int x;
-	int y;
+	int		x;
+	int		y;
 
 	y = 0;
 	set_mmp_border(mmp, 0x404040, i);
@@ -91,7 +90,6 @@ static void draw_mmp(t_mmap *mmp, t_image *i)
 		}
 		y++;
 	}
-	/* dibuixa el marc que envolta el minimapa */
 }
 
 void	minimap_image(t_general *g, t_mmap *mmp, t_image *i)

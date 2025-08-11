@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:40:42 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 13:15:10 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/11 14:16:03 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	dot_xpm(char *arg)
 int	check_file(char *arg, int type)
 {
 	int	fd;
-	
+
 	if (is_dir(arg))
 		return (error(arg, ERR_FILE_IS_DIR, 1));
 	fd = open(arg, O_RDONLY);

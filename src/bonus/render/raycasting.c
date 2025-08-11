@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:58:50 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 11:06:42 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:09:38 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static void	init_raycasting(int x, t_ray *r, t_player *p)
 {
 	init_s_ray(r);
 	r->pixel_pos = 2 * x / (double)600 - 1;
-	r->dir_x = p->dir_x + p->cam_x * r->pixel_pos; 
+	r->dir_x = p->dir_x + p->cam_x * r->pixel_pos;
 	r->dir_y = p->dir_y + p->cam_y * r->pixel_pos;
 	r->map_x = (int)p->pos_x;
 	r->map_y = (int)p->pos_y;
-	r->ncd_x = fabs(1 / r->dir_x); 
+	r->ncd_x = fabs(1 / r->dir_x);
 	r->ncd_y = fabs(1 / r->dir_y);
 }
 
@@ -35,7 +35,6 @@ static void	init_ray_in_cell(t_ray *r, t_player *p)
 	{
 		r->step_x = 1;
 		r->ngd_x = (r->map_x + 1.0 - p->pos_x) * r->ncd_x;
-
 	}
 	if (r->dir_y < 0)
 	{

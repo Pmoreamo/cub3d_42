@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:05:38 by marvin            #+#    #+#             */
-/*   Updated: 2025/08/11 11:09:21 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:05:02 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static int	invalid_coord(int coord, int size)
 	return (1);
 }
 
-static char *mmap_line(t_general *g, t_mmap *m, int y)
+static char	*mmap_line(t_general *g, t_mmap *m, int y)
 {
 	char	*line;
 	int		x;
-	
+
 	line = ft_calloc(m->size + 1, sizeof * line);
 	if (!line)
 		return (NULL);
@@ -54,7 +54,7 @@ static char *mmap_line(t_general *g, t_mmap *m, int y)
 	return (line);
 }
 
-static char **create_mmap(t_general*g, t_mmap *mmp)
+static char	**create_mmap(t_general*g, t_mmap *mmp)
 {
 	char	**mmap;
 	int		y;
@@ -79,7 +79,7 @@ static char **create_mmap(t_general*g, t_mmap *mmp)
 void	render_mmap(t_general *g, t_image *i)
 {
 	t_mmap	mmp;
-	
+
 	mmp.map = NULL;
 	mmp.img = &g->mmap;
 	mmp.view_dist = 4;

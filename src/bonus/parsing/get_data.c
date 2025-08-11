@@ -6,13 +6,13 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:19:27 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 11:05:55 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:08:10 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static char	*get_path_textures(char *line, int j, int * error)
+static char	*get_path_textures(char *line, int j, int *error)
 {
 	int		len;
 	int		i;
@@ -23,11 +23,11 @@ static char	*get_path_textures(char *line, int j, int * error)
 	len = j;
 	while (line[len] && (line[len] != ' ' && line[len] != '\t'))
 		len++;
-	path = ft_calloc(sizeof(char), (len - j + 1)); 
+	path = ft_calloc(sizeof(char), (len - j + 1));
 	*error = (!path);
 	if (!path)
 		return (NULL);
-	i = 0; 
+	i = 0;
 	while (line[j] && (line[j] != ' ' && line[j] != '\t' && line[j] != '\n'))
 		path[i++] = line[j++];
 	while (line[j] && (line[j] == ' ' || line[j] == '\t'))
@@ -46,7 +46,7 @@ static int	fill_direction_textures(t_text *t, char *line, int j)
 	int		error;
 
 	error = 0;
-	if (line[j] == 'N' && line[j + 1] == 'O' && !(t->n)) 
+	if (line[j] == 'N' && line[j + 1] == 'O' && !(t->n))
 		t->n = get_path_textures(line, j + 2, &error);
 	else if (line[j] == 'S' && line[j + 1] == 'O' && !(t->s))
 		t->s = get_path_textures(line, j + 2, &error);

@@ -19,7 +19,7 @@ static int	check_top_and_bottom(char **map, int i, int j)
 	while (map[i][j] == ' ' || map[i][j] == '\t'
 		|| map[i][j] == '\r' || map[i][j] == '\v'
 		|| map[i][j] == '\f')
-		j++; 
+		j++;
 	while (map[i][j])
 	{
 		if (map[i][j] != '1')
@@ -40,7 +40,7 @@ int	check_sides(t_map *m, char **new_m)
 	while (i < (m->height - 1))
 	{
 		j = ft_strlen(new_m[i]) - 1;
-		if (new_m[i][j] != '1') 
+		if (new_m[i][j] != '1')
 			return (1);
 		i++;
 	}

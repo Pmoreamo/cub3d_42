@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:33:30 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 10:55:15 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:17:50 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_map_elements(t_general *g, char **m_tab)
 				return (error(g->s_map.path, ERR_INV_LETTER, 1));
 			if (ft_strchr("NSEW", m_tab[i][j]) && g->player.dir != '0')
 				return (error(g->s_map.path, ERR_NUM_PLAYER, 1));
-			if (ft_strchr("NSEW", m_tab[i][j]) && g->player.dir == '0') 
+			if (ft_strchr("NSEW", m_tab[i][j]) && g->player.dir == '0')
 				g->player.dir = m_tab[i][j];
 			j++;
 		}
@@ -50,8 +50,8 @@ static int	check_position_is_valid(t_general *g, char **m_tab)
 	j = (int)g->player.pos_x;
 	if (ft_strlen(m_tab[i - 1]) < (size_t)j
 		|| ft_strlen(m_tab[i + 1]) < (size_t)j
-		|| check_blank_space(m_tab[i][j - 1]) == 0 
-		|| check_blank_space(m_tab[i][j + 1]) == 0 
+		|| check_blank_space(m_tab[i][j - 1]) == 0
+		|| check_blank_space(m_tab[i][j + 1]) == 0
 		|| check_blank_space(m_tab[i - 1][j]) == 0
 		|| check_blank_space(m_tab[i + 1][j]) == 0)
 		return (1);
@@ -73,7 +73,7 @@ static int	check_player_position(t_general *g, char **m_tab)
 		{
 			if (ft_strchr("NSEW", m_tab[i][j]))
 			{
-				g->player.pos_x = (double)j + 0.5; 
+				g->player.pos_x = (double)j + 0.5;
 				g->player.pos_y = (double)i + 0.5;
 				m_tab[i][j] = '0';
 			}
@@ -116,7 +116,7 @@ int	check_map_validity(t_general *g, char **m_tab)
 		return (error(g->s_map.path, ERR_MAP_NO_WALLS, 1));
 	if (g->s_map.height < 3)
 		return (error(g->s_map.path, ERR_MAP_TOO_SMALL, 1));
-	if (check_map_elements(g, m_tab) == 1) 
+	if (check_map_elements(g, m_tab) == 1)
 		return (1);
 	if (check_player_position(g, m_tab) == 1)
 		return (1);

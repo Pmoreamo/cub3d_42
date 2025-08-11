@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:59:10 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 10:53:36 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:16:32 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ static int	*rgb_array(char **tokens)
 {
 	int	*colors;
 	int	i;
-	
+
 	colors = malloc(sizeof(int) * 3);
 	if (!colors)
 		return (NULL);
 	i = 0;
 	while (i < 3)
 	{
-		if (!ft_isdigit(tokens[i][0]))		{
+		if (!ft_isdigit(tokens[i][0]))
+		{
 			free_tab((void **)tokens);
 			free(colors);
 			return (NULL);

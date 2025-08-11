@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:42:02 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 11:07:06 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:13:54 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_textures_pixels(t_general *g)
 {
 	int	i;
-	
+
 	if (g->txt_pixels)
 		free_tab((void **)g->txt_pixels);
 	g->txt_pixels = ft_calloc(g->win_height + 1, sizeof * g->txt_pixels);
@@ -24,7 +24,8 @@ void	init_textures_pixels(t_general *g)
 	i = 0;
 	while (i < g->win_height)
 	{
-		g->txt_pixels[i] = ft_calloc(g->win_width + 1, sizeof * g->txt_pixels[i]);
+		g->txt_pixels[i] = ft_calloc(g->win_width + 1,
+				sizeof * g->txt_pixels[i]);
 		if (!g->txt_pixels[i])
 			clean_exit(g, error(NULL, ERR_MALLOC, 1));
 		i++;

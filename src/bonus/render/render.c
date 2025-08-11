@@ -6,20 +6,11 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 11:06:52 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:13:26 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/cub3d.h"
-
-void	set_color_pixel(t_image *i, int x, int y, int color)
-{
-	int		pixel;
-
-	pixel = y * (i->size_line / 4) + x;
-	i->addr[pixel] = color;
-}
 
 void	paint_pixel_in_frame(t_general *g, t_image *i, int x, int y)
 {
@@ -50,7 +41,7 @@ static void	put_frame_in_window(t_general *g)
 		}
 		y++;
 	}
-	render_mmap(g, &i); 
+	render_mmap(g, &i);
 	mlx_put_image_to_window(g->mlx, g->win, i.image, 0, 0);
 	mlx_destroy_image(g->mlx, i.image);
 }

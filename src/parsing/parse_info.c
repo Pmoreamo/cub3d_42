@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:34:35 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 10:52:56 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:16:58 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	fill_mem_map(int row, size_t column, int i, t_general *g)
 	line = get_next_line(g->s_map.fd);
 	while (line != NULL)
 	{
-		g->s_map.file[row] = ft_calloc(ft_strlen(line) + 1, sizeof(char)); 
+		g->s_map.file[row] = ft_calloc(ft_strlen(line) + 1, sizeof(char));
 		if (!g->s_map.file[row])
 		{
 			error(NULL, ERR_MALLOC, 0);
@@ -65,12 +65,13 @@ void	check_info(char *path, t_general *g)
 	int		row;
 	int		i;
 	size_t	column;
+
 	i = 0;
 	row = 0;
 	column = 0;
 	g->s_map.line_count = get_n_lines(path);
 	g->s_map.path = path;
-	g->s_map.file = ft_calloc(g->s_map.line_count + 1, sizeof(char *)); 
+	g->s_map.file = ft_calloc(g->s_map.line_count + 1, sizeof(char *));
 	if (!(g->s_map.file))
 	{
 		error(NULL, ERR_MALLOC, 0);

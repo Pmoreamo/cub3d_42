@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:38:00 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/23 11:39:34 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 10:56:25 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,27 @@ static unsigned long	rgb_to_hex(int *rgb)
 	int				g;
 	int				b;
 
-	r = rgb[0]; //primer numero
-	g = rgb[1]; //segon numero
-	b = rgb[2]; //tercer numero
+	r = rgb[0];
+	g = rgb[1];
+	b = rgb[2];
 	result = ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-	/* agafem el numero (R,G,B) amb 0xff, nomes agafem els ultims 8 bits,
-	per asegurar que no sigui major del limit, un cop agafat el 8 bits (255 = 11111111)
-	desplaca aquests 16 cops, i aixi els posa primer 
-	11111111 = R / 00000000 = G / 00000000 = B.
-	Tambe fa que el RGB sigui un INT de 24bits 3 * 8 = 24 
-	pel G, ho fa 8 per posar-ho en el segon grup de 8bits, i el tercer no desplaca pq
-	es el utlim grup*/
 	return (result);
 }
 
 int	check_textures(t_general *g, t_text *t)
 {
-	if (!t->N || !t->S || !t->W | !t->E) //sino detecta texturas, ERROR
+	if (!t->n || !t->s || !t->w || !t->e)
 		return (error(g->s_map.path, ERR_TEX_MISSING, 1));
-	if (!t->floor || !t->ceiling) //sino detecta FLOOR o CEILING, ERROR
+	if (!t->floor || !t->ceiling)
 		return (error(g->s_map.path, ERR_COLOR_MISSING, -1));
-	if (check_file(t->N, 1) == 1 //comprova que el tipus de arxiu sigui .xpm
-		|| check_file(t->S, 1) == 1 //arxiu sigui .xpm
-		|| check_file(t->W, 1) == 1 //arxiu sigui .xpm
-		|| check_file(t->E, 1) == 1 //arxiu sigui xpm
-		|| check_rgb(t->floor) == 1 //comprova que el CODI de COLORS estigui dins dels limits ( 0 -> 255)
-		|| check_rgb(t->ceiling) == 1) //comprova CODI COLORS
-		return (1); //si en algun falla, torna 1 (ERROR)
-	t->hex_floor = rgb_to_hex(t->floor); //pasa de RGB a Hexa
-	t->hex_ceiling = rgb_to_hex(t->ceiling); //pasa de RGB a Hexa
+	if (check_file(t->n, 1) == 1
+		|| check_file(t->s, 1) == 1
+		|| check_file(t->w, 1) == 1
+		|| check_file(t->e, 1) == 1
+		|| check_rgb(t->floor) == 1
+		|| check_rgb(t->ceiling) == 1)
+		return (1);
+	t->hex_floor = rgb_to_hex(t->floor);
+	t->hex_ceiling = rgb_to_hex(t->ceiling);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:19:27 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/08 19:50:29 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 10:48:07 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,42 +19,41 @@ static char	*get_path_textures(char *line, int j)
 	char	*path;
 
 	while (line[j] && (line[j] == ' ' || line[j] == '\t'))
-		j++; //saltar els espais en blanc
-	len = j; //començar a on troba el primer caracter
+		j++;
+	len = j;
 	while (line[len] && (line[len] != ' ' && line[len] != '\t'))
-		len++; //sumar mentres no siguin espais en blanc
+		len++;
 	path = malloc(sizeof(char) * (len - j + 1)); 
-	//Reservar memoria per la llargada del path - els espais en blancs + NULL
-	if (!path) //si falla
-		return (NULL); //tornar NULL
+	if (!path)
+		return (NULL);
 	i = 0; 
 	while (line[j] && (line[j] != ' ' && line[j] != '\t' && line[j] != '\n'))
-		path[i++] = line[j++]; //guardar line a path, copiar el path de arxiu a la memoria
-	path[i] = '\0'; //NULL
+		path[i++] = line[j++];
+	path[i] = '\0';
 	while (line[j] && (line[j] == ' ' || line[j] == '\t'))
-		j++; //continuar a la linea
-	if (line[j] && line[j] != '\n') //si despre de copiat linea a PATH, detecta mes coses que no sigui un salt de linea
+		j++;
+	if (line[j] && line[j] != '\n')
 	{
-		free(path); //alliberar el path
-		path = NULL; //tornarlo com NULL
+		free(path);
+		path = NULL;
 	}
-	return (path); //tornar PATH
+	return (path);
 }
 
 static int	fill_direction_textures(t_text *t, char *line, int j)
 {
-	if (line[j] == 'N' && line[j + 1] == 'O' && !(t->N)) 
+	if (line[j] == 'N' && line[j + 1] == 'O' && !(t->n)) 
 	//si el char J de la line es N i el seguent char es O i no hi ha textura a N
-		t->N = get_path_textures(line, j + 2); //guardar el path a t'->N
-	else if (line[j] == 'S' && line[j + 1] == 'O' && !(t->S))
+		t->n = get_path_textures(line, j + 2); //guardar el path a t'->N
+	else if (line[j] == 'S' && line[j + 1] == 'O' && !(t->s))
 	//lo mateix pero a S
-		t->S = get_path_textures(line, j + 2);
-	else if (line[j] == 'W' && line[j + 1] == 'E' && !(t->W))
+		t->s = get_path_textures(line, j + 2);
+	else if (line[j] == 'W' && line[j + 1] == 'E' && !(t->w))
 	//lo mateix pero a W
-		t->W = get_path_textures(line, j + 2);
-	else if (line[j] == 'E' && line[j + 1] == 'A' && !(t->E))
+		t->w = get_path_textures(line, j + 2);
+	else if (line[j] == 'E' && line[j + 1] == 'A' && !(t->e))
 	//lo mateix per a E
-		t->E = get_path_textures(line, j + 2);
+		t->e = get_path_textures(line, j + 2);
 	else
 		return (2);
 	return (0);
@@ -63,29 +62,29 @@ static int	fill_direction_textures(t_text *t, char *line, int j)
 static int	get_info_map(t_general *g, char **m, int i, int j)
 {
 	while (m[i][j] == ' ' || m[i][j] == '\t' || m[i][j] == '\n')
-		j++; //menstres hi haguin espais buit, passar al seguent char
-	if (ft_isprint(m[i][j]) && !ft_isdigit(m[i][j])) // si el char es PRINTABLE i NO ES NUMERO
+		j++; 
+	if (ft_isprint(m[i][j]) && !ft_isdigit(m[i][j]))
 	{
-		if (m[i][j] == 'F' || m[i][j] == 'C') //si el char es F o C
+		if (m[i][j] == 'F' || m[i][j] == 'C')
 		{
-			if (fill_color_textures(g, &g->txt, m[i], j) == 2) //cridar funcio COLOR TEXTURAS
+			if (fill_color_textures(g, &g->txt, m[i], j) == 2)
 				return (1);
-			return (3); //tancar el bucle
+			return (3);
 		}
 		else
 		{
-			if (fill_direction_textures(&g->txt, m[i], j) == 2) //cridar funcio DIRECCIO TEXTURAS
+			if (fill_direction_textures(&g->txt, m[i], j) == 2)
 				return (error(g->s_map.path, ERR_TEX_INVALID, 1));
-			return (3); //tancar el BUCLE
+			return (3);
 		}
 	}
-	else if (ft_isdigit(m[i][j])) //si es un NUMERO
+	else if (ft_isdigit(m[i][j]))
 	{
-		if (create_map(g, m, i) == 1) //cridar a CREAR MAPA
+		if (create_map(g, m, i) == 1)
 			return (error(g->s_map.path, ERR_INVALID_MAP, 1));
-		return (0); //tornar OK
+		return (0);
 	}
-	return (4); //continuar bucle
+	return (4);
 }
 
 int	get_file_info(t_general *g, char **map)
@@ -100,16 +99,16 @@ int	get_file_info(t_general *g, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			ret = get_info_map(g, map, i, j); //cridar a la funcio
-			if (ret == 3) //si es 3
-				break ; //parar el bucle, i salta directament a j++
+			ret = get_info_map(g, map, i, j);
+			if (ret == 3)
+				break ;
 			else if (ret == 1)
-				return (1); //tornar ERROR
+				return (1); 
 			else if (ret == 0)
-				return (0); //tornar SUCCES
-			j++; //pasar al seguent columna (lletra/num/...)
+				return (0); 
+			j++; 
 		}
-		i++; //saltar seguent linea
+		i++;
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:18:44 by pmorello          #+#    #+#             */
-/*   Updated: 2025/07/21 17:32:33 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:01:37 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	free_tab(void **tab)
 
 static void	free_textures(t_text *txt)
 {
-	if (txt->N)
-		free(txt->N);
-	if (txt->S)
-		free(txt->S);
-	if (txt->W)
-		free(txt->W);
-	if (txt->E)
-		free(txt->E);
+	if (txt->n)
+		free(txt->n);
+	if (txt->s)
+		free(txt->s);
+	if (txt->w)
+		free(txt->w);
+	if (txt->e)
+		free(txt->e);
 	if (txt->floor)
 		free(txt->floor);
 	if (txt->ceiling)

@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/10 20:16:41 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/11 10:45:18 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@
 #include <time.h>
 
 #ifndef O_DIRECTORY
-#define O_DIRECTORY 00200000
-#endif
-
-#ifndef BONUS
-#define BONUS 0
+# define O_DIRECTORY 00200000
 #endif
 
 /* MINIMAP */
@@ -76,198 +72,118 @@ typedef enum e_door_state
 /* STRUCTURES */
 typedef struct s_image
 {
-	void	*image; //Es un punter que guarda la imatge, es per referencia
-	int		*addr; //Es un punter que apunta als pixels per accedir i modificar
-	int		pixel_bits; //Guarda quants bits ocupa cada pixel, per saber quants bytes cal llegir o escriure per cada pixel
-	int		size_line; //Serveix per calcular on comenca la seguents linia de pixel dins la memoria
-	int		endian; //Indica l'ordre dels bytes dins de cada pixel
+	void	*image; 
+	int		*addr; 
+	int		pixel_bits; 
+	int		size_line; 
+	int		endian; 
 } t_image;
 
 typedef struct	s_textures
 {
-	char	*N; //Ruta a la imatge de la textura NORD
-	char	*S; //Ruta a la imatge de la textura SUD
-	char	*E; //Ruta a la imatge de la textura EST
-	char	*W; //Ruta a la imatge de la textura OEST
-	char	**D;//array amb les rutes de les textures deles animacions
-	int		*floor; //Es un punter, que apunta a una direccio de mem, on es guarden amb arrays diferents, el numero que indican el color del terra
-	int		*ceiling; //Es un punter, que apunta a una direccio de mem, on es guarden amb arrays diferents, el numero que indican el color del cel
-	int		index; //Es un index, per navegar per les textures. EX: Index 1 = textura NORD.
-	int		size; //Mida de la textura, 64 alcada* 64 amplada, pixels
+	char	*n; 
+	char	*s; 
+	char	*e;
+	char	*w; 
+	char	**d;
+	int		*floor; 
+	int		*ceiling; 
+	int		index; 
+	int		size; 
 	int		x;
 	int		y;
-	/* 
-	int x, y. Son les coordenades dins de la textura, 
-	per poder saber quin pixexl pintar en pantalla
-	
-	X, es per marcar la coordenada horitzontal (Esquerra,dreta)
-	Y, per marcar la coordenada vertical (Adalta, abaix)
-
-	EX: en una textura 64x64, diem que el raig toca una paret, ha de saber
-	en quin punt de la paret ha impactat per saber quin pixel exacta dibuixar
-	*/
-
-	//--------------------------------------------------------------------
 	unsigned long	hex_floor;
-	unsigned long	hex_ceiling;
-	/*
-	Color del terra i del sostre, en format hexadecimal. Fem servir el format hexa,
-	pq aixi podem guardar el color en u sol enter, de manera que es mes eficient
-	a la hora de pintar en pantalla
-	*/
-	//----------------------------------------------------------
-	
+	unsigned long	hex_ceiling;	
 	double	pass;
 	double	pos;
 	double	step;
-
-	/*
-	STEP, indica quant avanco per cada pixel. 
-	EX: La finestra es de 200pixels, pero la textura fa 64,
-	llavors, cada cop que pintem un pixel de la textura en la finestra, 
-	el proxim pixel a pintar estara = 64 / 200 = 0.32 pixels de distancia
-	
-	POS, indica en quin punt de la textura comena dibuixarse dins la finestra,
-	EX: si comencas a dibuixar dins el pixel 150 de la finestra, llavors el primer pixel
-	de la textura que es dibuixara, sera el pixel 10 de la textura. 
-	
-	PASS, avancant dins la textura poc a poc i proporcionalment, per dibuixar la textura
-	de manera correcta, segons limpacte del raig
-	*/
 
 }t_text;
 
 typedef struct	s_map
 {
-	int		fd; //file descriptor, es un numero que es indica si llegim, escrivim... en un fitxer
-	int		line_count; //Numero total de lineas que formen el mapa
-	int		height; //Alcada del mapa en lineas
-	int		width; //Amplada del mapa en columnes
-	int		end_map; //Punt final del mapa, on sacaba
-	char	*path; //Ruta a on es guarda el fitxer del mapa
-	char	**file; //Fitxer que conte la informacio completa (paret, jugador, terra, colors...) del mapa, linea per linea
-
+	int		fd;
+	int		line_count;
+	int		height; 
+	int		width; 
+	int		end_map;
+	char	*path; 
+	char	**file; 
 }t_map;
 
 typedef struct	s_player
 {
-	char	dir; //Orientacio de on mirara el jugador al inciar el programa
-	double	dir_x; //En quina dirrecio mira el jugador en el eix X
-	double	dir_y; //En quina dirrecio mira el jugador en el eix Y
-	double	pos_x; //En quina posicio esta el jugador en el eix X
-	double	pos_y; //En quina posicio esta el jugador en el eix Y
-
-	//---------------------------------------------------------
+	char	dir; 
+	double	dir_x;
+	double	dir_y;
+	double	pos_x;
+	double	pos_y;
 	double	cam_x;
 	double	cam_y;
-	/*
-	CAM, serveix per marcar quin es el camp de visio del jugador, que pot veure el jugador
-	El camp de visio sera la perpendicular de la posicio del jugador.
-	per saber si es perpendicular, 
-	vector original (1, 1)
-	vector a saber (1, -1)
-	(1,1) * (1, -1) = 1 * 1 + 1 * (-1) = 1 + (-1) = 1 - 1 = 0, si dona 0, vol dir que son
-	perpendiculars
-	
-	LLavors si la direccio del jugador es (1, 1), adalt - dret, podra mirar fins (adalt, esquerra ), no podra mirar cap abaix, ni darrera,etc...
-	*/
-	double	s_rotate; //velocitat de rotacio
-	int		move_x; //Moviment actual en X
-	int		move_y; //MOviment actual en Y
-	int		rotate; //Indica si el jugador rota
-	int		has_moved; //Indica si el jugador sha mogut
+	double	s_rotate;
+	int		move_x; 
+	int		move_y;
+	int		rotate; 
+	int		has_moved;
 
 }t_player;
 
 typedef struct	s_ray
 {
-	double	cam_x; //Marca la posicio horitzontal del pixel, per saber en quina direcio anira el raig
-	double	dir_x; //Direccio del raig en el eix X, dins del mapa
-	double	dir_y; //Direcio del raig en el eiz Y, dins del mapa
-	double	map_x; //Posicio actual del raig en el eix X, dins del mapa
-	double	map_y; //Posicio actual del raig en el eix Y, dins del mapa
+	double	pixel_pos;
+	double	dir_x;
+	double	dir_y; 
+	double	map_x; 
+	double	map_y;
 	double	step_x;
 	double	step_y;
-
-	//---------------------------------------
-	
 	double	ngd_x;
 	double	ngd_y;
 	double	ncd_x;
 	double	ncd_y;
-	
-	/*
-	Tenim un mapa
-
-	+----+----+----+
-	| *	 |    |    |   -> GRAELLA
-	----------------
-	| = linea de la graella	
-	* = punt original del raig
-	NGD, es la distancia desde el punt original del raig, fins que impacti en una linea
-	de la graella
-
-	NCD, seria la distancia que creuara el raig dins de una cela en x o y
-
-	+----+
-	|    | -> Casella, 
-	+----+
-
-	*/
-	//----------------------------
-	
-	double	wall_dist; //la distancia del raig a la paret
-	double	wall_x; //en quin punt de la paret a impapctat el raig
-	int		wall_type; //per saber si la paret que hem tocat es horitzontal o vertical, vist desde un punt de vista zenital
-	int		line_height; //alcada d ela linea de la paret a dibuixar
-	int		draw_start; //En quin pixel de la finestra es comenca a dibuixar la paret
-	int		draw_end; //En quin pixel de la finestra para de dibuixar
+	double	wall_dist; 
+	double	wall_x; 
+	int		wall_type;
+	int		line_height; 
+	int		draw_start; 
+	int		draw_end; 
 	int		side;
 	int		type;
 }t_ray;
 
 typedef struct s_mmap
 {
-	/* 
-	Tile, es una casella quadrada del mapa
-	el tile_size, es quants pixels ocupa cada quadre a la hora de dibuixarse el joc
 
-	Els offset son desplaçament dins del mapa gran per determinar quines parts del mapa
-	es mostren en el minimapa
-	*/
 	
-	char	**map; //Guarda la info del mapa gran i es posen nous caracter per represetnar el minimapa
-	int		size; //Tamany del minimapa en tiles
-	int		offset_x; //desplacament en X del mapa per centrar la vista del jugador
-	int		offset_y; //desplacament en Y del mapa per centrar la vista del jugador
-	int		view_dist; //quantes caselles hi hauran a cada costat del jugador en el minimapa
-	int		tile_size; //la mida de pixels d'un tile
-	t_image	*img; //imatge on es dibuixa el minimapa
+	char	**map; 
+	int		size; 
+	int		offset_x;
+	int		offset_y;
+	int		view_dist;
+	int		tile_size;
+	t_image	*img;
 
 }t_mmap;
 
 typedef struct	s_general
 {
-	void	*mlx; //es un punter per referenciar la llibreria mlx
-	void	*win; //es un punter per referenciar la finestra o es veura el joc
-	char	**map; //mapa del joc en caracters (1,0,P....)
-	int		win_height; //la alcada de la finestra (i)
-	int		win_width; //la ampla de la finestra (j)
-	int		**text; //les textures carregades com arrays text[0] = NORD[1024 pixels]
-	int		**txt_pixels; //pixels de les textures
+	void	*mlx; 
+	void	*win; 
+	char	**map; 
+	int		win_height; 
+	int		win_width; 
+	int		**text; 
+	int		**txt_pixels; 
 
-	t_image	img; //informacio de la imatge
-	t_map	s_map; //informaico del mapa
-	t_text	txt; //informacio de les textures
-	t_ray	ray; //informacio del raycasting
-	t_player	player; //informacio del jugador
+	t_image	img; 
+	t_map	s_map; 
+	t_text	txt;
+	t_ray	ray; 
+	t_player	player;
 	t_image  mmap;
 	t_door		door_state;
 	int		**anim;
 }t_general;
-
-/* FUNCTIONS */
-
 //init
 void	init_s_player(t_player *p);
 void	init_s_textures(t_text *t);
@@ -282,7 +198,6 @@ void	init_textures(t_general *g);
 void	init_input_keys(t_general *g);
 void	init_player_dir(t_general *g);
 void	init_textures_pixels(t_general *g);
-
 //parse
 int		check_file(char *arg, int type);
 void	check_info(char *path, t_general *g);
@@ -292,13 +207,10 @@ int		check_sides(t_map *m, char **new_m);
 int		check_textures(t_general *g, t_text *t);
 int		fill_color_textures(t_general *g, t_text *t, char *line, int j);
 int		create_map(t_general *g, char **file, int i);
-
-
 //player
 int		move_player(t_general *g);
 int		validate_move(t_general *g, double new_x, double new_y);
 int		player_rotate(t_general *g, double dir);
-
 //render
 int		raycasting(t_general *g, t_player *p);
 int		render(t_general *g);
@@ -306,7 +218,6 @@ void	draw_raycast(t_general *g);
 void	update_textures_pixels(t_general *g, t_text *t, t_ray *r, int x);
 void	set_color_pixel(t_image *i, int x, int y, int color);
 void	render_images(t_general *g);
-
 //utils
 int		error(char *msg, char *err, int c);
 int		quit(t_general *g);
@@ -317,11 +228,9 @@ int		free_data(t_general *g);
 int		check_blank_space(char c);
 size_t	biggest_line(t_map *m, int i);
 void	**append(void **array, void *next, int *error);
-
 //bonus
 void	render_mmap(t_general *g, t_image *i);
 void	minimap_image(t_general *g, t_mmap*mmp, t_image *i);
 void	door_listener(t_general *g, int mode, int x, int y);
-
 
 #endif

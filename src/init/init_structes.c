@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:48:39 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/10 20:23:39 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/11 10:41:39 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	init_s_player(t_player *p)
 
 void	init_s_ray(t_ray *r)
 {
-	r->cam_x = 0;
+	r->pixel_pos = 0;
 	r->dir_x = 0;
 	r->dir_y = 0;
 	r->map_x = 0;

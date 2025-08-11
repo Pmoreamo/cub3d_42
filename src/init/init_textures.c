@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 16:47:19 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/10 20:23:51 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/11 10:45:34 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,29 +75,21 @@ int	*save_xpm_to_mem(t_general *g, char *path)
 
 void	init_textures(t_general *g)
 {
-	/*
-	*g : punter a la estructura GENERAL i els seus elements
-	*/
-	
 	g->text = ft_calloc(5, sizeof(g->text));
-	/* A dins de g->text, creem un array i per aquest array
-	reservem memora per a 5 elements amb un pes de g->text bytes*/
 	if (!g->text)
 		clean_exit(g, error(NULL, ERR_MALLOC, 1));
-	/* Entrem en el array i diem que vagi guardant els .xpm dins la memoria i 
-	a dins del path (txt.N) */
-	g->text[0] = save_xpm_to_mem(g, g->txt.N);
-	g->text[1] = save_xpm_to_mem(g, g->txt.S);
-	g->text[2] = save_xpm_to_mem(g, g->txt.W);
-	g->text[3] = save_xpm_to_mem(g, g->txt.E);
+	g->text[0] = save_xpm_to_mem(g, g->txt.n);
+	g->text[1] = save_xpm_to_mem(g, g->txt.s);
+	g->text[2] = save_xpm_to_mem(g, g->txt.w);
+	g->text[3] = save_xpm_to_mem(g, g->txt.e);
 }
 
 void	init_s_textures(t_text *t)
 {
-	t->N = NULL;
-	t->S = NULL;
-	t->E = NULL;
-	t->W = NULL;
+	t->n = NULL;
+	t->s = NULL;
+	t->e = NULL;
+	t->w = NULL;
 	t->floor = 0;
 	t->ceiling = 0;
 	t->hex_floor = 0x0;

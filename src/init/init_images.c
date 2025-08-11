@@ -6,11 +6,23 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:43:19 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 10:44:45 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:08:34 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+static void	fix_resolution(t_general *g)
+{
+	int		width;
+	int		height;
+
+	mlx_get_screen_size(g->mlx, &width, &height);
+	if (g->win_height > height)
+		g->win_height = height;
+	if (g->win_width > width)
+		g->win_width = width;
+}
 
 void	init_img(t_general *g, t_image *i, int width, int height)
 {
@@ -39,6 +51,7 @@ void	init_mlx(t_general *g)
 	g->mlx = mlx_init();
 	if (!g->mlx)
 		clean_exit(g, error("mlx", ERR_MLX_START, 1));
+	fix_resolution(g);
 	g->win = mlx_new_window(g->mlx, g->win_width, g->win_height, "cub3d");
 	if (!g->win)
 		clean_exit(g, error("mlx", ERR_MLX_WIN, 1));

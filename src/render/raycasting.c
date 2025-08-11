@@ -6,16 +6,16 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:58:50 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 16:22:00 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:29:53 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void	init_raycasting(int x, t_ray *r, t_player *p)
+static void	init_raycasting(t_general *g, int x, t_ray *r, t_player *p)
 {
 	init_s_ray(r);
-	r->pixel_pos = 2 * x / (double)600 - 1;
+	r->pixel_pos = 2 * x / (double)g->win_width - 1;
 	r->dir_x = p->dir_x + p->cam_x * r->pixel_pos;
 	r->dir_y = p->dir_y + p->cam_y * r->pixel_pos;
 	r->map_x = (int)p->pos_x;
@@ -104,7 +104,7 @@ int	raycasting(t_general *g, t_player *p)
 	r = g->ray;
 	while (x < g->win_width)
 	{
-		init_raycasting(x, &r, p);
+		init_raycasting(g, x, &r, p);
 		set_ray_dir(&r, p);
 		ray_start_moving(g, &r);
 		cal_line_height(&r, g, p);

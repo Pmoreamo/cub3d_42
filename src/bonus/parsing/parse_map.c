@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:33:30 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 16:39:34 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:41:34 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_map_elements(t_general *g, char **m_tab)
 			|| g->map[i][j] == '\r'
 			|| g->map[i][j] == '\v' || g->map[i][j] == '\f')
 				j++;
-			if (!(ft_strchr("10NSEW", m_tab[i][j])))
+			if (!(ft_strchr("43210NSEW", m_tab[i][j])))
 				return (error(g->s_map.path, ERR_INV_LETTER, 1));
 			if (ft_strchr("NSEW", m_tab[i][j]) && g->player.dir != '0')
 				return (error(g->s_map.path, ERR_NUM_PLAYER, 1));

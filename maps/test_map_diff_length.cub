@@ -2,12 +2,15 @@ NO textures/red_brick.xpm
 SO textures/mossy.xpm
 WE textures/grey_stone.xpm
 EA textures/purple_stone.xpm
+DO textures/door_open_opaque.xpm
+DO textures/door_opening_opaque.xpm
+DO textures/door.xpm
 
 F 18,53,25
 C 153,204,255
 
 111111111
-10000001
+1004001
 100E001
 100000001
 111111111

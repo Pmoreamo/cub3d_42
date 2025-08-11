@@ -30,6 +30,7 @@ SRCS_FILES	=	$(SRC_DIR)/main.c $(SRC_DIR)/init/init_images.c \
 				$(SRC_DIR)/render/raycasting.c $(SRC_DIR)/render/render.c \
 				$(SRC_DIR)/render/textures.c $(SRC_DIR)/utils/error.c \
 				$(SRC_DIR)/utils/exit.c $(SRC_DIR)/utils/free.c \
+				$(SRC_DIR)/utils/color_pixel.c \
 
 BONUS_FILES	=	$(SRC_DIR)/main.c $(SRC_DIR)/init/init_images.c \
 				$(SRC_DIR)/init/init_structes.c $(SRC_DIR)/bonus/init/init_textures.c \
@@ -45,6 +46,7 @@ BONUS_FILES	=	$(SRC_DIR)/main.c $(SRC_DIR)/init/init_images.c \
 				$(SRC_DIR)/utils/free.c $(SRC_DIR)/utils/append.c \
 				$(SRC_DIR)/bonus/doors.c $(SRC_DIR)/bonus/minimap_image.c \
 				$(SRC_DIR)/bonus/minimap.c $(SRC_DIR)/bonus/inputs_key_bonus.c \
+				$(SRC_DIR)/utils/color_pixel.c \
 
 #OBJECTS
 OBJS_FILES = $(SRCS_FILES:.c=.o)

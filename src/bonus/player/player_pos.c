@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:09:00 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/06 10:52:30 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/11 11:06:03 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ static int	wall_collision(t_general *g, double x, double y)
 static int	is_valid_pos_map(t_general *g, double x, double y)
 {
 	if (x < 0.25 || x >= g->s_map.width - 1.25)
-	/* 0.25, pq les coordenades dun mapa son enters, 1,0... 
-	pq el jugador es mogui fluidament necesitem valors decimals, 
-	llavors 0.25 indica si esta molt aprop del valor X
-	- 1.25, es per indicar que el limit abans de la ultima cela
-	*/
 		return (1);
 	if (y < 0.25 || y >= g->s_map.height - 0.25)
 		return (1);

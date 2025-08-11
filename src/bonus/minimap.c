@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:05:38 by marvin            #+#    #+#             */
-/*   Updated: 2025/08/10 20:28:28 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/11 11:09:21 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 
 static int	get_mmp_offset(t_mmap *mmp, int mapsize, int pos)
 {
-	/*
-	Calcula l'offset d'inici del minimapa (en X o Y),
-	per centrar el jugador dins del rang de visió (view_dist),
-	sempre que sigui possible dins dels límits del mapa.
-
-	Si el jugador està a prop de la vora del mapa, es desplaça l'offset
-	perquè no surti fora de límits.-
-*/
-
 	if (pos > mmp->view_dist && mapsize - pos > mmp->view_dist + 1)
 		return (pos - mmp->view_dist);
 	if (pos > mmp->view_dist && mapsize - pos <= mmp->view_dist + 1)
@@ -41,18 +32,7 @@ static char *mmap_line(t_general *g, t_mmap *m, int y)
 {
 	char	*line;
 	int		x;
-
-	/*
-	Crea una línia del mapa per al minimapa, a partir d'una fila concreta (`y`).
-
-	La línia s'omple amb caràcters segons el contingut del mapa original:
-	- 'P' → si hi ha el jugador
-	- '1' → si hi ha una paret
-	- '0' → si hi ha terra/camí
-	- '\0' → si és fora del mapa o espai no vàlid
-
-	Retorna una cadena nova amb els caràcters representatius per aquella línia.
-*/
+	
 	line = ft_calloc(m->size + 1, sizeof * line);
 	if (!line)
 		return (NULL);
@@ -79,12 +59,6 @@ static char **create_mmap(t_general*g, t_mmap *mmp)
 	char	**mmap;
 	int		y;
 
-	/*
-	Genera tot el contingut del minimapa (mmp->map) com un array de línies,
-	cada una creada amb `mmap_line`.
-
-	Retorna un punter a l’array de cadenes (mapa del minimapa) o NULL si falla.
-*/
 	mmap = ft_calloc(mmp->size + 1, sizeof * mmp);
 	if (!mmap)
 		return (NULL);
@@ -105,16 +79,7 @@ static char **create_mmap(t_general*g, t_mmap *mmp)
 void	render_mmap(t_general *g, t_image *i)
 {
 	t_mmap	mmp;
-
-	/*
-	Funció principal per renderitzar el minimapa:
-
-	- Inicialitza les dades del minimapa (mida, tile_size, offsets…)
-	- Crea una còpia parcial del mapa al voltant del jugador
-	- Dibuixa el minimapa i el mostra a la finestra
-	- Allibera la memòria temporal usada pel mapa parcial
-	*/
-   
+	
 	mmp.map = NULL;
 	mmp.img = &g->mmap;
 	mmp.view_dist = 4;

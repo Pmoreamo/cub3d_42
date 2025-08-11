@@ -6,10 +6,10 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/10 20:18:25 by tv               ###   ########.fr       */
-/*   Updated: 2025/08/07 17:19:24 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/11 11:06:52 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/cub3d.h"
 
@@ -18,8 +18,6 @@ void	set_color_pixel(t_image *i, int x, int y, int color)
 	int		pixel;
 
 	pixel = y * (i->size_line / 4) + x;
-	/* size_line es el tamany en bytes, per saber el tamany en pixels dividm entre 4 (1pixel son 4 bytes)
-	400bytes / 4 == 100pixels, multpliquem per Y i sumen X, per saber la coordenada exacta*/
 	i->addr[pixel] = color;
 }
 

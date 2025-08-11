@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmorello <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:19:27 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/04 17:49:39 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:05:55 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-
-//TODO gestionar els fallos malloc, a fill direction_textures i fill_color_textures
 
 static char	*get_path_textures(char *line, int j, int * error)
 {
@@ -22,26 +19,26 @@ static char	*get_path_textures(char *line, int j, int * error)
 	char	*path;
 
 	while (line[j] && (line[j] == ' ' || line[j] == '\t'))
-		j++; //saltar els espais en blanc
-	len = j; //començar a on troba el primer caracter
+		j++;
+	len = j;
 	while (line[len] && (line[len] != ' ' && line[len] != '\t'))
-		len++; //sumar mentres no siguin espais en blanc
+		len++;
 	path = ft_calloc(sizeof(char), (len - j + 1)); 
 	*error = (!path);
-	if (!path) //si falla
-		return (NULL); //tornar NULL
+	if (!path)
+		return (NULL);
 	i = 0; 
 	while (line[j] && (line[j] != ' ' && line[j] != '\t' && line[j] != '\n'))
-		path[i++] = line[j++]; //guardar line a path, copiar el path de arxiu a la memoria
+		path[i++] = line[j++];
 	while (line[j] && (line[j] == ' ' || line[j] == '\t'))
-		j++; //continuar a la linea
-	if (line[j] && line[j] != '\n') //si despre de copiat linea a PATH, detecta mes coses que no sigui un salt de linea
+		j++;
+	if (line[j] && line[j] != '\n')
 	{
 		*error = 2;
-		free(path); //alliberar el path
-		path = NULL; //tornarlo com NULL
+		free(path);
+		path = NULL;
 	}
-	return (path); //tornar PATH
+	return (path);
 }
 
 static int	fill_direction_textures(t_text *t, char *line, int j)
@@ -49,21 +46,16 @@ static int	fill_direction_textures(t_text *t, char *line, int j)
 	int		error;
 
 	error = 0;
-	if (line[j] == 'N' && line[j + 1] == 'O' && !(t->N)) 
-	//si el char J de la line es N i el seguent char es O i no hi ha textura a N
-		t->N = get_path_textures(line, j + 2, &error); //guardar el path a t'->N
-	else if (line[j] == 'S' && line[j + 1] == 'O' && !(t->S))
-	//lo mateix pero a S
-		t->S = get_path_textures(line, j + 2, &error);
-	else if (line[j] == 'W' && line[j + 1] == 'E' && !(t->W))
-	//lo mateix pero a W
-		t->W = get_path_textures(line, j + 2, &error);
-	else if (line[j] == 'E' && line[j + 1] == 'A' && !(t->E))
-	//lo mateix per a E
-		t->E = get_path_textures(line, j + 2, &error);
+	if (line[j] == 'N' && line[j + 1] == 'O' && !(t->n)) 
+		t->n = get_path_textures(line, j + 2, &error);
+	else if (line[j] == 'S' && line[j + 1] == 'O' && !(t->s))
+		t->s = get_path_textures(line, j + 2, &error);
+	else if (line[j] == 'W' && line[j + 1] == 'E' && !(t->w))
+		t->w = get_path_textures(line, j + 2, &error);
+	else if (line[j] == 'E' && line[j + 1] == 'A' && !(t->e))
+		t->e = get_path_textures(line, j + 2, &error);
 	else if (line[j] == 'D')
-	//afegeix una textura a l'array d'animacio de la porta
-		t->D = (char **)append((void **)t->D,
+		t->d = (char **)append((void **)t->d,
 				(void *)get_path_textures(line, j + 2, &error), &error);
 	return (error);
 }
@@ -71,29 +63,29 @@ static int	fill_direction_textures(t_text *t, char *line, int j)
 static int	get_info_map(t_general *g, char **m, int i, int j)
 {
 	while (m[i][j] == ' ' || m[i][j] == '\t' || m[i][j] == '\n')
-		j++; //mentres hi hagui espais, ves pasant al seguent CHAR
-	if (ft_isprint(m[i][j]) && !ft_isdigit(m[i][j])) // si el char es PRINTABLE i NO ES NUMERO
+		j++;
+	if (ft_isprint(m[i][j]) && !ft_isdigit(m[i][j]))
 	{
-		if (m[i][j] == 'F' || m[i][j] == 'C') //si el char es F o C
+		if (m[i][j] == 'F' || m[i][j] == 'C')
 		{
-			if (fill_color_textures(g, &g->txt, m[i], j) == 2) //cridar funcio COLOR TEXTURAS
+			if (fill_color_textures(g, &g->txt, m[i], j) == 2)
 				return (1);
-			return (3); //tancar el bucle
+			return (3);
 		}
 		else
 		{
-			if (fill_direction_textures(&g->txt, m[i], j) == 2) //cridar funcio DIRECCIO TEXTURAS
+			if (fill_direction_textures(&g->txt, m[i], j) == 2)
 				return (error(g->s_map.path, ERR_TEX_INVALID, 1));
-			return (3); //tancar el BUCLE
+			return (3);
 		}
 	}
-	else if (ft_isdigit(m[i][j])) //si es un NUMERO
+	else if (ft_isdigit(m[i][j]))
 	{
-		if (create_map(g, m, i) == 1) //cridar a CREAR MAPA
+		if (create_map(g, m, i) == 1)
 			return (error(g->s_map.path, ERR_INVALID_MAP, 1));
-		return (0); //tornar OK
+		return (0);
 	}
-	return (4); //continuar bucle
+	return (4);
 }
 
 int	get_file_info(t_general *g, char **map)
@@ -108,16 +100,16 @@ int	get_file_info(t_general *g, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			ret = get_info_map(g, map, i, j); //cridar a la funcio
-			if (ret == 3) //si es 3
-				break ; //parar el bucle
+			ret = get_info_map(g, map, i, j);
+			if (ret == 3)
+				break ;
 			else if (ret == 1)
-				return (1); //tornar ERROR
+				return (1);
 			else if (ret == 0)
-				return (0); //tornar SUCCES
-			j++; //pasar al seguent columna (lletra/num/...)
+				return (0);
+			j++;
 		}
-		i++; //saltar seguent linea
+		i++;
 	}
 	return (0);
 }

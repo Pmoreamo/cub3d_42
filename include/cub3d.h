@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:37:25 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 10:45:18 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:09:58 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@
 # define O_DIRECTORY 00200000
 #endif
 
-/* MINIMAP */
 #define MMP_SIZE 128
 
-/* ERROR*/
 # define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
 # define ERR_FILE_NOT_CUB " Not a .cub file"
 # define ERR_FILE_NOT_XPM " Not an .xpm file"
@@ -60,7 +58,6 @@
 # define ERR_MLX_WIN " Could not create mlx window"
 # define ERR_MLX_IMG " Could not create mlx image"
 
-/* ENUMS */
 typedef enum e_door_state
 {
 	CLOSED,
@@ -69,7 +66,6 @@ typedef enum e_door_state
 	CLOSING,
 }					t_door;
 
-/* STRUCTURES */
 typedef struct s_image
 {
 	void	*image; 

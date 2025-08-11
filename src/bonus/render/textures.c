@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 11:42:02 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/05 19:43:28 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:07:06 by pmorello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,15 @@ void	init_textures_pixels(t_general *g)
 	
 	if (g->txt_pixels)
 		free_tab((void **)g->txt_pixels);
-	/* si ja hi han textures, allibera la taula */
 	g->txt_pixels = ft_calloc(g->win_height + 1, sizeof * g->txt_pixels);
-	/* reservem memoria per g->win_height elements + 1 amb pes de g->txt_pixels bytes*/
 	if (!g->txt_pixels)
 		clean_exit(g, error(NULL, ERR_TEX_INVALID, 1));
-	/* si fall error */
 	i = 0;
 	while (i < g->win_height)
 	{
 		g->txt_pixels[i] = ft_calloc(g->win_width + 1, sizeof * g->txt_pixels[i]);
-		/* per element anterior, reservem memoria en cada un de g->win_width elements  + 1 amb un pes de g->txt_pixels[i] bytes*/
 		if (!g->txt_pixels[i])
 			clean_exit(g, error(NULL, ERR_MALLOC, 1));
-		/* pasem al seguent txt_pixel */
 		i++;
 	}
 }
@@ -56,7 +51,7 @@ static void	get_text_index(t_general *g, t_ray *r)
 		}
 		return ;
 	}
-	g->txt.index = r->type + 2;//+ 2 perque el rang de la porta es de 3 a 5 depenent del seu estat
+	g->txt.index = r->type + 2;
 }
 
 void	update_textures_pixels(t_general *g, t_text *t, t_ray *r, int x)

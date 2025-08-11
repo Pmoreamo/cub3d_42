@@ -6,7 +6,7 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 12:21:41 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 11:00:02 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:16:33 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	set_color_pixel(t_image *i, int x, int y, int color)
 {
-	int		pixel; //index per marcar en quin pixel estem
+	int		pixel;
 
 	pixel = y * (i->size_line / 4) + x;
 	i->addr[pixel] = color; 

@@ -6,13 +6,13 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:55:10 by marvin            #+#    #+#             */
-/*   Updated: 2025/08/11 12:13:55 by tv               ###   ########.fr       */
+/*   Updated: 2025/08/11 13:09:19 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void set_mmp_tile_pixels(t_mmap *mmp, t_image *img, int x, int y, int color)
+static void set_mmp_tile_pixels(t_mmap *mmp, t_image *img, int *xy, int color)
 {
 	int i;
 	int j;
@@ -23,7 +23,7 @@ static void set_mmp_tile_pixels(t_mmap *mmp, t_image *img, int x, int y, int col
 		j = 0;
 		while (j < mmp->tile_size)
 		{
-				set_color_pixel(img, x + j, i + y, color);
+				set_color_pixel(img, xy[0] + j, i + xy[1], color);
 				j++;
 		}
 		i++;
@@ -33,16 +33,25 @@ static void set_mmp_tile_pixels(t_mmap *mmp, t_image *img, int x, int y, int col
 
 static void draw_mmp_tile(t_mmap *mmp, t_image *i, int x, int y)
 {
+	int		xy[2];
+
+	xy[0] = x;
+	xy[1] = y;
 	if (mmp->map[y][x] == 'P')
-		set_mmp_tile_pixels(mmp, i, x * mmp->tile_size, y * mmp->tile_size, 0x00FF00);
+		set_mmp_tile_pixels(mmp, i, xy[0] * mmp->tile_size,
+				xy[1] * mmp->tile_size, 0x00FF00);
 	else if (mmp->map[y][x] == '1') 
-		set_mmp_tile_pixels(mmp, i, x * mmp->tile_size, y * mmp->tile_size, 0x808080);
+		set_mmp_tile_pixels(mmp, i, xy[0] * mmp->tile_size,
+				xy[1] * mmp->tile_size, 0x808080);
 	else if (mmp->map[y][x] == '0')
-		set_mmp_tile_pixels(mmp, i, x * mmp->tile_size, y * mmp->tile_size, 0xE6E6E6);
+		set_mmp_tile_pixels(mmp, i, xy[0] * mmp->tile_size,
+				xy[1] * mmp->tile_size, 0xE6E6E6);
 	else if (mmp->map[y][x] == ' ')
-		set_mmp_tile_pixels(mmp, i, x * mmp->tile_size, y * mmp->tile_size, 0x404040);
+		set_mmp_tile_pixels(mmp, i, xy[0] * mmp->tile_size,
+				xy[1] * mmp->tile_size, 0x404040);
 	else
-		set_mmp_tile_pixels(mmp, i, x * mmp->tile_size, y * mmp->tile_size, 0x0000FF);
+		set_mmp_tile_pixels(mmp, i, xy[0] * mmp->tile_size,
+				xy[1] * mmp->tile_size, 0x0000FF);
 }
 
 static void		set_mmp_border(t_mmap *mmp, int color, t_image *i)

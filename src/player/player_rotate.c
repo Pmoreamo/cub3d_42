@@ -6,17 +6,11 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:49:49 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 10:57:53 by pmorello         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:16:09 by tv               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-/*
-x' = x * cos(θ) - y * sin(θ)
-y' = x * sin(θ) + y * cos(θ)
-formula matematica per girar un vector en un angle (0) 
-*/
 
 static int	rotation(t_general *g, double speed)
 {

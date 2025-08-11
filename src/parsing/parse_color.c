@@ -6,16 +6,47 @@
 /*   By: pmorello <pmorello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:59:10 by pmorello          #+#    #+#             */
-/*   Updated: 2025/08/11 14:16:32 by pafranco         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:32:10 by pafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+static int	clean_colour(char *colour)
+{
+	int		i;
+	int		j;
+	int		ret;
+	char	*clean;
+
+	clean = ft_calloc(sizeof(char), 4);
+	if (clean == 0)
+		return (-1);
+	i = 0;
+	j = 0;
+	while (colour[i] != 0)
+	{
+		if (ft_isdigit(colour[i]) && j < 3)
+		{
+			clean[j] = colour[i];
+			j++;
+		}
+		else if (ft_isdigit(colour[i]) && j >= 3)
+		{
+			free(clean);
+			return (-1);
+		}
+		i++;
+	}
+	ret = ft_atoi(clean);
+	free(clean);
+	return (ret);
+}
+
 static int	*rgb_array(char **tokens)
 {
-	int	*colors;
-	int	i;
+	int		*colors;
+	int		i;
 
 	colors = malloc(sizeof(int) * 3);
 	if (!colors)
@@ -23,13 +54,13 @@ static int	*rgb_array(char **tokens)
 	i = 0;
 	while (i < 3)
 	{
-		if (!ft_isdigit(tokens[i][0]))
+		colors[i] = clean_colour(tokens[i]);
+		if (colors[i] == -1)
 		{
 			free_tab((void **)tokens);
 			free(colors);
 			return (NULL);
 		}
-		colors[i] = ft_atoi(tokens[i]);
 		i++;
 	}
 	free_tab((void **)tokens);
